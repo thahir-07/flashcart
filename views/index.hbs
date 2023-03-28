@@ -2,7 +2,7 @@
 <html lang="en" data-bs-theme="">
 
 <head>
-  <meta charset="utf-8" >
+  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Bootstrap demo</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -10,8 +10,8 @@
 </head>
 
 <body>
-  <header>
-    <nav class="navbar navbar-expand-lg bg-body-tertia bg-color">
+  <header class="item-center" style="margin-bottom: 50px;">
+    <nav class="navbar navbar-expand-lg bg-body-tertia bg-color fixed-top" >
       <div class="container-fluid">
         <a class="navbar-brand" href="#">Shopping Cart</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
@@ -53,68 +53,80 @@
     </nav>
   </header>
   <section class="pt-3">
-    <div class="container">                 
+    <div class="container-fluid">
       <div class="row">
         <div class="col-4 col-md-3 col-lg-2 pt-3">
-    <div class="card" style="height: 20rem;">
-      <img src="https://rukminim1.flixcart.com/image/300/300/xif0q/mobile/m/j/j/-original-imagnvvwvzyhfvx9.jpeg?q=90" style="height:13em" class="card-img-top" alt="...">
-      <div class="card-body">
-        <p class="card-text">Some quick example text to build on the card title .</p>
-      </div>
-    </div>
-    </div>
-     <div class="col-4 col-md-3 col-lg-2 pt-3">
-    <div class="card item-center" style="height: 20rem;" >
-      <img src="https://rukminim1.flixcart.com/image/300/300/xif0q/mobile/3/l/x/-original-imaghmtcmxwgypsk.jpeg?q=90" style="height:13em" class="card-img-top" alt="...">
-      <div class="card-body">
-        <p class="card-text">Some quick example text to build on the card title.</p>
-      </div>
-    </div>
-    </div>
-     <div class="col-4 col-md-3 col-lg-2 pt-3">
-    <div class="card" style="height: 20rem;">
-      <img src="https://rukminim1.flixcart.com/image/300/300/xif0q/mobile/a/8/a/-original-imagbwx4ahgqxgg9.jpeg?q=90" style="height:13em" class="card-img-top" alt="...">
-      <div class="card-body">
-        <p class="card-text">Some quick example text to build on the card title .</p>
-      </div>
-    </div>
-    </div>
-    <div class="col-4 col-md-3 col-lg-2 pt-3">
-    <div class="card"style="height: 20rem;" >
-      <img src="https://rukminim1.flixcart.com/image/400/400/xif0q/cases-covers/back-cover/j/i/6/mycas-black-vv-y35-qcase-original-imagj87uwxzarrzk.jpeg?q=70" style="height:13em" class="card-img-top" alt="...">
-      <div class="card-body">
-        <p class="card-text">Some quick example text to build on the card title .</p>
-      </div>
-    </div>
-    </div>
-    <div class="col-4 col-md-3 col-lg-2 pt-3">
-    <div class="card" style="height: 20rem;">
-      <img src="https://rukminim1.flixcart.com/image/400/400/xif0q/cases-covers/back-cover/j/i/6/mycas-black-vv-y35-qcase-original-imagj87uwxzarrzk.jpeg?q=70" style="height:13em" class="card-img-top" alt="...">
-      <div class="card-body">
-        <p class="card-text">Some quick example text to build on the card title .</p>
-      </div>
-    </div>
-    </div>
-    <div class="col-4 col-md-3 col-lg-2 pt-3">
-    <div class="card" style="height: 20rem;">
-      <img src="https://rukminim1.flixcart.com/image/400/400/xif0q/cases-covers/back-cover/j/i/6/mycas-black-vv-y35-qcase-original-imagj87uwxzarrzk.jpeg?q=70" style="height:13em" class="card-img-top" alt="...">
-      <div class="card-body">
-        <p class="card-text">Some quick example text to build on the card title .</p>
-      </div>  
-    </div>
-    </div>
-    {{#each  products}}
-    <div class="col-4 col-md-3 col-lg-2 pt-3" >
-    <div class="card" style="height: 20rem;">
-      <img src="{{this.image}}" class="card-img-top" style="height:13em" alt="...">
-      <div class="card-body">
-        <p class="card-text">{{this.description}}</p>
-      </div>  
-    </div>
-    </div>
-    {{/each}}
+          <div class="card" style="height: 20rem;">
+            <img
+              src="https://rukminim1.flixcart.com/image/300/300/xif0q/mobile/m/j/j/-original-imagnvvwvzyhfvx9.jpeg?q=90"
+              style="height:13em" class="card-img-top" alt="...">
+            <div class="card-body">
+              <p class="card-text">Some quick example text to build on the card title .</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-4 col-md-3 col-lg-2 pt-3">
+          <div class="card item-center" style="height: 20rem;">
+            <img
+              src="https://rukminim1.flixcart.com/image/300/300/xif0q/mobile/3/l/x/-original-imaghmtcmxwgypsk.jpeg?q=90"
+              style="height:13em" class="card-img-top" alt="...">
+            <div class="card-body">
+              <p class="card-text">Some quick example text to build on the card title.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-4 col-md-3 col-lg-2 pt-3">
+          <div class="card" style="height: 20rem;">
+            <img
+              src="https://rukminim1.flixcart.com/image/300/300/xif0q/mobile/a/8/a/-original-imagbwx4ahgqxgg9.jpeg?q=90"
+              style="height:13em" class="card-img-top" alt="...">
+            <div class="card-body">
+              <p class="card-text">Some quick example text to build on the card title .</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-4 col-md-3 col-lg-2 pt-3">
+          <div class="card" style="height: 20rem;">
+            <img
+              src="https://rukminim1.flixcart.com/image/400/400/xif0q/cases-covers/back-cover/j/i/6/mycas-black-vv-y35-qcase-original-imagj87uwxzarrzk.jpeg?q=70"
+              style="height:13em" class="card-img-top" alt="...">
+            <div class="card-body">
+              <p class="card-text">Some quick example text to build on the card title .</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-4 col-md-3 col-lg-2 pt-3">
+          <div class="card" style="height: 20rem;">
+            <img
+              src="https://rukminim1.flixcart.com/image/400/400/xif0q/cases-covers/back-cover/j/i/6/mycas-black-vv-y35-qcase-original-imagj87uwxzarrzk.jpeg?q=70"
+              style="height:13em" class="card-img-top" alt="...">
+            <div class="card-body">
+              <p class="card-text">Some quick example text to build on the card title .</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-4 col-md-3 col-lg-2 pt-3">
+          <div class="card" style="height: 20rem;">
+            <img
+              src="https://rukminim1.flixcart.com/image/400/400/xif0q/cases-covers/back-cover/j/i/6/mycas-black-vv-y35-qcase-original-imagj87uwxzarrzk.jpeg?q=70"
+              style="height:13em" class="card-img-top" alt="...">
+            <div class="card-body">
+              <p class="card-text">Some quick example text to build on the card title .</p>
+            </div>
+          </div>
+        </div>
+        {{#each products}}
+        <div class="col-4 col-md-3 col-lg-2 pt-3">
+          <div class="card" style="height: 20rem;">
+            <img src="{{this.image}}" class="card-img-top" style="height:13em" alt="...">
+            <div class="card-body">
+              <p class="card-text">{{this.description}}</p>
+            </div>
+          </div>
+        </div>
+        {{/each}}
 
-    </div>
+      </div>
     </div>
   </section>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"
