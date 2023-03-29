@@ -136,5 +136,15 @@ router.get('/', function(req, res, next) {
   res.render('admin/view-products',{products,admin:true})
   
 });
+router.get('/add-products', function(req, res) {
+  res.render('admin/add-product',{products,admin:true})
+  
+});
+router.post('/add-products', function(req, res) {
+  console.log(req.body)
+  console.log(req.files.image)
+  res.render('admin/add-product',{products,admin:true})
+  
+});
 
 module.exports = router;
