@@ -1,0 +1,30 @@
+<section>
+    <div class="container ">
+        <div class="row">
+            <a href="/admin/add-product" class=" item-center ml-auto btn mt-3 mb-2 text-white bg-info  " >Add items</a>
+            </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">No</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Category</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">image</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each products}}
+                <tr>
+                    <th scope="row">1</th>
+                    <td>{{this.name}}</td>
+                    <td>{{this.category}}</td>
+                    <td>{{this.description}}</td>
+                    <td><img style="height:50px;width: 50px;" src="{{this.image}}" alt=""></img></td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+
+    </div>
+</section>
