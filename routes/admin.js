@@ -1,149 +1,48 @@
 var express = require('express');
+var render=require("../app")
 var router = express.Router();
-let products = [{
-  name: "iphone 14",
-  category: "smart phone",
-  description: " latest pill notch display with face id and more features",
-  image:"https://rukminim1.flixcart.com/image/300/300/xif0q/mobile/m/j/j/-original-imagnvvwvzyhfvx9.jpeg?q=90"
-},
-{
-  name: "samsung s21",
-  category: "smart phone",
-  description: " latest good looking design with 100x zoom rear camera",
-  image:"https://rukminim1.flixcart.com/image/300/300/xif0q/mobile/3/l/x/-original-imaghmtcmxwgypsk.jpeg?q=90"
-},{
-  name: "moto g fushion",
-  category: "smart phone",
-  description: " latest good looking design with curve display",
-  image:"https://rukminim1.flixcart.com/image/300/300/xif0q/mobile/a/8/a/-original-imagbwx4ahgqxgg9.jpeg?q=90"
-},{
-  name: "iphone 14",
-  category: "smart phone",
-  description: " latest pill notch display with face id and more features",
-  image:"https://rukminim1.flixcart.com/image/300/300/xif0q/mobile/m/j/j/-original-imagnvvwvzyhfvx9.jpeg?q=90"
-},
-{
-  name: "samsung s21",
-  category: "smart phone",
-  description: " latest good looking design with 100x zoom rear camera",
-  image:"https://rukminim1.flixcart.com/image/300/300/xif0q/mobile/3/l/x/-original-imaghmtcmxwgypsk.jpeg?q=90"
-},{
-  name: "moto g fushion",
-  category: "smart phone",
-  description: " latest good looking design with curve display",
-  image:"https://rukminim1.flixcart.com/image/300/300/xif0q/mobile/a/8/a/-original-imagbwx4ahgqxgg9.jpeg?q=90"
-},{
-  name: "iphone 14",
-  category: "smart phone",
-  description: " latest pill notch display with face id and more features",
-  image:"https://rukminim1.flixcart.com/image/300/300/xif0q/mobile/m/j/j/-original-imagnvvwvzyhfvx9.jpeg?q=90"
-},
-{
-  name: "samsung s21",
-  category: "smart phone",
-  description: " latest good looking design with 100x zoom rear camera",
-  image:"https://rukminim1.flixcart.com/image/300/300/xif0q/mobile/3/l/x/-original-imaghmtcmxwgypsk.jpeg?q=90"
-},{
-  name: "moto g fushion",
-  category: "smart phone",
-  description: " latest good looking design with curve display",
-  image:"https://rukminim1.flixcart.com/image/300/300/xif0q/mobile/a/8/a/-original-imagbwx4ahgqxgg9.jpeg?q=90"
-},{
-  name: "iphone 14",
-  category: "smart phone",
-  description: " latest pill notch display with face id and more features",
-  image:"https://rukminim1.flixcart.com/image/300/300/xif0q/mobile/m/j/j/-original-imagnvvwvzyhfvx9.jpeg?q=90"
-},
-{
-  name: "samsung s21",
-  category: "smart phone",
-  description: " latest good looking design with 100x zoom rear camera",
-  image:"https://rukminim1.flixcart.com/image/300/300/xif0q/mobile/3/l/x/-original-imaghmtcmxwgypsk.jpeg?q=90"
-},{
-  name: "moto g fushion",
-  category: "smart phone",
-  description: " latest good looking design with curve display",
-  image:"https://rukminim1.flixcart.com/image/300/300/xif0q/mobile/a/8/a/-original-imagbwx4ahgqxgg9.jpeg?q=90"
-},{
-  name: "iphone 14",
-  category: "smart phone",
-  description: " latest pill notch display with face id and more features",
-  image:"https://rukminim1.flixcart.com/image/300/300/xif0q/mobile/m/j/j/-original-imagnvvwvzyhfvx9.jpeg?q=90"
-},
-{
-  name: "samsung s21",
-  category: "smart phone",
-  description: " latest good looking design with 100x zoom rear camera",
-  image:"https://rukminim1.flixcart.com/image/300/300/xif0q/mobile/3/l/x/-original-imaghmtcmxwgypsk.jpeg?q=90"
-},{
-  name: "moto g fushion",
-  category: "smart phone",
-  description: " latest good looking design with curve display",
-  image:"https://rukminim1.flixcart.com/image/300/300/xif0q/mobile/a/8/a/-original-imagbwx4ahgqxgg9.jpeg?q=90"
-},{
-  name: "iphone 14",
-  category: "smart phone",
-  description: " latest pill notch display with face id and more features",
-  image:"https://rukminim1.flixcart.com/image/300/300/xif0q/mobile/m/j/j/-original-imagnvvwvzyhfvx9.jpeg?q=90"
-},
-{
-  name: "samsung s21",
-  category: "smart phone",
-  description: " latest good looking design with 100x zoom rear camera",
-  image:"https://rukminim1.flixcart.com/image/300/300/xif0q/mobile/3/l/x/-original-imaghmtcmxwgypsk.jpeg?q=90"
-},{
-  name: "moto g fushion",
-  category: "smart phone",
-  description: " latest good looking design with curve display",
-  image:"https://rukminim1.flixcart.com/image/300/300/xif0q/mobile/a/8/a/-original-imagbwx4ahgqxgg9.jpeg?q=90"
-},{
-  name: "iphone 14",
-  category: "smart phone",
-  description: " latest pill notch display with face id and more features",
-  image:"https://rukminim1.flixcart.com/image/300/300/xif0q/mobile/m/j/j/-original-imagnvvwvzyhfvx9.jpeg?q=90"
-},
-{
-  name: "samsung s21",
-  category: "smart phone",
-  description: " latest good looking design with 100x zoom rear camera",
-  image:"https://rukminim1.flixcart.com/image/300/300/xif0q/mobile/3/l/x/-original-imaghmtcmxwgypsk.jpeg?q=90"
-},{
-  name: "moto g fushion",
-  category: "smart phone",
-  description: " latest good looking design with curve display",
-  image:"https://rukminim1.flixcart.com/image/300/300/xif0q/mobile/a/8/a/-original-imagbwx4ahgqxgg9.jpeg?q=90"
-},{
-  name: "iphone 14",
-  category: "smart phone",
-  description: " latest pill notch display with face id and more features",
-  image:"https://rukminim1.flixcart.com/image/300/300/xif0q/mobile/m/j/j/-original-imagnvvwvzyhfvx9.jpeg?q=90"
-},
-{
-  name: "samsung s21",
-  category: "smart phone",
-  description: " latest good looking design with 100x zoom rear camera",
-  image:"https://rukminim1.flixcart.com/image/300/300/xif0q/mobile/3/l/x/-original-imaghmtcmxwgypsk.jpeg?q=90"
-},{
-  name: "moto g fushion",
-  category: "smart phone",
-  description: " latest good looking design with curve display",
-  image:"https://rukminim1.flixcart.com/image/300/300/xif0q/mobile/a/8/a/-original-imagbwx4ahgqxgg9.jpeg?q=90"
-} ]
+var producthelper=require('../helpers/product-helpers')
 
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  res.render('admin/view-products',{products,admin:true})
+  producthelper.getAllProduct().then((products)=>{
+    console.log(products)
+    res.render('admin/view-products',{products,admin:true})
+
+  })
+
+  })
   
-});
+  
+
 router.get('/add-products', function(req, res) {
-  res.render('admin/add-product',{products,admin:true})
+  res.render('admin/add-product',{admin:true})
   
 });
+router.get('/orders', function(req, res) {
+  res.render('admin/view-products',{admin:true})
+  
+});
+router.get('/users', function(req, res) {
+  res.render('admin/view-products',{admin:true})
+  
+});
+
 router.post('/add-products', function(req, res) {
-  console.log(req.body)
-  console.log(req.files.image)
-  res.render('admin/add-product',{products,admin:true})
+  producthelper.addProduct(req.body,(id)=>{
+    var img=req.files.image
+    img.mv('./public/product-image/'+id+'.jpg',(err,done)=>{
+      if(!err)
+      {
+        res.render('admin/add-product',{admin:true})
+      }
+      else{
+        console.log(err)
+      }
+    })
+    
+  })
   
 });
 

@@ -1,16 +1,18 @@
 
-  <section class="pt-3">
+  <section class=" section pt-3">
     <div class="container-fluid">
       <div class="row">
         
-        {{#each products}}
-        <div class="col-4 col-md-3 col-lg-2 pt-3 text-center ">
-          <div class="card" style="height: 23rem;">
-            <img src="{{this.image}}" class="card-img-top" style="height:13em" alt="...">
-            <div class="card-body">
-              <p class="card-text">{{this.description}}</p>
-              <a class="btn button" style="color: rgb(255, 255, 255);">add to cart</a>
-            </div>
+        {{#each product}}
+        <div class="col-6 col-md-4 col-lg-2 mt-3 text-center fixed " style=";">
+          <div class="card " style="">
+            <img src="/product-image/{{this._id}}.jpg" class="card-img-top" style="height:13em" alt="">
+            <p class="card-text">{{this.name}}</p>
+            <div class="card-body pt-0" style="line-height: 3px;">
+              <p class="card-text">{{this.price}}</p></div>
+              <div class="pt-0"><p class="card-text mt-0">{{this.description}}</p></div> 
+              <div class="mb-2"><a class="btn button" style="color: rgb(255, 255, 255);" cl>add to cart</a></div>
+           
           </div>
         </div>
         {{/each}}

@@ -23,8 +23,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());  
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(fileupload())
-db.connect(function(err){
-  if(err) console.log(" connection failed ")
+db.connect((err)=>{
+  if(err) console.log(err)
   else  console.log("connection created")
 
 })
