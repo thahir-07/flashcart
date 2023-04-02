@@ -6,12 +6,15 @@
 .button{
   background-image: linear-gradient(rgb(133, 67, 164),rgb(0, 255, 123));
 }
-  html{
-    background-color: darkkhaki;
-  }
-  .section{
-    background-color: rgb(110, 13, 214);
-  }
+.inp{
+  width:20rem;
+  height: 40px;
+  border-radius: 15px;
+}
+.a-new{
+  text-decoration: none;
+}
+  
   
     
 

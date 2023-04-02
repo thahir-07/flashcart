@@ -13,10 +13,7 @@ module.exports={
             resolve(product)
 
         })
-        
-
-
-
-
+    
     }
+   
 }

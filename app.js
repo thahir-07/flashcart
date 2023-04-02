@@ -9,6 +9,7 @@ var userRouter = require('./routes/user');
 var adminRouter = require('./routes/admin');
 var fileupload=require('express-fileupload')
 var db=require("./config/connection")
+var session=require('express-session')
 
 var app = express();
 
@@ -23,6 +24,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());  
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(fileupload())
+app.use(session({secret:'key',cookie:{maxAge:600000,}}))
 db.connect((err)=>{
   if(err) console.log(err)
   else  console.log("connection created")
