@@ -1,7 +1,8 @@
 <section>
     <div class="container ">
-        <div class="row">
+        <div class="p-3">
             <a href="/admin/add-products" class=" item-center ml-auto btn mt-3 mb-2 text-white  " style="background-image: linear-gradient( rgb(0, 255, 123),rgb(51, 141, 87));" >Add items</a>
+            
             </div>
         <table class="table">
             <thead>
@@ -11,7 +12,8 @@
                     <th scope="col">Category</th>
                     <th scope="col">Description</th>
                     <th scope="col">image</th>
-                </tr>
+                    <th> Edit</th>
+                    <th>Delete</th>
             </thead>
             <tbody>
                 {{#each products}}
@@ -21,6 +23,10 @@
                     <td>{{this.category}}</td>
                     <td>{{this.description}}</td>
                     <td><img style="height: 50px;width: 50px;" src="/product-image/{{this._id}}.jpg" alt=""></img></td>
+                    <td><a href="/admin/edit-products/{{this._id}}" class=" item-center ml-auto   text-white border btn btn-info "  > Edit Item</a></td>
+                    <td><a href="/admin/delete-products/{{this._id}}" class=" item-center ml-auto  text-white border  btn btn-danger "  onclick="return confirm('are you sure you want to delete :{{this.name}}')"> Delete Item</a></td>
+
+                
                 </tr>
                 {{/each}}
             </tbody>

@@ -1,0 +1,44 @@
+<div class="container ">
+    <div class="row center">
+
+        <form action="/admin/edit-products/{{data._id}}" enctype="multipart/form-data" method="post">
+            <div class="mt-3 mb-3 text-center">
+                <h1>Edit Product</h1>
+
+            </div>
+            <div class="mb-3 mt-3">
+                <label for="name" class="form-label">name</label>
+                <input type="text" class="form-control" id="name" name="name" value="{{data.name}}">
+
+            </div>
+            <div class="mb-3">
+                <label for="category" class="form-label">Category</label>
+                <input type="text" class="form-control" id="category" name="category" value="{{data.category}}">
+            </div>
+            <div class="mb-3">
+                <label for="price" class="form-label">Price</label>
+                <input type="text" class="form-control" id="price" name="price" value="{{data.price}}">
+            </div>
+            <div class="mb-3">
+                <label for="price" class="form-label">Description</label>
+                <input type="text" class="form-control" id="description" name="description" aria-valuemax="30"  value="{{data.description}}">
+            </div>
+            <div class="mb-3">
+                
+                <label for="price" class="form-label">image</label >
+                <img src="/product-image/{{data._id}}.jpg" alt="" width="100px" heigth="auto" id="imgView"><br><br>
+                <input type="file" class="form-control" id="image" name="image" onchange="viewImage(event)" >
+            </div>
+            <div class="text-center">
+
+            <button type="submit" class="btn btn-primary " onclick="return confirm('are you sure u want update record')">Update</button>
+            </div>
+        </form>
+
+    </div>  
+</div>
+<script>
+    function viewImage(event){
+        document.getElementById('imgView').src=URL.createObjectURL(event.target.files[0])
+    }
+</script>

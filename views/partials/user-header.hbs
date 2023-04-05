@@ -1,7 +1,7 @@
 <header class="item-center" style="margin-bottom: 50px;">
   <nav class="navbar navbar-expand-lg bg-body-tertia bg-color fixed-top">
     <div class="container-fluid">
-      <a class="navbar-brand text-color" style="color:white" href="/about">Shopping Cart</a>
+      <a class="navbar-brand text-color" style="color:white" href="/">Shopping Cart</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -16,9 +16,11 @@
             <a class="nav-link" style="color:white" href="/cart">cart</a>
           </li>
           </li>
+          {{#if user}}
           <li class="nav-item">
             <a class="nav-link" style="color:white" href="/orders">orders</a>
           </li>
+          {{/if}}
         </ul>
         <div class="dropdown">
           <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown"
