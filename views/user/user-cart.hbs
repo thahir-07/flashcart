@@ -1,2 +1,46 @@
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center pt-5">
+                <h1 class="pb-3">Cart Items</h1>
+                <table class="table ">
+                    <thead>
+                    <tr >
+                        <th>items </th>
+                        <th> title</th>
+                        <th>quantity </th>
+                        
+                    </tr>
+                    </thead>
+                     
+                    <tbody>
 
-<h1>cart..............</h1>
+                        {{#each products}}
+                       
+                        <tr>
+                           
+                            <td><img src="/product-image/{{this._id}}.jpg" style="width:100px;height:100px" alt=""></td>
+                            <td>{{this.name}}</td>
+                            <td>
+                                <button class="cart-item-count">-</button>
+                                1
+                                <button class="cart-item-count">+</button>
+                                
+                            </td>
+                            <td>
+                                <a href="/remove" class="btn btn-danger"> remove</a>
+                            </td>
+
+                        </tr>
+                        {{/each}}
+                        
+                        
+                    </tbody>
+                   
+                </table>
+
+            </div>
+        </div>
+    </div>
+</section>
+
