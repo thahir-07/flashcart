@@ -127,11 +127,22 @@ getCartProducts:((userId)=>{
                 }
             }
         ]).toArray()
+        console.log(cartItems[0].cartItems)
         
         resolve(cartItems[0].cartItems)
+
     }
    
     )
 
-})
+}),
+deleteFromCart:(userId,proId)=>{
+    return new Promise((resolve,reject)=>{
+        db.get().collection(collections.CART_COLLECTION).updateOne({_id:new ObjectId(userId)},{$pull:{products:new ObjectId(proId) }}).then((response)=>{
+            console.log(response)
+        })
+
+       
+    })
+}
 }
