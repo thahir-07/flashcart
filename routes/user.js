@@ -91,17 +91,17 @@ function verifyLogin(req, res, next) {
   next()
 }
 
-router.get('/addtocart/:id',  (req, res) => {
+router.get('/addtocart/:id',(req, res) => {
   var id = req.params.id
-  if (req.session.loggedIn) {
+  if (req.session.user) {
+    console.log('inside function')
     producthelper.addToCart(id, req.session.user._id).then((response) => {
-      res.redirect('/')
-
+      res.json({status:true})
 
       })
 
-
     }else{
+      console.log("else condition")
       res.redirect('/login')
     }
 
