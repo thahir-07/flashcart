@@ -19,20 +19,26 @@
                        
                         <tr>
                            
-                            <td><img src="/product-image/{{this._id}}.jpg" style="width:100px;height:100px" alt=""></td>
-                            <td>{{this.name}}</td>
+                           
+                            <td><img src="/product-image/{{this.product._id}}.jpg" style="width:100px;height:100px" alt=""></td>
+                            <td>{{this.product.name}}</td>
+                             
                             <td>
-                                <button class="cart-item-count">-</button>
-                                1
-                                <button class="cart-item-count">+</button>
+                                <button class="cart-item-count bg-info text-white" style="width:30px" onclick="changeQuantity('{{this._id}}','{{this.item}}',-1)">-</button>
+                               <h6 id="count">{{this.quantity}}</h6> 
+                                <button class="cart-item-count bg-info text-white"  style="width:30px" onclick="changeQuantity('{{this._id}}','{{this.item}}',1)">+</button>
                                     
                             </td>
                             <td>
-                                <a href="/remove/{{this._id}}" class="btn btn-danger"> remove</a>
+                                
+                                <a href="/remove/{{this.item}}" onclick=" return confirm('Are you sure! you want remove this product from cart?')" class="btn btn-danger"> remove</a>
+                               
                             </td>
 
                         </tr>
+                       
                         {{/each}}
+                        
                         
                         
                     </tbody>
@@ -40,7 +46,9 @@
                 </table>
 
             </div>
+             <hr>
         </div>
     </div>
+   
 </section>
 

@@ -1,5 +1,6 @@
 var db=require('../config/connection')
 var collections=require('../config/collections')
+const session = require('express-session')
 var ObjectId=require('mongodb').ObjectId
 module.exports={
      addProduct:(product,callback)=>{
@@ -49,20 +50,40 @@ module.exports={
 
     },
     addToCart:(proId,userId)=>{
+        let proObj={
+            item:new ObjectId(proId),
+            quantity:1
+         }
         return new Promise(async (resolve,reject)=>{
             let userCart=await db.get().collection(collections.CART_COLLECTION).findOne({user:new ObjectId(userId)})
             
             if(userCart){
-                db.get().collection(collections.CART_COLLECTION).updateOne(
-                    {user:new ObjectId(userId)},
-                    {
-                        $push:{products:new ObjectId(proId)}
-                    }
-                    ).then((response)=>{
-                        console.log("cart updated")
-                        resolve(response)
+                let proExist=userCart.products.findIndex(product=> product.item==proId)
+                console.log(proExist)
+                if(proExist!=-1){
+                    db.get().collection(collections.CART_COLLECTION).updateOne({user:new ObjectId(userId),'products.item':new ObjectId(proId) }
 
+                    ,{
+                        $inc:{'products.$.quantity':1}
+                    }).then((response)=>{
+                        resolve({response:"increment"})
                     })
+
+                }
+                else{
+                    db.get().collection(collections.CART_COLLECTION).updateOne(
+                        {user:new ObjectId(userId)},
+                        {
+                            $push:{products:proObj}
+                        }
+                        ).then((response)=>{
+                            console.log("cart updated")
+                            resolve({response:"proAdded"})
+    
+                        })
+
+                }
+                
                
                 
 
@@ -70,12 +91,12 @@ module.exports={
             else{
                 let cardObj={
                     user:new ObjectId(userId),
-                    products:[new ObjectId(proId)]
+                    products:[proObj]
                 }
                 db.get().collection(collections.CART_COLLECTION).insertOne(cardObj).then((response)=>{
-                    console.log("user cart created")
+                    console.log("new quantity............")
                    
-                    resolve(response)
+                    resolve({response:'inserted'})
                 })
             }
           
@@ -110,6 +131,33 @@ getCartProducts:((userId)=>{
                 $match:{user:new ObjectId(userId)}
             },
             {
+                $unwind:'$products'
+            },
+            {
+                $project:{
+                    item:'$products.item',
+                    quantity:'$products.quantity'
+                }
+            },
+            {
+                $lookup:{
+                    from:collections.PRODUCT_COLLECTION,
+                    localField:'item',
+                    foreignField:'_id',
+                    as:'product'
+                }
+            },
+            {
+                $project:{
+                    item:1,
+                    quantity:1,
+                    product:{$arrayElemAt:['$product',0]
+                }
+            }
+        }
+
+            
+           /* {
                 $lookup:{
                     from:collections.PRODUCT_COLLECTION,
                     let:{productList:'$products'},
@@ -125,11 +173,12 @@ getCartProducts:((userId)=>{
                     as:'cartItems'
 
                 }
-            }
+            }*/
         ]).toArray()
-        console.log(cartItems[0].cartItems)
+        console.log(cartItems)
         
-        resolve(cartItems[0].cartItems)
+        resolve(cartItems)
+
 
     }
    
@@ -138,11 +187,27 @@ getCartProducts:((userId)=>{
 }),
 deleteFromCart:(userId,proId)=>{
     return new Promise((resolve,reject)=>{
-        db.get().collection(collections.CART_COLLECTION).updateOne({_id:new ObjectId(userId)},{$pull:{products:new ObjectId(proId) }}).then((response)=>{
+        db.get().collection(collections.CART_COLLECTION).updateOne({user:new ObjectId(userId)},{$pull:{'products':{item:new ObjectId(proId)}}} ).then((response)=>{
             console.log(response)
         })
 
        
+    })
+},
+change_product_quantity:(cartId,proId,count,user)=>{
+    count=parseInt(count)
+    return new Promise(async(resolve,reject)=>{
+       productQuantity=await db.get().collection(collections.CART_COLLECTION).updateOne({_id:new ObjectId(cartId),'products.item':new ObjectId(proId)},{
+            $inc:{'products.$.quantity':count}
+        }).then((response)=>{
+            console.log(user)
+            module.exports.getCartProducts(user).then((response)=>{
+                resolve(response)
+            })
+    })
+   
+    
+
     })
 }
 }

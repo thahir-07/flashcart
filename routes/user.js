@@ -4,15 +4,15 @@ var db = require('../config/connection')
 var collections = require('../config/collections')
 var producthelper = require('../helpers/product-helpers')
 var userhelpers = require('../helpers/user-helpers');
-const productHelpers = require('../helpers/product-helpers');
+var productHelpers = require('../helpers/product-helpers')
 let user = null
-
+let cartItemCount=0
 
 
 /* GET home page. */
 router.get('/', async function (req, res, next) {
   user = req.session.user
-  let cartItemCount=0
+  
   if(user){
     cartItems=await productHelpers.getCartProducts(req.session.user._id)
     cartItemCount=cartItems.length
@@ -72,7 +72,7 @@ router.get('/cart', async function (req, res) {
   if (req.session.user) {
     producthelper.getCartProducts(req.session.user._id).then((response) => {
       let products = response
-      res.render('user/user-cart',{products,user})
+      res.render('user/user-cart',{products,user,cartItemCount})
     })
 
   }else{
@@ -96,9 +96,8 @@ router.get('/addtocart/:id',(req, res) => {
   if (req.session.user) {
     console.log('inside function')
     producthelper.addToCart(id, req.session.user._id).then((response) => {
-      res.json({status:true})
-
-      })
+      res.json({response})
+    })
 
     }else{
       console.log("else condition")
@@ -111,10 +110,16 @@ router.get('/addtocart/:id',(req, res) => {
 )
 router.get('/remove/:id',(req,res)=>{
   console.log(req.session.user._id,req.params.id)
-  producthelper.deleteFromCart(req.params.id)
+  producthelper.deleteFromCart(req.session.user._id,req.params.id)
   res.redirect('/cart')
 
 })
+router.post('/change-product-quantity',(req,res)=>{
+ console.log(req.body.cart) 
+ console.log(req.body.product)
+ producthelper.change_product_quantity(req.body.cart,req.body.product,req.body.count,user._id).then((response)=>{
+  console.log(response)
+  res.json({response})
+ })
+})
 module.exports = router
-
-
