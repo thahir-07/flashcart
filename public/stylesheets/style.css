@@ -5,6 +5,7 @@
 }
 .button{
   background-image: linear-gradient(rgb(133, 67, 164),rgb(0, 255, 123));
+  color: azure;
 }
 .inp{
   width:20rem;
@@ -13,6 +14,28 @@
 }
 .a-new{
   text-decoration: none;
+}
+.order{
+  margin-top: 3px;
+  width:15rem;
+  height: 40px;
+  border-radius: 5px;
+  text-align: center;
+
+  
+}
+.order-div{
+  scroll-margin: unset;
+  background-color: rgb(36, 255, 120);
+  width: 20em;
+  border-radius: 10px;
+
+  
+  
+  
+}
+.center{
+  align-items: center;
 }
   
   

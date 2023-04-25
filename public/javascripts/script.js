@@ -3,15 +3,16 @@ function addToCart(proId){
         url:"/addtocart/"+proId,
         method:'get',
         success:(response)=>{
-            
-            if(response){
+           
                if(response.response!='increment'){
                 let count=$('#cart-count').html()
                 count=parseInt(count)+1
                 $('#cart-count').html(count)
-            }
-               
-            }
+                }
+              else
+              {
+                alert('item already exist in cart')
+              }
            
 
         }
@@ -19,29 +20,36 @@ function addToCart(proId){
 
 }
 function changeQuantity(cartId,proId,count){
+   let quantity=parseInt( document.getElementById(proId).innerHTML)
     
     $.ajax({
         url:'/change-product-quantity',
         data:{
             cart:cartId,
             product:proId,
-            count:count
+            count:count,
+            quantity:quantity
         },
         method:'post',
         success:(response)=>{
             count=parseInt(count)
-                if(count===1){
-                    let quantity=parseInt( $('#count').html())
-                    console.log(count)
-                    quantity=quantity+1
-                    $('#count').html(quantity)
+            console.log(response)
+            if(response.productRemoved){
+                alert('product removed from cart')
+                location.reload()
+
+            }else
+               {
+                 if(count==1){
+                
+                   document.getElementById(proId).innerHTML=quantity+1
+                    
                 }
                 else{
-                    let quantity=parseInt( $('#count').html())
+                   
                     quantity=quantity-1
-                    $('#count').html(quantity)
-                }
-          
+                    document.getElementById(proId).innerHTML=quantity                }
+          }
           
 
         }

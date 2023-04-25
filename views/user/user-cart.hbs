@@ -8,6 +8,7 @@
                     <tr >
                         <th>items </th>
                         <th> title</th>
+                        <th>price</th>
                         <th>quantity </th>
                         
                     </tr>
@@ -22,10 +23,11 @@
                            
                             <td><img src="/product-image/{{this.product._id}}.jpg" style="width:100px;height:100px" alt=""></td>
                             <td>{{this.product.name}}</td>
+                            <td>Rs.{{this.product.price}}/-</td>
                              
                             <td>
                                 <button class="cart-item-count bg-info text-white" style="width:30px" onclick="changeQuantity('{{this._id}}','{{this.item}}',-1)">-</button>
-                               <h6 id="count">{{this.quantity}}</h6> 
+                               <span id="{{this.product._id}}">{{this.quantity}}</span> 
                                 <button class="cart-item-count bg-info text-white"  style="width:30px" onclick="changeQuantity('{{this._id}}','{{this.item}}',1)">+</button>
                                     
                             </td>
@@ -44,11 +46,22 @@
                     </tbody>
                    
                 </table>
+                <hr>
+                <div class="float-rigt">
+
+                <h3 class=" mt-5">Total:Rs.10000</h3>
+                <a class="btn btn-success mt-2 mb-2" href="/place-order">Place Order</a>
+                </div>
+                
+                
 
             </div>
-             <hr>
+           
+             
         </div>
+
     </div>
+     
    
 </section>
 

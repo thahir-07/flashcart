@@ -4,7 +4,8 @@ var db = require('../config/connection')
 var collections = require('../config/collections')
 var producthelper = require('../helpers/product-helpers')
 var userhelpers = require('../helpers/user-helpers');
-var productHelpers = require('../helpers/product-helpers')
+var productHelpers = require('../helpers/product-helpers');
+const { handlebars } = require('hbs');
 let user = null
 let cartItemCount=0
 
@@ -70,9 +71,18 @@ router.get('/logout', function (req, res) {
 })
 router.get('/cart', async function (req, res) {
   if (req.session.user) {
-    producthelper.getCartProducts(req.session.user._id).then((response) => {
-      let products = response
-      res.render('user/user-cart',{products,user,cartItemCount})
+   
+      cartItems=await productHelpers.getCartProducts(req.session.user._id)
+      cartItemCount=cartItems.length
+      
+   
+    producthelper.getCartProducts(req.session.user._id).then((products) => {
+      productHelpers.totalAmount(req.session.user._id).then((response)=>{
+        res.render('user/user-cart',{products,user,cartItemCount})
+
+      })
+      
+     
     })
 
   }else{
@@ -94,13 +104,13 @@ function verifyLogin(req, res, next) {
 router.get('/addtocart/:id',(req, res) => {
   var id = req.params.id
   if (req.session.user) {
-    console.log('inside function')
+   
     producthelper.addToCart(id, req.session.user._id).then((response) => {
-      res.json({response})
+      res.json(response)
     })
 
     }else{
-      console.log("else condition")
+      
       res.redirect('/login')
     }
 
@@ -115,11 +125,13 @@ router.get('/remove/:id',(req,res)=>{
 
 })
 router.post('/change-product-quantity',(req,res)=>{
- console.log(req.body.cart) 
- console.log(req.body.product)
- producthelper.change_product_quantity(req.body.cart,req.body.product,req.body.count,user._id).then((response)=>{
-  console.log(response)
-  res.json({response})
+ 
+ producthelper.change_product_quantity(req.body.cart,req.body.product,req.body.count,req.body.quantity,user._id).then((response)=>{
+ 
+  res.json(response)
  })
+})
+router.get('/place-order',(req,res)=>{
+  res.render('user/place-order')
 })
 module.exports = router

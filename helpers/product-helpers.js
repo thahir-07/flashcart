@@ -194,8 +194,23 @@ deleteFromCart:(userId,proId)=>{
        
     })
 },
-change_product_quantity:(cartId,proId,count,user)=>{
+change_product_quantity:(cartId,proId,count,quantity,user)=>{
+    quantity=parseInt(quantity)
     count=parseInt(count)
+    console.log(quantity)
+    if(quantity==1 && count==-1){
+       
+        return new Promise((resolve,reject)=>{
+            db.get().collection(collections.CART_COLLECTION).updateOne({user:new ObjectId(user)},{$pull:{'products':{item:new ObjectId(proId)}}} ).then((response)=>{
+                console.log(response)
+                resolve({productRemoved:true})
+            })
+    
+           
+        })
+    }
+    else
+    {
     return new Promise(async(resolve,reject)=>{
        productQuantity=await db.get().collection(collections.CART_COLLECTION).updateOne({_id:new ObjectId(cartId),'products.item':new ObjectId(proId)},{
             $inc:{'products.$.quantity':count}
@@ -206,8 +221,48 @@ change_product_quantity:(cartId,proId,count,user)=>{
             })
     })
    
-    
+    })}
+},
+totalAmount:(userId)=>{
+    return new Promise(async(resolve,reject)=>{
+        let total=await db.get().collection(collections.CART_COLLECTION).aggregate([
+              {
+                  $match:{user:new ObjectId(userId)}
+              },
+              {
+                  $unwind:'$products'
+              },
+              {
+                  $project:{
+                      item:'$products.item',
+                      quantity:'$products.quantity'
+                  }
+              },
+              {
+                  $lookup:{
+                      from:collections.PRODUCT_COLLECTION,
+                      localField:'item',
+                      foreignField:'_id',
+                      as:'product'
+                  }
+              },
+              {
+                  $project:{
+                      item:1,
+                      quantity:1,
+                      product:{$arrayElemAt:['$product',0]
+                  }
+              }
+          },
+          
+        ]).toArray()
+        console.log(total)
+        
+        resolve(total)
 
-    })
+
+    }
+   
+    )
 }
 }
