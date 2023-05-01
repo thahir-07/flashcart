@@ -250,19 +250,41 @@ totalAmount:(userId)=>{
                   $project:{
                       item:1,
                       quantity:1,
-                      product:{$arrayElemAt:['$product',0]
+                      product:{$arrayElemAt:['$product',0],
+                     
                   }
               }
-          },
+          },{
+            $group:{
+                _id:null,
+             
+                total:{
+                    $sum:{
+                        $multiply:['$quantity',{$toInt:'$product.price'}]
+                    }
+                }
+            }
+          }
           
         ]).toArray()
-        console.log(total)
-        
-        resolve(total)
+        if(total[0]){
+           resolve(total[0].total)
 
+        }else{
+            resolve(0)
+        }
 
     }
    
     )
+},
+getCartProductsList:(userId)=>{
+    return new Promise((resolve,reject)=>{
+        db.get().collection(collections.CART_COLLECTION).findOne({user:new ObjectId(userId)}).then((response)=>{
+            console.log(response.products)
+            resolve(response.products)
+        })
+    })
 }
+
 }

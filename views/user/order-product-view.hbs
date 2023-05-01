@@ -1,0 +1,53 @@
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center pt-5">
+                <h1 class="pb-3">Cart Items</h1>
+                <table class="table ">
+                    <thead>
+                        <tr>
+                            <th>items </th>
+                            <th> title</th>
+                            <th>price</th>
+                            <th>quantity </th>
+                            
+
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        {{#each products}}
+                        <tr>
+
+
+                            <td><img src="/product-image/{{this.product._id}}.jpg" style="width:100px;height:100px"
+                                    alt=""></td>
+                            <td>{{this.product.name}}</td>
+                            <td>Rs.{{this.product.price}}/-</td>
+
+                            <td>{{this.quantity}}</td>
+                           <td></td>
+
+                        </tr>
+
+                        {{/each}}
+
+
+
+                    </tbody>
+
+                </table>
+                <hr>
+                
+
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+</section>
