@@ -137,17 +137,42 @@ router.post('/change-product-quantity',(req,res)=>{
  })
 })
 router.get('/place-order',async(req,res)=>{
-  let total=await productHelpers.totalAmount(req.session.user._id)
+  if(req.session.loggedIn){
+    let total=await productHelpers.totalAmount(req.session.user._id)
 
-  res.render('user/place-order',{total,user})
+    res.render('user/place-order',{total,user})
+  }else{
+    res.redirect('user/user-login')
+  }
+  
+ 
 })
 router.post('/place-order',async(req,res)=>{ 
-  let products=await productHelpers.getCartProductsList(user._id)
+  if(req.session.loggedIn){
+    console.log("above the products")
+    console.log(req.session.user._id)
+  let products=await productHelpers.getCartProductsList(req.session.user._id)
+  console.log('below the products')
   let total=await productHelpers.totalAmount(req.session.user._id)
-  userHelpers.placeOrder(req.body,products,total,user._id).then((response)=>{
-    
+  userHelpers.placeOrder(req.body,products,total,user._id).then((orderId)=>{
+    console.log(req.body)
+    if(req.body.payementMethod==='COD'){
+      res.json({status:"COD"})
+
+    }else{
+      
+      userHelpers.generateRazorpay(orderId,total).then((response)=>{
+
+        res.json(response)
+      })
+    }
+
+   
   })
- res.json(req.body)
+}else{
+  res.redirect('user/user-login')
+}
+ 
 })
 router.get('/order-success',(req,res)=>{
   res.render('user/order-success')
@@ -165,8 +190,25 @@ router.get('/show-orders',async (req,res)=>{
 router.get('/view-order-products/:id',async(req,res)=>{
   console.log(req.params.id)
   let products=await userHelpers.getOrderProduct(req.params.id)
-  res.render('user/order-product-view',{products,user,cartItemCount})
+  res.render('user/order-product-view',{products,user,cartItemCount}) 
+})
+router.post('/verify-payement',(req,res)=>{
+  console.log(req.body)
+  userHelpers.verifyPayement(req.body).then((response)=>{
+    userhelpers.changeOrderStatus(req.body['order[receipt]']).then((response)=>{
+      console.log('payement success')
+      res.json({status:true})
+
+    }).catch((err)=>{
+      console.log('payement rejected')
+      res.json({status:false,err})
+  
+    })
+
+  })
+
 })
 module.exports = router
+
 
 

@@ -268,23 +268,27 @@ totalAmount:(userId)=>{
           
         ]).toArray()
         if(total[0]){
+            
            resolve(total[0].total)
+
 
         }else{
             resolve(0)
         }
 
-    }
-   
-    )
+    })
 },
 getCartProductsList:(userId)=>{
     return new Promise((resolve,reject)=>{
         db.get().collection(collections.CART_COLLECTION).findOne({user:new ObjectId(userId)}).then((response)=>{
-            console.log(response.products)
+            console.log("get product list   "+response)
+            if(response)
             resolve(response.products)
+            else
+             resolve(null)
         })
     })
+
 }
 
 }

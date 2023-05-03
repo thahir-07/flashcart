@@ -6,11 +6,69 @@ $("#checkout-form").submit((e)=>{
         method:'post',
         data:$('#checkout-form').serialize(),
         success:(response)=>{
-            location.href='/order-success'
+            if(response.status==='COD'){
+                location.href='/order-success'
+
+            }else{
+               razorpayPayement(response)
+            }
+            
         }
 
     })
 })
+function  razorpayPayement(order){
+    var options = {
+        "key": "rzp_test_0lu74rFyib3blw", // Enter the Key ID generated from the Dashboard
+        "amount": order.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+        "currency": "INR",
+        "name": "Abu Thahir", //your business name
+        "description": "Test Transaction",
+        "image": "https://example.com/your_logo",
+        "order_id":order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+        "handler":(response)=>{
+            console.log("inside handler")
+            alert(response)
+            verifyPayement(response,order)
+
+        },
+        //"callback_url": "https://eneqd3r9zrjok.x.pipedream.net/",
+        "prefill": {
+            "name": "Thahir", //your customer's name
+            "email": "abuthahircoorg@gmail.com",
+            "contact": "8277906114"
+        },
+        "notes": {
+            "address": "Razorpay Corporate Office"
+        },
+        "theme": {
+            "color": "#3399cc"
+        }
+    };
+    var rzp1 = new Razorpay(options);
+    rzp1.open();
+}
+function verifyPayement(payement,order){
+    console.log('verify Payement function called')
+    $.ajax({
+        url:'/verify-payement',
+        data:{
+            payement,
+            order
+        },
+        method:'post',
+        success:(response)=>{
+            console.log('success called')
+           if(response.status){
+            location.href='/order-success'
+           }else{
+            alert('payement failed')
+           }
+            
+        }
+    })
+
+}
 function addToCart(proId){
     $.ajax({
         url:"/addtocart/"+proId,
