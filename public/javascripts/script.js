@@ -1,3 +1,5 @@
+const { handlebars } = require("hbs")
+
 $("#checkout-form").submit((e)=>{
     console.log('ajaxxxxxxxxxxxxxxxxxxxxxxx')
     e.preventDefault()
