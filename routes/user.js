@@ -26,13 +26,13 @@ router.get('/', async function (req, res, next) {
 })
 
 router.get('/login', function(req, res) {
-  if (req.session.loggedIn) {
+  if (req.session.user) {
     res.redirect('/')
 
   } else {
 
-    res.render('user/user-login', { logerr: req.session.loginErr })
-    req.session.loginErr = false
+    res.render('user/user-login', { logerr: req.session.userLoginErr })
+    req.session.userLoginErr = false
 
 
   }
@@ -44,7 +44,7 @@ router.get('/signup', function (req, res) {
 })
 router.post('/signup', function (req, res) {
   userhelpers.doSignup(req.body).then((response) => {
-    req.session.loggedIn = true
+    req.session.userLoggedIn = true
     req.session.user = response
     user = req.session.user
     res.redirect('/login')
@@ -55,11 +55,11 @@ router.post('/login', function (req, res) {
 
   userhelpers.doLogin(req.body).then((response) => {
     if (response.status) {
-      req.session.loggedIn = true
+      req.session.userLoggedIn = true
       req.session.user = response.user
       res.redirect('/')
     } else {
-      req.session.loginErr = "Invalid Email or Password"
+      req.session.userLoginErr = "Invalid Email or Password"
 
       res.redirect('/login')
     }
@@ -67,7 +67,10 @@ router.post('/login', function (req, res) {
   })
 })
 router.get('/logout', function (req, res) {
-  req.session.destroy()
+  req.session.user=null
+  req.session.userLoggedIn = false
+  
+  cartItemCount=0
   res.redirect('/')
 })
 router.get('/cart', async function (req, res) {
@@ -97,8 +100,9 @@ router.get('/cart', async function (req, res) {
 
 function verifyLogin(req, res, next) {
   let user = req.session.user
-  if (req.session.loggedIn)
+  if (req.session.userLoggedIn)
     res.render('user/user-cart', { user })
+    
   else
     res.render('user/user-login')
   next()
@@ -137,7 +141,7 @@ router.post('/change-product-quantity',(req,res)=>{
  })
 })
 router.get('/place-order',async(req,res)=>{
-  if(req.session.loggedIn){
+  if(req.session.userLoggedIn){
     let total=await productHelpers.totalAmount(req.session.user._id)
 
     res.render('user/place-order',{total,user})
@@ -148,7 +152,7 @@ router.get('/place-order',async(req,res)=>{
  
 })
 router.post('/place-order',async(req,res)=>{ 
-  if(req.session.loggedIn){
+  if(req.session.userLoggedIn){
     console.log("above the products")
     console.log(req.session.user._id)
   let products=await productHelpers.getCartProductsList(req.session.user._id)
@@ -179,7 +183,7 @@ router.get('/order-success',(req,res)=>{
 
 })
 router.get('/show-orders',async (req,res)=>{
-  if(req.session.loggedIn){
+  if(req.session.userLoggedIn){
   let orders=await userHelpers.getOrderDetails(user._id)
   console.log(orders)
   res.render('user/order-history',{orders,user,cartItemCount})

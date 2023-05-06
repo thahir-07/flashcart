@@ -1,25 +1,35 @@
-const { handlebars } = require("hbs")
+$(function(){
+$('#productTable').DataTable()
 
-$("#checkout-form").submit((e)=>{
+})
+function count(id){
+    console.log("count function called")
+   var count=document.getElementById(id).innerHTML
+   document.getElementById(id).innerHTML=parseInt(count)+1
+
+
+
+}
+$("#checkout-form").submit((e) => {
     console.log('ajaxxxxxxxxxxxxxxxxxxxxxxx')
     e.preventDefault()
     $.ajax({
-        url:'/place-order',
-        method:'post',
-        data:$('#checkout-form').serialize(),
-        success:(response)=>{
-            if(response.status==='COD'){
-                location.href='/order-success'
+        url: '/place-order',
+        method: 'post',
+        data: $('#checkout-form').serialize(),
+        success: (response) => {
+            if (response.status === 'COD') {
+                location.href = '/order-success'
 
-            }else{
-               razorpayPayement(response)
+            } else {
+                razorpayPayement(response)
             }
-            
+
         }
 
     })
 })
-function  razorpayPayement(order){
+function razorpayPayement(order) {
     var options = {
         "key": "rzp_test_0lu74rFyib3blw", // Enter the Key ID generated from the Dashboard
         "amount": order.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
@@ -27,11 +37,9 @@ function  razorpayPayement(order){
         "name": "Abu Thahir", //your business name
         "description": "Test Transaction",
         "image": "https://example.com/your_logo",
-        "order_id":order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
-        "handler":(response)=>{
-            console.log("inside handler")
-            alert(response)
-            verifyPayement(response,order)
+        "order_id": order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+        "handler": (response) => {
+            verifyPayement(response, order)
 
         },
         //"callback_url": "https://eneqd3r9zrjok.x.pipedream.net/",
@@ -50,81 +58,83 @@ function  razorpayPayement(order){
     var rzp1 = new Razorpay(options);
     rzp1.open();
 }
-function verifyPayement(payement,order){
+function verifyPayement(payement, order) {
     console.log('verify Payement function called')
     $.ajax({
-        url:'/verify-payement',
-        data:{
+        url: '/verify-payement',
+        data: {
             payement,
             order
         },
-        method:'post',
-        success:(response)=>{
+        method: 'post',
+        success: (response) => {
             console.log('success called')
-           if(response.status){
-            location.href='/order-success'
-           }else{
-            alert('payement failed')
-           }
-            
-        }
-    })
-
-}
-function addToCart(proId){
-    $.ajax({
-        url:"/addtocart/"+proId,
-        method:'get',
-        success:(response)=>{
-           
-               if(response.response!='increment'){
-                let count=$('#cart-count').html()
-                count=parseInt(count)+1
-                $('#cart-count').html(count)
-                }
-              else
-              {
-                alert('item already exist in cart')
-              }
-           
+            if (response.status) {
+                location.href = '/order-success'
+            } else {
+                alert('payement failed')
+            }
 
         }
     })
 
 }
-function changeQuantity(cartId,proId,count){
-   let quantity=parseInt( document.getElementById(proId).innerHTML)
+function addToCart(proId,user){
+       $.ajax({
+            url: "/addtocart/" + proId,
+            method: 'get',
+            success: (response) => {
+                
+                    if (response.response != 'increment') {
+                        let count = $('#cart-count').html()
+                        count = parseInt(count) + 1
+                        $('#cart-count').html(count)
+                    }
+                    else {
+                        alert('item already exist in cart')
+                    }
     
+                
+            }
+        })
+   
+
+}
+function changeQuantity(cartId, proId, count) {
+    let quantity = parseInt(document.getElementById(proId).innerHTML)
+
     $.ajax({
-        url:'/change-product-quantity',
-        data:{
-            cart:cartId,
-            product:proId,
-            count:count,
-            quantity:quantity
+        url: '/change-product-quantity',
+        data: {
+            cart: cartId,
+            product: proId,
+            count: count,
+            quantity: quantity
         },
-        method:'post',
-        success:(response)=>{
-            count=parseInt(count)
+        method: 'post',
+        success: (response) => {
+            count = parseInt(count)
             console.log(response)
-            if(response.response.productRemoved){
+            if (response.response.productRemoved) {
                 alert('product removed from cart')
                 location.reload()
 
-            }else
-               {
-                 if(count==1){
-                
-                   document.getElementById(proId).innerHTML=quantity+1
-                    
+            } else {
+                if (count == 1) {
+
+                    document.getElementById(proId).innerHTML = quantity + 1
+
                 }
-                else{
-                   
-                    quantity=quantity-1
-                    document.getElementById(proId).innerHTML=quantity                }
-          }
-    
-          $('#total').html(response.total)
+                else {
+
+                    quantity = quantity - 1
+                    document.getElementById(proId).innerHTML = quantity
+                }
+            }
+
+            $('#total').html(response.total)
         }
     })
 }
+
+

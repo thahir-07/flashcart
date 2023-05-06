@@ -25,8 +25,10 @@
                     <label for="radio">COD</label><br>
                     <input type="radio" name="payementMethod" id="radio2" value="online payement" required>
                     <label for="radio">Online Payement</label><br><br>
+                    {{#if total}}
 
-                    <input type="submit" class="btn btn-success" value="Checkout">
+                 <input type="submit" class="btn btn-success" value="Checkout">
+                 {{/if}}
                 </div>
 
             </div>

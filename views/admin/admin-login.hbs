@@ -1,0 +1,16 @@
+<section >
+    <div class="container-fluid pt-4 m-auto">
+        <div class="row pt-4 ">
+            <form action="/admin/admin-page" class="text-center" id="admin-login" method="post">
+                <div class="pb-2">  <h2>login</h2></div>
+                
+               <div class="form-group pt-2"> <input class="text-center border border-shadow inp"type="text" name="adminName" placeholder="Admin name"></div>
+                <div class="form-group pt-3"><input class="text-center border border-shadow inp" type="password" name="password" placeholder="Password"></div>
+                {{#if err}}
+                <div style="color:red"><p>{{err}}</p></div>
+                {{/if}}
+                <div class="pt-3"><input class="btn btn-success" type="submit" value="login"></div>
+            </form>
+        </div>
+    </div>
+</section>

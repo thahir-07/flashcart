@@ -179,5 +179,22 @@ module.exports = {
             })
 
         })
+    },
+    checkAdminLogin:(admin)=>{
+        return new Promise(async(resolve,reject)=>{
+           adminData=await db.get().collection('admin').findOne({adminName:'thahir'})
+           console.log(adminData)
+           if(admin.adminName===adminData.adminName){
+              if(admin.password==adminData.password){
+                resolve(adminData)
+              }else{
+                reject()
+              }
+           }else{
+            reject()
+           }
+           
+        })
+        
     }
 }
