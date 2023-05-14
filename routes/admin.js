@@ -47,8 +47,10 @@ router.get('/add-products', function (req, res) {
   res.render('admin/add-product', { admin: true })
 
 });
-router.get('/orders', function (req, res) {
-  res.render('admin/view-products', { admin: true })
+router.get('/orders',async function (req, res) {
+  let orders=await userHelpers.getAllOrderDetails()
+  console.log(orders)
+  res.render('admin/all-orders',{orders,admin:true})
 
 });
 router.get('/users', async function (req, res) {
@@ -57,6 +59,13 @@ router.get('/users', async function (req, res) {
  
 
 });
+
+router.get('/view-order-products/:id',async(req,res)=>{
+  console.log("id from admin panel",req.params.id)
+  console.log(req.params.id)
+  let products=await userHelpers.getOrderProduct(req.params.id)
+  res.render('admin/view-order-products',{products,admin:true}) 
+})
 
 router.post('/add-products', function (req, res) {
   producthelper.addProduct(req.body, (id) => {

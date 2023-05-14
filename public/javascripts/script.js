@@ -6,6 +6,10 @@ $(function(){
     $('#user').DataTable()
     
     })
+$(function(){
+    $('#orderHistoryTable').DataTable()
+        
+    })
 function count(id){
     console.log("count function called")
    var count=document.getElementById(id).innerHTML
