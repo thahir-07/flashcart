@@ -196,5 +196,11 @@ module.exports = {
            
         })
         
+    },
+    allUsers:()=>{
+        return new Promise((resolve,reject)=>{
+           var users=db.get().collection(collections.USER_COLLECTION).find().toArray()
+           resolve(users)
+        })
     }
 }

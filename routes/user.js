@@ -212,6 +212,10 @@ router.post('/verify-payement',(req,res)=>{
   })
 
 })
+router.get('/user-account',(req,res)=>{
+  res.render('user/user-account',{user})
+
+})
 module.exports = router
 
 

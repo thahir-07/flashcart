@@ -51,8 +51,10 @@ router.get('/orders', function (req, res) {
   res.render('admin/view-products', { admin: true })
 
 });
-router.get('/users', function (req, res) {
-  res.render('admin/view-products', { admin: true })
+router.get('/users', async function (req, res) {
+  var users=await userHelpers.allUsers()
+  res.render('admin/all-user',{users, admin: true })
+ 
 
 });
 
@@ -106,7 +108,6 @@ router.post('/edit-products/:id', (req, res) => {
 
 
 })
-
 module.exports = router;
 
 
