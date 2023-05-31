@@ -1,16 +1,148 @@
-<div class="container">
-    <div class="row">
-        <div class="col-12">
-            <form action="" class="user-detail">
-                <input class="user-detail" type="text" name="name" id="name" placeholder="User Name">
-                <input class="user-detail" type="email" name="email" id="email" placeholder="Email">
-                <input  class="user-detail" type="tel" name="mobile" id="mobile" placeholder="Contact">
-                <textarea class="user-detail" name="address" id="address" cols="30" rows="4" placeholder="Address"></textarea>
-                <input class="user-detail" type="number" name="pincode" id="pincode" placeholder="pincode">
-                <input class="user-detail" type="submit" value="submit">
 
 
-            </form>
-        </div>
+<div class="container bg-green">
+    <div class="view-account ">
+        <section class="module ">
+            <div class="module-inner">
+                <div class="side-bar sb">
+                    <div class="user-info text-center">
+                        <img class="img-profile rounded-circle img-responsive center-block mt-4" src="/product-image/{{profile._id}}.jpg" alt="image not found">
+                        <ul class="meta list list-unstyled">
+                            <li><h3>{{user.name}}</h3> </li>
+                            
+                           
+                        </ul>
+                    </div>
+            		<nav class="side-menu">
+        				<ul class="nav">
+        					<li class="active"><a href="#"><span class="fa fa-user"></span> Profile</a></li>
+        					<li><a href="#"><span class="fa fa-cog"></span> Settings</a></li>
+        					<li><a href="#"><span class="fa fa-credit-card"></span> Billing</a></li>
+        				</ul>
+        			</nav>
+                </div>
+                <div class="content-panel">
+                    <h2 class="title">Profile</h2>
+                    <form class="form-horizontal" action="/update-profile" enctype="multipart/form-data"  method="post">
+                        <fieldset class="fieldset">
+                            <h3 class="fieldset-title">Personal Info</h3>
+                            <div class="form-group avatar">
+                                <figure class="figure col-md-2 col-sm-3 col-xs-12">
+                                    <img class="img-rounded img-responsive " id="profile_img_change" src="/product-image/{{profile._id}}.jpg" alt="Profile">
+                                </figure>
+                                <div class="form-inline col-md-10 col-sm-9 col-xs-12">
+                                    <input type="file" width="20px" class="file-uploader pull-left mb-3" id="image" name="image" onchange="profile_image_changed(event)">
+                                    <input type="submit" width="10px" class="btn btn-info text-white btn-default-alt pull-left" value="update image"><br><br>
+                                </div>
+                            </div>
+                            <div class="form-group"><br><br>
+                               <label class="col-md-2 col-sm-3 col-xs-12 control-label">First Name</label>
+                                <div class="col-md-10 col-sm-9 col-xs-12">
+                                    <input type="text" class="form-control" name="fname" value="{{profile.fname}}">
+                                </div>
+                            </div>
+        
+                            <div class="form-group">
+                                 <label class="col-md-2 col-sm-3 col-xs-12 control-label">Last Name</label>
+                                <div class="col-md-10 col-sm-9 col-xs-12">
+                                    <input type="text" class="form-control" name="lname" value="{{profile.lname}}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 col-sm-3 col-xs-12 control-label"></label>
+                                <div class="col-md-10 col-sm-9 col-xs-12">
+                                {{#if profile}}
+                                    {{#if male}}
+                                    <label for="Male">Male</label >
+                                    <input type="radio" name="gender"  value="Male" checked >
+                                    <label for="Male">Female</label>
+                                     <input type="radio" name="gender" value="Female">
+                                    {{/if}}
+                                    {{#if female}}
+                                     <label for="Male">Male</label >
+                                     <input type="radio" name="gender"  value="Male">
+                                    <label for="Male">Female</label>
+                                     <input type="radio" name="gender" value="Female" checked>
+                                    {{/if}}
+                                {{else}}
+                                    <label for="Male">Male</label >
+                                    <input type="radio" name="gender"  value="Male">
+                                    <label for="Male">Female</label>
+                                    <input type="radio" name="gender" value="Female">
+                                {{/if}}
+
+
+
+                                </div>
+                            </div>
+                        </fieldset>
+                        <fieldset class="fieldset">
+                            <h3 class="fieldset-title strong mt-4">Contact Info</h3>
+                           
+                            <div class="form-group">
+                                <label class="col-md-2  col-sm-3 col-xs-12 control-label">Locality</label>
+                                <div class="col-md-10 col-sm-9 col-xs-12">
+                                    <input type="text" class="form-control" name="locality" value="{{profile.locality}}">
+            
+                                </div>
+                            <div class="form-group">
+                                <label class="col-md-2  col-sm-3 col-xs-12 control-label">Pincode</label>
+                                <div class="col-md-10 col-sm-9 col-xs-12">
+                                    <input type="number" class="form-control" name="pincode" value="{{profile.pincode}}">
+            
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-6  col-sm-3 col-xs-12 mb-1 ">Address(Area and Street)</label>
+                                <div class="col-md-10 col-sm-9 col-xs-12">
+                                    <textarea type="text" class="form-control" name="area-street" >{{profile.area_street}}</textarea>
+            
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2  col-sm-3 col-xs-12 control-label">City/District/Town</label>
+                                <div class="col-md-10 col-sm-9 col-xs-12">
+                                    <input type="text" class="form-control" name="city-district" value="{{profile.city_district}}">
+            
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2  col-sm-3 col-xs-12 control-label">State</label>
+                                <div class="col-md-10 col-sm-9 col-xs-12">
+                                    <input type="text" class="form-control" name="state" value="{{profile.state}}">
+            
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2  col-sm-3 col-xs-12 control-label">Mobile Number</label>
+                                <div class="col-md-10 col-sm-9 col-xs-12">
+                                    <input type="tel" class="form-control" name="number" value="{{profile.number}}">
+                
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2  col-sm-3 col-xs-12 control-label">Email</label>
+                                <div class="col-md-10 col-sm-9 col-xs-12">
+                                    <input type="email" class="form-control" name="email" value="{{profile.email}}">
+                                    
+                                </div>
+                            </div>
+                        </fieldset>
+                        <hr>
+                        <div class="form-group">
+                            <div class="col-md-10 col-sm-9 col-xs-12 col-md-push-2 col-sm-push-3 col-xs-push-0 text-center">
+                                <input type="submit" class="btn btn-primary" value="update" >
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
     </div>
 </div>
+<script>
+    function profile_image_changed(event){
+        console.log(event)
+        document.getElementById('profile_img_change').src=URL.createObjectURL(event.target.files[0])
+    }
+</script>

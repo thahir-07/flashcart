@@ -65,9 +65,14 @@ module.exports = {
             let orderObj = {
                 deliveryDetails: {
                     date: new Date().toLocaleString(),
-                    address: order.address,
-                    pincode: order.pincode,
-                    phone: order.phone
+                    name:order.name,
+                    email:order.email,
+                    number:order.number,
+                    locality:order.locality,
+                    pincode:order.pincode,
+                    area_street:order['area-street'],
+                    city_district:order['city-district'],
+                    state:order.state
                 },
                 userId: new objectId(user),
                 payementMethod: order.payementMethod,
@@ -208,5 +213,60 @@ module.exports = {
            var users=db.get().collection(collections.USER_COLLECTION).find().toArray()
            resolve(users)
         })
+    },
+    update_profile:(userdata,userId)=>{
+       
+        return new Promise(async (resolve,reject)=>{
+            var user_details={
+                userid:new objectId(userId),
+                fname:userdata.fname,
+                lname:userdata.lname,
+                gender:userdata.gender,
+                email:userdata.email,
+                number:userdata.number,
+                locality:userdata.locality,
+                pincode:userdata.pincode,
+                area_street:userdata['area-street'],
+                city_district:userdata['city-district'],
+                state:userdata.state
+    
+            }
+            var user_profile=await db.get().collection(collections.USER_DATA).findOne({userid:new objectId(userId)})
+            
+            if(user_profile==null){
+                db.get().collection(collections.USER_DATA).insertOne(user_details).then((response)=>{
+                    resolve(response)
+                })
+               
+            }
+            else{
+              
+                db.get().collection(collections.USER_DATA).updateOne({userid:new objectId(userId)},{$set:{
+                   
+                    fname:userdata.fname,
+                    lname:userdata.lname,
+                    gender:userdata.gender,
+                    email:userdata.email,
+                    number:userdata.number,
+                    locality:userdata.locality,
+                    pincode:userdata.pincode,
+                    area_street:userdata['area-street'],
+                    city_district:userdata['city-district'],
+                    state:userdata.state
+                }}).then((response)=>{
+                    resolve(response)
+                })
+            }     
+           
+        })
+        
+
+    },
+    find_profile:(userId)=>{
+        return new Promise(async(resolve,reject)=>{
+            var profile=await db.get().collection(collections.USER_DATA).findOne({userid:new objectId(userId)})
+            resolve(profile)
+        })
+
     }
 }
