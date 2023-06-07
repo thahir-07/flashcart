@@ -8,6 +8,11 @@ var instance = new Razorpay({ key_id:'rzp_test_0lu74rFyib3blw', key_secret:'XKgn
 module.exports = {
     doSignup: (userdata) => {
         return new Promise(async (resolve, reject) => {
+            db.get().collection(collections.USER_COLLECTION).findOne({email:userdata.email}).then((response)=>{
+                if(response){
+                    resolve({err:"user already exist"})
+                }
+            })
             userdata.password = await bcrypt.hash(userdata.password, 10)
             db.get().collection(collections.USER_COLLECTION).insertOne(userdata).then((data) => {
                 console.log(data)

@@ -1,17 +1,43 @@
-<section >
+<section>
     <div class="container-fluid pt-4 m-auto">
         <div class="row pt-4 ">
-            <form action="/login" class="text-center " method="post">
-                <div class="pb-2">  <h2>login</h2></div>
-                
-               <div class="form-group pt-2"> <input class="text-center border border-shadow inp"type="text" name="email" placeholder="Email"></div>
-                <div class="form-group pt-3"><input class="text-center border border-shadow inp" type="password" name="password" placeholder="Password"></div>
-                <div><a class="a-new" href="/signup">create new account?</a></div>
-                {{#if logerr}}
-                <div style="color:red"><p>{{logerr}}</p></div>
-                {{/if}}
-                <div class="pt-3"><input class="btn btn-success" type="submit" role="button" value="login"></div>
-            </form>
+            <div class="col-12">
+                <form action="/login" class="text-center" method="post">
+                    <div class="pb-2">
+                        <h2>login</h2>
+                    </div>
+
+                    <div class="form-group pt-2"> <input class="text-center border border-shadow inp" type="text"
+                            name="email" placeholder="Email"></div>
+                    <div class="form-group pt-3"><input class="text-center border border-shadow inp" type="password"
+                            name="password" placeholder="Password"></div>
+                    <div><a class="a-new" href="/signup">create new account?</a></div>
+                    {{#if logerr}}
+                    <div style="color:red">
+                        <p>{{logerr}}</p>
+                    </div>
+                    {{/if}}
+
+                    <div class="pt-3"><input class="btn btn-success" type="submit" role="button" value="login"></div>
+                </form>
+                <div>
+                    <div class="g-signin2 p-2" data-onsuccess="onSignIn"></div>
+                </div>
+            </div>
+
         </div>
     </div>
 </section>
+<script>
+    function onSignIn(googleUser) {
+        var profile = googleUser.getBasicProfile();
+        $.ajax({
+            url: '/login',
+            method: 'post',
+            data: profile,
+            success: function (response) {
+                console.log(response)
+            }
+        })
+    }
+</script>

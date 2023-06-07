@@ -1,3 +1,11 @@
+.g-signin2{
+    width:100%;
+    
+}
+.g-signin2>div{
+    margin: 0 auto;
+}
+
 .bg-color{
   background-color: #b06fed;
   background-image: linear-gradient( rgb(133, 67, 164)10%,rgb(0, 255, 123));

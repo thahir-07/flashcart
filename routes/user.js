@@ -37,22 +37,25 @@ router.get('/login', function (req, res) {
 
   }
 })
-
-
 router.get('/signup', function (req, res) {
   res.render('user/user-signup')
 })
 router.post('/signup', function (req, res) {
   userhelpers.doSignup(req.body).then((response) => {
-    req.session.userLoggedIn = true
+    if(response.err){
+      err=response.err
+      res.render('user/user-signup',{err})
+
+    }else{
+      req.session.userLoggedIn = true
     req.session.user = response
     user = req.session.user
     res.redirect('/login')
+    }
+    
   })
 })
 router.post('/login', function (req, res) {
-
-
   userhelpers.doLogin(req.body).then((response) => {
     if (response.status) {
       req.session.userLoggedIn = true
