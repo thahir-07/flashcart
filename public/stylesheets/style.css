@@ -1,3 +1,46 @@
+.nav-li{
+    text-decoration: none;
+    color:rgb(255, 252, 252);
+    margin-right: 10px;
+}
+.active,.nav-li:hover{
+    padding: 5px;
+    background-color: white;
+    border-radius: 5px;
+    color: black;
+    
+}
+.description-text {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+.product-navigator{
+    display: inline-block;
+
+}
+.scrolling-wrapper {
+      overflow-x: scroll;
+      overflow-y: hidden;
+      white-space: nowrap;
+      padding-bottom: 20px;
+      scroll-behavior: smooth;
+      margin-top: 10px;
+      padding-top: 10px;
+      margin-left: 5px;
+    }
+    .scrolling-wrapper::-webkit-scrollbar{
+      display: none;
+    }
+
+    .product {
+      display: inline-block;
+      width: 200px;
+      height: auto;
+      text-align: center;
+      word-wrap: break-word;
+    }
 .g-signin2{
     width:100%;
     
@@ -41,6 +84,7 @@
     box-shadow: 1.5px 1.5px 3px 2px#828280;
     transition: all .2s ease-in-out;
     border-radius: 5px;
+    transform: scale(10px);
     }
 
   

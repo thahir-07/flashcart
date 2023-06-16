@@ -6,7 +6,7 @@
             <div class="module-inner">
                 <div class="side-bar sb">
                     <div class="user-info text-center">
-                        <img class="img-profile rounded-circle img-responsive center-block mt-4" src="/product-image/{{profile._id}}.jpg" alt="image not found">
+                        <img class="img-profile rounded-circle img-responsive center-block mt-4" src="/user-image/{{profile._id}}.jpg" alt="image not found">
                         <ul class="meta list list-unstyled">
                             <li><h3>{{user.name}}</h3> </li>
                             
@@ -28,7 +28,7 @@
                             <h3 class="fieldset-title">Personal Info</h3>
                             <div class="form-group avatar">
                                 <figure class="figure col-md-2 col-sm-3 col-xs-12">
-                                    <img class="img-rounded img-responsive " id="profile_img_change" src="/product-image/{{profile._id}}.jpg" alt="Profile">
+                                    <img class="rounded-circle img-responsive " id="profile_img_change" src="/user-image/{{profile._id}}.jpg" alt="Profile">
                                 </figure>
                                 <div class="form-inline col-md-10 col-sm-9 col-xs-12">
                                     <input type="file" width="20px" class="file-uploader pull-left mb-3" id="image" name="image" onchange="profile_image_changed(event)">

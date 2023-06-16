@@ -10,6 +10,8 @@ var adminRouter = require('./routes/admin');
 var fileupload=require('express-fileupload')
 var db=require("./config/connection")
 var session=require('express-session')
+var hbs_helper=require('./config/handlebars-helper/handlebar-helper')
+
 
 var app = express();
 
@@ -17,7 +19,7 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 // or app.engine('hbs',hbs.engine({extname:'hbs',defaultLayout: 'layout',layoutsDir:__dirname+'/views/layouts/',partialsDir:__dirname+'/views/partials/'}))
-app.engine('hbs',hbs({extname:'hbs',defaultLayout: 'layout',layoutsDir:__dirname+'/views/layouts/',partialsDir:__dirname+'/views/partials/'}))
+app.engine('hbs',hbs({extname:'hbs',helpers:hbs_helper,defaultLayout: 'layout',layoutsDir:__dirname+'/views/layouts/',partialsDir:__dirname+'/views/partials/'}))
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

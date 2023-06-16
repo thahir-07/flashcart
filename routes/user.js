@@ -56,6 +56,7 @@ router.post('/signup', function (req, res) {
   })
 })
 router.post('/login', function (req, res) {
+  console.log(req.body)
   userhelpers.doLogin(req.body).then((response) => {
     if (response.status) {
       req.session.userLoggedIn = true
@@ -254,7 +255,7 @@ router.post('/update-profile', (req, res) => {
       if(req.files){
         console.log("inside req.files")
         let image = req.files.image
-          image.mv('./public/product-image/' + profile._id + ".jpg")
+          image.mv('./public/user-image/' + profile._id + ".jpg")
     
       } 
       console.log(profile)
