@@ -52,6 +52,20 @@ module.exports = {
 
         })
     },
+    googleLogin:(profile)=>{
+        return new Promise(async(resolve,reject)=>{
+           var user=await db.get().collection(collections.GOOGLE_COLLECTION).findOne({id:profile.id})
+           if(!user){
+            db.get().collection(collections.GOOGLE_COLLECTION).insertOne(profile).then((response)=>{
+                resolve(response)
+            })
+
+           }else{
+            resolve(user)
+           }
+            
+        })
+    },
     cartCount: (userId) => {
         return new Promise(async (resolve, reject) => {
             let cartItemCount = 0

@@ -3,5 +3,6 @@ module.exports={
     USER_COLLECTION:'user',
     CART_COLLECTION:'cart',
     ORDER_COLLECTION:'order',
-    USER_DATA:'user_info'
+    USER_DATA:'user_info',
+    GOOGLE_COLLECTION:'google_login'
 }

@@ -7,9 +7,58 @@ var userhelpers = require('../helpers/user-helpers');
 var productHelpers = require('../helpers/product-helpers');
 const { handlebars } = require('hbs');
 const userHelpers = require('../helpers/user-helpers');
+const passport = require('passport');
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
 let user = null
 let cartItemCount = 0
 
+passport.use(new GoogleStrategy({
+  clientID: '504408032003-jajn2rr5v0ahivm5rj2t649uk8t1prop.apps.googleusercontent.com',
+  clientSecret: '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',
+  callbackURL: '/auth/google/callback' // Customize the callback URL as needed
+}, (accessToken, refreshToken, profile, done) => {
+    
+
+  // Here, you can handle the user profile received from Google.
+  // You can save it to the database or perform any other actions.
+  // The user's Google profile information is available in the 'profile' object.
+  // 'accessToken' and 'refreshToken' are also provided if you need them.
+  // You can call the 'done' function to proceed with authentication.
+  done(null, profile);
+}));
+
+router.get('/auth/google', passport.authenticate('google', { scope: ['profile'] }));
+
+passport.serializeUser((user, done) => {
+  done(null, user.id);
+});
+passport.deserializeUser((id, done) => {
+  userHelpers.findById(id, (err, user) => {
+    done(err, user);
+  })
+});
+
+router.get('/auth/google/callback',
+    passport.authenticate('google', { failureRedirect: '/login' }),
+    (req, res) => {
+      console.log(req.user)
+        userHelpers.googleLogin(req.user).then((response)=>{
+          req.session.userLoggedIn = true
+          console.log("response")
+          console.log(response)
+          var user={
+            _id:response._id,
+            id:req.user.id,
+            name:req.user.displayName,
+            login_mode:'google'
+          }
+         req.session.user = user
+          res.redirect('/');
+
+        })
+        
+    }
+);
 
 /* GET home page. */
 router.get('/', async function (req, res, next) {
@@ -71,6 +120,10 @@ router.post('/login', function (req, res) {
   })
 })
 router.get('/logout', function (req, res) {
+  
+  if(req.session.user.login_mode){
+   req.logout()
+  }
   req.session.user = null
   req.session.userLoggedIn = false
 

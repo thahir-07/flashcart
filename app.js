@@ -11,10 +11,15 @@ var fileupload=require('express-fileupload')
 var db=require("./config/connection")
 var session=require('express-session')
 var hbs_helper=require('./config/handlebars-helper/handlebar-helper')
-
-
+const passport = require('passport');
 var app = express();
-
+app.use(session({
+  secret: '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',
+  resave: false,
+  saveUninitialized: false
+}));
+app.use(passport.initialize());
+app.use(passport.session());
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
