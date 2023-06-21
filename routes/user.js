@@ -33,7 +33,8 @@ passport.serializeUser((user, done) => {
   done(null, user.id);
 });
 passport.deserializeUser((id, done) => {
-  userHelpers.findById(id, (err, user) => {
+  console.log("this id from deserialize   ",id)
+  userHelpers.findById(id, (err,user) => {
     done(err, user);
   })
 });
@@ -122,7 +123,9 @@ router.post('/login', function (req, res) {
 router.get('/logout', function (req, res) {
   
   if(req.session.user.login_mode){
-   req.logout()
+   req.logout(()=>{
+    console.log(data)
+   })
   }
   req.session.user = null
   req.session.userLoggedIn = false
@@ -273,20 +276,31 @@ router.post('/verify-payement', (req, res) => {
 })
 router.get('/user-account', async (req, res) => {
   if (req.session.userLoggedIn) {
-    var profile = await userHelpers.find_profile(user._id)
-    if (profile) {
-      if (profile.gender == 'Male') {
-        res.render('user/user-account', { user, cartItemCount, profile, male: true })
+    if(req.session.user.login_mode){
+      console.log(req.user)
+     var profile={
+      name : req.user.displayName,
+      photo:req.user.photos[0].value
+     }
+     res.render('user/user-account',{user,cartItemCount,profile,google:true})
+    }else{
+      var profile = await userHelpers.find_profile(user._id)
+      if (profile) {
+        if (profile.gender == 'Male') {
+          res.render('user/user-account', { user, cartItemCount, profile, male: true })
+        }
+        else {
+          res.render('user/user-account', { user, cartItemCount, profile, female: true })
+  
+        }
+  
+      } else {
+        res.render('user/user-account', { user, cartItemCount, profile })
       }
-      else {
-        res.render('user/user-account', { user, cartItemCount, profile, female: true })
+  
 
-      }
-
-    } else {
-      res.render('user/user-account', { user, cartItemCount, profile })
     }
-
+   
 
   } else {
     res.render('user/user-login')
@@ -331,6 +345,9 @@ router.post('/update-profile', (req, res) => {
     res.render('user/user-login')
   }
 
+})
+router.get('/offer',(req,res)=>{
+  res.render('user/offer-page')
 })
 module.exports = router
 

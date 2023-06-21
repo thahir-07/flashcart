@@ -287,5 +287,11 @@ module.exports = {
             resolve(profile)
         })
 
+    },
+    findById:(id,callback)=>{
+        db.get().collection(collections.GOOGLE_COLLECTION).findOne({id:id}).then((data)=>{
+           var err=undefined
+            callback(err,data)
+        })
     }
 }
