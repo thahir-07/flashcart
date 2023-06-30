@@ -349,6 +349,34 @@ router.post('/update-profile', (req, res) => {
 router.get('/offer',(req,res)=>{
   res.render('user/offer-page')
 })
+router.get('/mobiles-tablets',async(req,res)=>{
+     var product=await userHelpers.filter_products('smart phone','tablet')
+     res.render('user/mobiles-tablets', { product, admin: false, user, cartItemCount })
+})
+router.get('/electronics',async(req,res)=>{
+  var product=await userHelpers.filter_products('electronic','electronics')
+  res.render('user/electronics', { product, admin: false, user, cartItemCount })
+})
+router.get('/tv-appliances',async(req,res)=>{
+  var product=await userHelpers.filter_products('tv','appliances')
+  res.render('user/tv-appliances', { product, admin: false, user, cartItemCount })
+})
+router.get('/fashion',async(req,res)=>{
+  var product=await userHelpers.filter_products('fashion','cloths')
+  res.render('user/fashion', { product, admin: false, user, cartItemCount })
+})
+router.get('/beuty',async(req,res)=>{
+  var product=await userHelpers.filter_products('beuty','cosmetics')
+  res.render('user/beuty', { product, admin: false, user, cartItemCount })
+})
+router.get('/home-appliances',async(req,res)=>{
+  var product=await userHelpers.filter_products('home','home-appliances')
+  res.render('user/home-appliances', { product, admin: false, user, cartItemCount })
+})
+router.get('/furniture',async(req,res)=>{
+  var product=await userHelpers.filter_products('furniture','furniture')
+  res.render('user/furniture', { product, admin: false, user, cartItemCount })
+})
 module.exports = router
 
 

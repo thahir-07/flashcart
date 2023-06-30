@@ -293,5 +293,11 @@ module.exports = {
            var err=undefined
             callback(err,data)
         })
+    },
+    filter_products:(category1,category2)=>{
+        return new Promise(async (resolve, reject)=> {
+           var product= await db.get().collection(collections.PRODUCT_COLLECTION).find({$or:[{category:category1},{category:category2}]}).toArray()
+           resolve(product)
+        })
     }
 }
