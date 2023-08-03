@@ -71,7 +71,8 @@ router.get('/', async function (req, res, next) {
     console.log(cartItemCount.length)
   }
   producthelper.getAllProduct().then((product) => {
-    res.render('user/view-products', { product, admin: false, user, cartItemCount })
+    var nav="product"
+    res.render('user/view-products', { product, admin: false, user, cartItemCount ,nav})
   })
 })
 
@@ -143,8 +144,8 @@ router.get('/cart', async function (req, res) {
     producthelper.getCartProducts(req.session.user._id).then((products) => {
       productHelpers.totalAmount(req.session.user._id).then(async (response) => {
         let total = await productHelpers.totalAmount(req.session.user._id)
-
-        res.render('user/user-cart', { products, user, cartItemCount, total })
+        var nav='cart'
+        res.render('user/user-cart', { products, user, cartItemCount, total,nav})
 
       })
 
@@ -247,7 +248,8 @@ router.get('/show-orders', async (req, res) => {
   if (req.session.userLoggedIn) {
     let orders = await userHelpers.getOrderDetails(user._id)
     console.log(orders)
-    res.render('user/order-history', { orders, user, cartItemCount })
+    var nav='orders'
+    res.render('user/order-history', { orders, user, cartItemCount,nav})
   }
    else {
     res.redirect('user/user-login')

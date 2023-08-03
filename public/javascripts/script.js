@@ -21,6 +21,7 @@ function count(id){
 $("#checkout-form").submit((e) => {
     console.log('ajaxxxxxxxxxxxxxxxxxxxxxxx')
     e.preventDefault()
+    console.log(e)
     $.ajax({
         url: '/place-order',
         method: 'post',

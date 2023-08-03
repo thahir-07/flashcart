@@ -1,3 +1,4 @@
+
 <header class="item-center" style="margin-bottom: 50px;">
   <nav class="navbar navbar-expand-lg bg-body-tertia bg-color fixed-top">
     <div class="container-fluid">
@@ -11,16 +12,16 @@
         <ul class="navbar-nav me-auto mb-2 mb-lg-0 ml-2 my-Nav">
 
           <li class="nav-item">
-            <a class="nav-li" id="nav-products" href="/">products</a>
+            <a class="nav-li" id="nav-products" href="/" >products</a>
           </li>
           <li class="nav-item">
-            <a class="nav-li " id="nav-cart" href="/cart">cart <span style="color:black"
+            <a class="nav-li " id="nav-cart" href="/cart" >cart <span style="color:black"
                 class="badge badge-pill bg-white" id="cart-count">{{cartItemCount}}</span></a>
           </li>
           </li>
           {{#if user}}
           <li class="nav-item">
-            <a class="nav-li" href="/show-orders">orders</a>
+            <a class="nav-li" href="/show-orders" id="nav-orders" >orders</a>
           </li>
           {{/if}}
         </ul>
@@ -48,17 +49,18 @@
   </nav>
 </header>
 <script>
-  var nav_container = document.getElementsByClassName('my-nav')
-  var nav = document.getElementsByClassName('nav-li')
-  for (var i = 0; i < nav.length; i++) {
-    nav[i].addEventListener('click', () => 
-    {
-       var current = document.getElementsByClassName('active')
-      current[0].className = current[0].className.replace("active", " ")
-      console.log(current[0].className)
-      this.className += " active"
-
-    })
+  window.addEventListener('DOMContentLoaded',()=>{
+     var nav='{{nav}}'
+   
+  if(nav=='product'){
+    document.getElementById('nav-products').classList.add('active')
+  }else if(nav=='cart'){
+    document.getElementById('nav-cart').classList.add('active')
+  }else if(nav=='orders'){
+    document.getElementById('nav-orders').classList.add('active')
   }
-
+  
+  })
+ 
 </script>
+ 

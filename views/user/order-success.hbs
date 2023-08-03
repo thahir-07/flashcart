@@ -1,3 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Success</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f7f7f7;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            text-align: center;
+        }
+        .icon {
+            font-size: 64px;
+            color: #4CAF50;
+            margin-bottom: 20px;
+            opacity: 0;
+            transform: translateY(-20px);
+            animation: fadeIn 1s 0.5s forwards;
+        }
+        .message {
+            font-size: 24px;
+            margin-bottom: 20px;
+            opacity: 0;
+            transform: translateY(-20px);
+            animation: fadeIn 1s 1s forwards;
+        }
+        .amount {
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 40px;
+            opacity: 0;
+            transform: translateY(-20px);
+            animation: fadeIn 1s 1.5s forwards;
+        }
+        .order-id {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: #777;
+            opacity: 0;
+            transform: translateY(-20px);
+            animation: fadeIn 1s 2s forwards;
+        }
+        .success-animation {
+            opacity: 0;
+            transform: scale(0);
+            animation: successScale 1s 0.5s forwards, fadeIn 1s 0.5s forwards;
+        }
+        @keyframes successScale {
+            0% {
+                transform: scale(0);
+            }
+            50% {
+                transform: scale(1.2);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="icon">&#10004;</div>
+        <div class="message">Payment Successful!</div>
+        <div class="amount">₹ 1,234.56</div>
+        <div class="order-id">Order ID: #1234567890</div>
+        <div class="success-animation">
+            <!-- Replace this section with an animated GIF or other animated elements -->
+            <!-- You can use libraries like Lottie (https://airbnb.io/lottie) for more complex animations -->
+            <!-- For simplicity, we're using a CSS-animated checkmark here -->
+            <div class="checkmark"></div>
+        </div>
+        <script>
+            // You can add additional JavaScript here for further customizations or interactions.
+            // For a basic animated checkmark, this script is not necessary.
+        </script>
+    </div>
+</body>
+</html>
+
+
+
 <div class="container  pt-5 text-center">
     <h1 class="mt-5">Order Success</h1>
 <a class="btn btn-success mt-3" href="/show-orders">Show Details</a>

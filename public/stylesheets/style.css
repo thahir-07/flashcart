@@ -707,5 +707,8 @@ body{
     width:400px
   }
     
+  .product:hover img{
+    transform: scale(1.03);
+  }
 
 

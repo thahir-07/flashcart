@@ -86,7 +86,7 @@
                 <label for="radio">Online Payement</label><br><br>
                 {{#if total}}
 
-                <input type="submit" class="btn btn-success" value="Checkout">
+                <input type="submit" onclick="checkOnline()" class="btn btn-success" value="Checkout">
                 {{/if}}
             </div>
 
@@ -98,5 +98,10 @@
     </div>
 </div>
 <script>
-
+ function checkOnline(){
+            if(!navigator.onLine){
+                alert("check your internet connection")
+                return false
+            }           
+         }
 </script>
