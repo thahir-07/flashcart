@@ -1,37 +1,54 @@
-<div class="container">
-    <div class="row">
-        <div class="col mt-3">
-            <table id="orderHistoryTable" class="table pt-4">
-                <thead>
-                    <tr>
-                    <th>Date</th>
-                    <th>Address</th>
-                    <th>Pincode</th>
-                    <th>Mobile</th>
-                    <th>Amount</th>
-                    <th>Payement</th>
-                    <th>Status</th>
-                    <th>View Product</th>
-                    </tr>
-                </thead>
-                <tbody>
 
-                    {{#each orders}}
-                    
-                    <tr>
-                        <td>{{this.deliveryDetails.date}}</td>
-                        <td>{{this.deliveryDetails.area_street}}</td>
-                        <td>{{this.deliveryDetails.pincode}}</td>
-                        <td>{{this.deliveryDetails.number}}</td>
-                        <td>Rs.{{this.total}}/-</td>
-                        <td>{{this.payementMethod}}</td>
-                        <td>{{this.status}}</td>
-                        <td><a href="/view-order-products/{{this._id}}" class="btn btn-primary">view product</a></td>
-                    </tr>
-                    {{/each}}
-
-                </tbody>
-            </table>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        .product-card {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin-bottom: 20px;
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .product-img {
+            max-width: 100px;
+            max-height: 100px;
+        }
+        p{
+            display: inline;
+        
+        }
+        h4{
+            display: inline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+             {{#each orders}}
+            <div class="col-md-6">
+                <div class="product-card">
+                    <div class="row">
+                        <div class="col-md-8">
+                             <h4>Date:</h4><p>{{this.deliveryDetails.date}}</p><br>
+                            <h4>Address:</h4><p>{{this.deliveryDetails.area_street}}</p><br>
+                            <h4>Pincode:</h4><p>{{this.deliveryDetails.pincode}}</p><br>
+                            <h4>Mobile:</h4><p>{{this.deliveryDetails.number}}</p><br>
+                            <h4>Amount:</h4><p>Rs.{{this.total}}/-</p><br>
+                            <h4>Payement Method:</h4><p>{{this.payementMethod}}</p><br>
+                            <h4>Status:</h4><p>{{this.status}}</p><br>
+                            <h4><a href="/view-order-products/{{this._id}}" class="btn btn-primary">view product</a></h4>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+            {{/each}}
+            
         </div>
-    </div>
-</div>
+
+

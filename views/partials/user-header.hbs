@@ -1,4 +1,3 @@
-
 <header class="item-center" style="margin-bottom: 50px;">
   <nav class="navbar navbar-expand-lg bg-body-tertia bg-color fixed-top">
     <div class="container-fluid">
@@ -12,21 +11,26 @@
         <ul class="navbar-nav me-auto mb-2 mb-lg-0 ml-2 my-Nav">
 
           <li class="nav-item">
-            <a class="nav-li" id="nav-products" href="/" >products</a>
+            <a class="nav-li" id="nav-products" href="/">products</a>
           </li>
           <li class="nav-item">
-            <a class="nav-li " id="nav-cart" href="/cart" >cart <span style="color:black"
+            <a class="nav-li " id="nav-cart" href="/cart">cart <span style="color:black"
                 class="badge badge-pill bg-white" id="cart-count">{{cartItemCount}}</span></a>
           </li>
-          </li>
+
           {{#if user}}
           <li class="nav-item">
-            <a class="nav-li" href="/show-orders" id="nav-orders" >orders</a>
+            <a class="nav-li" href="/show-orders" id="nav-orders">orders</a>
           </li>
           {{/if}}
         </ul>
+      <form class="d-flex mr-5" action="/search" method="post">
+        <input class="form-control pt-0 pb-0" style='height: 40px;margin-top: 5px;border: 1px linear-gradient(rgb(26, 193, 120),rgb(187, 0, 255));' type="search" placeholder="Search" name="search" aria-label="Search">
+        <input class="btn btn-outline-success bi-search s-b bg-white m-2" style="background-image: linear-gradient(rgb(26, 193, 120),rgb(187, 0, 255));color: white;" type="submit" value="search">
+      </form>
         <div class="dropdown">
-          <button class="btn  dropdown-toggle" type="button" id="dropdownMenuButton" style="background-image: linear-gradient(rgb(26, 193, 120),rgb(187, 0, 255));color:white"
+          <button class="btn  dropdown-toggle" type="button" id="dropdownMenuButton"
+            style="border: 1px solid ;color:white"
             data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             {{#if user}}
             {{user.name}}
@@ -49,18 +53,17 @@
   </nav>
 </header>
 <script>
-  window.addEventListener('DOMContentLoaded',()=>{
-     var nav='{{nav}}'
-   
-  if(nav=='product'){
-    document.getElementById('nav-products').classList.add('active')
-  }else if(nav=='cart'){
-    document.getElementById('nav-cart').classList.add('active')
-  }else if(nav=='orders'){
-    document.getElementById('nav-orders').classList.add('active')
-  }
-  
+  window.addEventListener('DOMContentLoaded', () => {
+    var nav = '{{nav}}'
+
+    if (nav == 'product') {
+      document.getElementById('nav-products').classList.add('active')
+    } else if (nav == 'cart') {
+      document.getElementById('nav-cart').classList.add('active')
+    } else if (nav == 'orders') {
+      document.getElementById('nav-orders').classList.add('active')
+    }
+
   })
- 
+
 </script>
- 

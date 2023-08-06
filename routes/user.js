@@ -17,7 +17,7 @@ passport.use(new GoogleStrategy({
   clientSecret: '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',
   callbackURL: '/auth/google/callback' // Customize the callback URL as needed
 }, (accessToken, refreshToken, profile, done) => {
-    
+
 
   // Here, you can handle the user profile received from Google.
   // You can save it to the database or perform any other actions.
@@ -32,33 +32,33 @@ router.get('/auth/google', passport.authenticate('google', { scope: ['profile'] 
 passport.serializeUser((user, done) => {
   done(null, user.id);
 });
+
 passport.deserializeUser((id, done) => {
-  console.log("this id from deserialize   ",id)
-  userHelpers.findById(id, (err,user) => {
+  userHelpers.findById(id, (err, user) => {
     done(err, user);
   })
 });
 
 router.get('/auth/google/callback',
-    passport.authenticate('google', { failureRedirect: '/login' }),
-    (req, res) => {
-      console.log(req.user)
-        userHelpers.googleLogin(req.user).then((response)=>{
-          req.session.userLoggedIn = true
-          console.log("response")
-          console.log(response)
-          var user={
-            _id:response._id,
-            id:req.user.id,
-            name:req.user.displayName,
-            login_mode:'google'
-          }
-         req.session.user = user
-          res.redirect('/');
+  passport.authenticate('google', { failureRedirect: '/login' }),
+  (req, res) => {
+    console.log(req.user)
+    userHelpers.googleLogin(req.user).then((response) => {
+      req.session.userLoggedIn = true
+      console.log("response")
+      console.log(response)
+      var user = {
+        _id: response._id,
+        id: req.user.id,
+        name: req.user.displayName,
+        login_mode: 'google'
+      }
+      req.session.user = user
+      res.redirect('/');
 
-        })
-        
-    }
+    })
+
+  }
 );
 
 /* GET home page. */
@@ -71,8 +71,8 @@ router.get('/', async function (req, res, next) {
     console.log(cartItemCount.length)
   }
   producthelper.getAllProduct().then((product) => {
-    var nav="product"
-    res.render('user/view-products', { product, admin: false, user, cartItemCount ,nav})
+    var nav = "product"
+    res.render('user/view-products', { product, admin: false, user, cartItemCount, nav })
   })
 })
 
@@ -93,17 +93,17 @@ router.get('/signup', function (req, res) {
 })
 router.post('/signup', function (req, res) {
   userhelpers.doSignup(req.body).then((response) => {
-    if(response.err){
-      err=response.err
-      res.render('user/user-signup',{err})
+    if (response.err) {
+      err = response.err
+      res.render('user/user-signup', { err })
 
-    }else{
+    } else {
       req.session.userLoggedIn = true
-    req.session.user = response
-    user = req.session.user
-    res.redirect('/login')
+      req.session.user = response
+      user = req.session.user
+      res.redirect('/login')
     }
-    
+
   })
 })
 router.post('/login', function (req, res) {
@@ -122,17 +122,16 @@ router.post('/login', function (req, res) {
   })
 })
 router.get('/logout', function (req, res) {
-  
-  if(req.session.user.login_mode){
-   req.logout(()=>{
-    console.log(data)
-   })
-  }
-  req.session.user = null
-  req.session.userLoggedIn = false
 
-  cartItemCount = 0
+  if (req.session.user.login_mode) {
+    req.logout((data)=>{
+      req.session.user = null
+      req.session.userLoggedIn = false
+      cartItemCount = 0
   res.redirect('/')
+    })
+  }
+  
 })
 router.get('/cart', async function (req, res) {
   if (req.session.user) {
@@ -144,8 +143,8 @@ router.get('/cart', async function (req, res) {
     producthelper.getCartProducts(req.session.user._id).then((products) => {
       productHelpers.totalAmount(req.session.user._id).then(async (response) => {
         let total = await productHelpers.totalAmount(req.session.user._id)
-        var nav='cart'
-        res.render('user/user-cart', { products, user, cartItemCount, total,nav})
+        var nav = 'cart'
+        res.render('user/user-cart', { products, user, cartItemCount, total, nav })
 
       })
 
@@ -205,7 +204,7 @@ router.get('/place-order', async (req, res) => {
   if (req.session.userLoggedIn) {
     let total = await productHelpers.totalAmount(req.session.user._id)
     var profile = await userHelpers.find_profile(user._id)
-    res.render('user/place-order', { total, user,profile  })
+    res.render('user/place-order', { total, user, profile })
   } else {
     res.redirect('user/user-login')
   }
@@ -241,17 +240,17 @@ router.post('/place-order', async (req, res) => {
 
 })
 router.get('/order-success', (req, res) => {
-  res.render('user/order-success',{user})
+  res.render('user/order-success', { user })
 
 })
 router.get('/show-orders', async (req, res) => {
   if (req.session.userLoggedIn) {
     let orders = await userHelpers.getOrderDetails(user._id)
     console.log(orders)
-    var nav='orders'
-    res.render('user/order-history', { orders, user, cartItemCount,nav})
+    var nav = 'orders'
+    res.render('user/order-history', { orders, user, cartItemCount, nav })
   }
-   else {
+  else {
     res.redirect('user/user-login')
   }
 })
@@ -278,14 +277,14 @@ router.post('/verify-payement', (req, res) => {
 })
 router.get('/user-account', async (req, res) => {
   if (req.session.userLoggedIn) {
-    if(req.session.user.login_mode){
+    if (req.session.user.login_mode) {
       console.log(req.user)
-     var profile={
-      name : req.user.displayName,
-      photo:req.user.photos[0].value
-     }
-     res.render('user/user-account',{user,cartItemCount,profile,google:true})
-    }else{
+      var profile = {
+        name: req.user.displayName,
+        photo: req.user.photos[0].value
+      }
+      res.render('user/user-account', { user, cartItemCount, profile, google: true })
+    } else {
       var profile = await userHelpers.find_profile(user._id)
       if (profile) {
         if (profile.gender == 'Male') {
@@ -293,16 +292,16 @@ router.get('/user-account', async (req, res) => {
         }
         else {
           res.render('user/user-account', { user, cartItemCount, profile, female: true })
-  
+
         }
-  
+
       } else {
         res.render('user/user-account', { user, cartItemCount, profile })
       }
-  
+
 
     }
-   
+
 
   } else {
     res.render('user/user-login')
@@ -312,8 +311,8 @@ router.get('/user-account', async (req, res) => {
 
 })
 router.post('/update-profile', (req, res) => {
- 
-  
+
+
   if (req.session.userLoggedIn) {
     console.log(req.body)
     userHelpers.update_profile(req.body, user._id).then(async (response) => {
@@ -321,12 +320,12 @@ router.post('/update-profile', (req, res) => {
       console.log("inside the update profile")
       console.log(req.files)
 
-      if(req.files){
+      if (req.files) {
         console.log("inside req.files")
         let image = req.files.image
-          image.mv('./public/user-image/' + profile._id + ".jpg")
-    
-      } 
+        image.mv('./public/user-image/' + profile._id + ".jpg")
+
+      }
       console.log(profile)
       if (profile) {
         if (profile.gender == 'Male')
@@ -348,35 +347,53 @@ router.post('/update-profile', (req, res) => {
   }
 
 })
-router.get('/offer',(req,res)=>{
+router.get('/offer', (req, res) => {
   res.render('user/offer-page')
 })
-router.get('/mobiles-tablets',async(req,res)=>{
-     var product=await userHelpers.filter_products('smart phone','tablet')
-     res.render('user/mobiles-tablets', { product, admin: false, user, cartItemCount })
+router.post('/search', async (req, res) => {
+  console.log(req.body.search)
+  let matchedProducts = null
+  let product = await producthelper.getAllProduct()
+  var searchQuery = req.body.search.toLowerCase();
+  matchedProducts = product.filter(product => {
+    console.log(product)
+    if (product.name.toLowerCase().includes(searchQuery) ||
+      product.description.toLowerCase().includes(searchQuery))
+      return true;
+  }
+
+  )
+
+
+
+  res.render('user/search-result', { matchedProducts, admin: false, user, cartItemCount })
 })
-router.get('/electronics',async(req,res)=>{
-  var product=await userHelpers.filter_products('electronic','electronics')
+router.get('/mobiles-tablets', async (req, res) => {
+  var product = await userHelpers.filter_products('smart phone', 'tablet')
+  res.render('user/mobiles-tablets', { product, admin: false, user, cartItemCount })
+})
+router.get('/electronics', async (req, res) => {
+  var product = await userHelpers.filter_products('electronic', 'electronics')
   res.render('user/electronics', { product, admin: false, user, cartItemCount })
 })
-router.get('/tv-appliances',async(req,res)=>{
-  var product=await userHelpers.filter_products('tv','appliances')
+router.get('/tv-appliances', async (req, res) => {
+  var product = await userHelpers.filter_products('tv', 'appliances')
   res.render('user/tv-appliances', { product, admin: false, user, cartItemCount })
 })
-router.get('/fashion',async(req,res)=>{
-  var product=await userHelpers.filter_products('fashion','cloths')
+router.get('/fashion', async (req, res) => {
+  var product = await userHelpers.filter_products('fashion', 'cloths')
   res.render('user/fashion', { product, admin: false, user, cartItemCount })
 })
-router.get('/beuty',async(req,res)=>{
-  var product=await userHelpers.filter_products('beuty','cosmetics')
+router.get('/beuty', async (req, res) => {
+  var product = await userHelpers.filter_products('beuty', 'cosmetics')
   res.render('user/beuty', { product, admin: false, user, cartItemCount })
 })
-router.get('/home-appliances',async(req,res)=>{
-  var product=await userHelpers.filter_products('home','home-appliances')
+router.get('/home-appliances', async (req, res) => {
+  var product = await userHelpers.filter_products('home', 'home-appliances')
   res.render('user/home-appliances', { product, admin: false, user, cartItemCount })
 })
-router.get('/furniture',async(req,res)=>{
-  var product=await userHelpers.filter_products('furniture','furniture')
+router.get('/furniture', async (req, res) => {
+  var product = await userHelpers.filter_products('furniture', 'furniture')
   res.render('user/furniture', { product, admin: false, user, cartItemCount })
 })
 module.exports = router

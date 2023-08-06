@@ -113,6 +113,7 @@ module.exports = {
     getOrderDetails: (userId) => {
         return new Promise(async (resolve, reject) => {
             let orders = await db.get().collection(collections.ORDER_COLLECTION).find({ userId: new objectId(userId) }).toArray()
+            orders.reverse()
             resolve(orders)
         })
     },

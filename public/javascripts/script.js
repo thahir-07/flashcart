@@ -1,3 +1,9 @@
+
+const customAlert = document.getElementById("custom-alert");
+const closeAlertButton = document.getElementById("close-alert");
+closeAlertButton.addEventListener("click", () => {
+  customAlert.style.display = "none";
+});
 $(function(){
 $('#productTable').DataTable()
 
@@ -100,7 +106,11 @@ function addToCart(proId,user){
                         $('#cart-count').html(count)
                     }
                     else {
-                        alert('item already exist in cart')
+                        
+                            customAlert.style.display = "flex";
+                            
+
+                       
                     }
     
                 
