@@ -1,4 +1,6 @@
-
+input[type='search']:focus{
+  box-shadow: none;
+}
 .nav-li{
     text-decoration: none;
     color:rgb(255, 252, 252);
@@ -756,6 +758,9 @@ body{
     border-radius: 4px;
     padding: 10px 20px;
     cursor: pointer;
+  }
+  input[type='radio']{
+    accent-color: rgb(58, 111, 58);
   }
   
 
