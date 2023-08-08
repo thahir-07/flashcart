@@ -125,12 +125,13 @@ router.get('/logout', function (req, res) {
 
   if (req.session.user.login_mode) {
     req.logout((data)=>{
-      req.session.user = null
+      console.log(data)
+    })
+  }
+  req.session.user = null
       req.session.userLoggedIn = false
       cartItemCount = 0
   res.redirect('/')
-    })
-  }
   
 })
 router.get('/cart', async function (req, res) {

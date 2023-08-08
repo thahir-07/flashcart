@@ -57,8 +57,12 @@
 
 </section>
 <section style="padding-top: 0;">
-  <div class="container-fluid">
-    <img src="https://images.picxy.com/cache/2020/6/18/c0ada3c718e235ccba0dfe97dcf1bd27.webp" width="100%" height="300" alt="">
+  <div class="container-fluid text-center" >
+     <img src="https://images.picxy.com/cache/2020/6/18/c0ada3c718e235ccba0dfe97dcf1bd27.webp" id="ad-img" width="100%" height="300" alt="">
+    
+      <input type="radio" name="slide" class="slide" id="img1">
+      <input type="radio" name="slide" class="slide" id="img2">
+      <input type="radio" name="slide" class="slide" id="img3">
   </div>
 </section>
 
@@ -189,3 +193,29 @@
     </div>
   </div>
 </section>
+<script>
+  const customAlert = document.getElementById("custom-alert");
+const closeAlertButton = document.getElementById("close-alert");
+closeAlertButton.addEventListener("click", () => {
+  customAlert.style.display = "none";
+});
+</script>
+<script>
+  var i=0
+  document.getElementById('img1').checked=true
+  var images=['/project-images/ad2.avif','/project-images/ad2.avif']
+  var cur=document.getElementById('ad-img').src
+  images.push(cur)
+  setInterval(()=>{
+      document.getElementById('ad-img').src=images[i]
+      i++
+    if(i==images.length) i=0
+    if(i==0){
+      document.getElementById('img1').checked=true
+    }else if(i==1){
+      document.getElementById('img2').checked=true
+    }else{
+      document.getElementById('img3').checked=true
+    }
+  },4000)
+</script>

@@ -1,9 +1,4 @@
 
-const customAlert = document.getElementById("custom-alert");
-const closeAlertButton = document.getElementById("close-alert");
-closeAlertButton.addEventListener("click", () => {
-  customAlert.style.display = "none";
-});
 $(function(){
 $('#productTable').DataTable()
 
@@ -11,10 +6,6 @@ $('#productTable').DataTable()
 $(function(){
     $('#user').DataTable()
     
-    })
-$(function(){
-    $('#orderHistoryTable').DataTable()
-        
     })
 function count(id){
     console.log("count function called")
