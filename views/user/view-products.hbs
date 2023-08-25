@@ -101,6 +101,7 @@
     <div class="scrolling-wrapper">
       {{#each product}}
       {{#product_check this 'electronics'}}
+      <a href="/description/{{this._id}}">
       <div class="col-6 col-md-2 product">
         <div class="card-outer m-2" style="border: none; ">
           <div class="card border border-shadow card-outer">
@@ -117,6 +118,7 @@
           </div>
         </div>
       </div>
+      </a>
       {{/product_check}}
       {{/each}}
     </div>
@@ -222,7 +224,7 @@ closeAlertButton.addEventListener("click", () => {
 <script>
   var i=0
   document.getElementById('img1').checked=true
-  var images=['/project-images/ad2.avif','/project-images/ad2.avif']
+  var images=['/project-images/ad2.avif','https://img.freepik.com/free-psd/special-deal-super-offer-upto-60-parcent-off-isolated-3d-render-with-editable-text_47987-15330.jpg?w=826&t=st=1691598837~exp=1691599437~hmac=c6e5faf3471da429d48805f07e930274c75a6272beade2f1f395b0b815f05521']
   var cur=document.getElementById('ad-img').src
   images.push(cur)
   setInterval(()=>{
@@ -237,4 +239,16 @@ closeAlertButton.addEventListener("click", () => {
       document.getElementById('img3').checked=true
     }
   },4000)
+  document.getElementById('img1').addEventListener('change',()=>{
+    document.getElementById('ad-img').src=images[2]
+
+  })
+  document.getElementById('img2').addEventListener('change',()=>{
+    document.getElementById('ad-img').src=images[0]
+
+  })
+  document.getElementById('img3').addEventListener('change',()=>{
+    document.getElementById('ad-img').src=images[1]
+
+  })
 </script>

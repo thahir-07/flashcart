@@ -3,6 +3,7 @@ var render = require("../app")
 var router = express.Router();
 var producthelper = require('../helpers/product-helpers');
 const userHelpers = require('../helpers/user-helpers');
+const fs = require('fs')
 var proId
 
 
@@ -10,13 +11,13 @@ var proId
 
 /* GET users listing. */
 router.get('/', function (req, res, next) {
-  if(req.session.AdminLoggedIn){
+  if (req.session.AdminLoggedIn) {
     producthelper.getAllProduct().then((products) => {
-      res.render('admin/view-products',{products, admin: true })
+      res.render('admin/view-products', { products, admin: true })
     })
 
-  }else{
-    res.render('admin/admin-login',{admin:true})
+  } else {
+    res.render('admin/admin-login', { admin: true })
 
   }
 
@@ -26,61 +27,83 @@ router.get('/', function (req, res, next) {
 router.post('/admin-page', (req, res) => {
   console.log("admin page")
   console.log(req.body)
-  userHelpers.checkAdminLogin(req.body).then((response)=>{
+  userHelpers.checkAdminLogin(req.body).then((response) => {
     producthelper.getAllProduct().then((products) => {
-      res.render('admin/view-products',{products, admin: true })
+      res.render('admin/view-products', { products, admin: true })
     })
-   req.session.admin=response
-   req.session.AdminLoggedIn=true
-   
+    req.session.admin = response
+    req.session.AdminLoggedIn = true
 
-  }).catch(()=>{
-    req.session.adminLoginErr="invalid user name or password"
-    res.render('admin/admin-login',{err:req.session.adminLoginErr})
+
+  }).catch(() => {
+    req.session.adminLoginErr = "invalid user name or password"
+    res.render('admin/admin-login', { err: req.session.adminLoginErr })
 
 
   })
- 
+
 
 })
 router.get('/add-products', function (req, res) {
   res.render('admin/add-product', { admin: true })
 
 });
-router.get('/orders',async function (req, res) {
-  let orders=await userHelpers.getAllOrderDetails()
+router.get('/orders', async function (req, res) {
+  let orders = await userHelpers.getAllOrderDetails()
   console.log(orders)
-  res.render('admin/all-orders',{orders,admin:true})
+  res.render('admin/all-orders', { orders, admin: true })
 
 });
 router.get('/users', async function (req, res) {
-  var users=await userHelpers.allUsers()
-  res.render('admin/all-user',{users, admin: true })
- 
+  var users = await userHelpers.allUsers()
+  res.render('admin/all-user', { users, admin: true })
+
 
 });
 
-router.get('/view-order-products/:id',async(req,res)=>{
-  console.log("id from admin panel",req.params.id)
+router.get('/view-order-products/:id', async (req, res) => {
+  console.log("id from admin panel", req.params.id)
   console.log(req.params.id)
-  let products=await userHelpers.getOrderProduct(req.params.id)
-  res.render('admin/view-order-products',{products,admin:true}) 
+  let products = await userHelpers.getOrderProduct(req.params.id)
+  res.render('admin/view-order-products', { products, admin: true })
 })
 
 router.post('/add-products', function (req, res) {
   producthelper.addProduct(req.body, (id) => {
-    if (req.files)
-      var img = req.files.image
-    img.mv('./public/product-image/' + id + '.jpg', (err, done) => {
-      if (!err) {
-        res.render('admin/add-product', { admin: true })
+    console.log(req.files)
+    if (req.files) {
+      let i = 0
+      for (var file in req.files) {
+        i += 1
+        if (i == 1) {
+          var img = req.files[file]
+          console.log(file)
+          img.mv('./public/product-image/' + id + '.jpg', (err, done) => {
+            if (!err) {
+              console.log("file added successfully")
+              console.log(img)
+            }
+            else {
+              console.log(err)
+            }
+          })
+        } else {
+          img.mv('./public/product-image/' + id + i + '.jpg', (err, done) => {
+            if (!err) {
+              console.log("file added successfully")
+              console.log(img)
+            }
+            else {
+              console.log(err)
+            }
+          })
+        }
       }
-      else {
-        console.log(err)
-      }
-    })
+
+    }
 
   })
+  res.render('admin/add-product', { admin: true })
 
 });
 router.get('/delete-products/:id', function (req, res) {
@@ -88,6 +111,20 @@ router.get('/delete-products/:id', function (req, res) {
   proId = req.params.id
   console.log(proId)
   producthelper.deleteProduct(proId).then((data) => {
+    var imgPath
+    for (var i = 1; i <= 4; i++) {
+      if (i == 1) {
+        imgPath = './public/product-image/' + proId + '.jpg'
+      } else
+        imgPath = './public/product-image/' + proId + i + '.jpg'
+      fs.unlink(imgPath, (err) => {
+        if (err) {
+          console.log('error found while deleting file' + imgPath)
+        } else {
+          console.log('file deleted successfully' + imgPath)
+        }
+      });
+    }
     res.redirect('/admin')
   })
 

@@ -369,6 +369,8 @@ router.post('/search', async (req, res) => {
 
   res.render('user/search-result', { matchedProducts, admin: false, user, cartItemCount })
 })
+
+
 router.get('/mobiles-tablets', async (req, res) => {
   var product = await userHelpers.filter_products('smart phone', 'tablet')
   res.render('user/mobiles-tablets', { product, admin: false, user, cartItemCount })
@@ -396,6 +398,10 @@ router.get('/home-appliances', async (req, res) => {
 router.get('/furniture', async (req, res) => {
   var product = await userHelpers.filter_products('furniture', 'furniture')
   res.render('user/furniture', { product, admin: false, user, cartItemCount })
+})
+
+router.get('/description/:id',(req,res)=>{
+  console.log(req.params.id)
 })
 module.exports = router
 

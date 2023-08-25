@@ -1,3 +1,24 @@
+<style>
+.label{
+border: 1px solid;
+border-radius: 10px;
+padding: 3px;
+text-align: center;
+
+
+}
+.label:active{
+    transform: scale(0.97);
+}
+.label span{
+    touch-action: none;
+    font-size: 25px;
+
+}
+#i1,#i2,#i3,#i4{
+    display:none
+}
+</style>
 <div class="container ">
     <div class="row center">
 
@@ -24,14 +45,71 @@
                 <input type="text" class="form-control" id="description" name="description">
             </div>
             <div class="mb-3">
+                
                 <label for="price" class="form-label">image</label>
-                <input type="file" class="form-control" id="image" name="image">
+                <div class="col-12">
+                    <label for="i1" class="label">
+                        <span>image1</span>
+                        <input type="file" class="image" id="i1"  name="image1" onchange="viewImage(event,'1')">
+                        <div id="imgcontainer1"></div>
+                    </label>
+                    
+                 <label for="i2" class="label">
+                        <span>image2</span>
+                        <input type="file" class="image" id="i2"  name="image2" onchange="viewImage(event,'2')">
+                        <div id="imgcontainer2"></div>
+                    </label>
+                 <label for="i3" class="label">
+                        <span>image3</span>
+                        <input type="file" class="image" id="i3"  name="image3" onchange="viewImage(event,'3')">
+                        <div id="imgcontainer3"></div>
+                    </label>
+                <label for="i4" class="label">
+                        <span>image4</span>
+                        <input type="file" class="image" id="i4"  name="image4" onchange="viewImage(event,'4')">
+                        <div id="imgcontainer4"></div>
+                    </label>
+                </div>
+                
+                
             </div>
             <div class="text-center">
-
             <button type="submit" class="btn btn-primary ">Submit</button>
             </div>
         </form>
 
     </div>
 </div>
+<script>
+    var im=1
+    function viewImage(event,i) {
+        console.log(i,"    ",im)
+    var files = event.target.files;
+    var is_there=document.getElementById('image'+i)
+    
+
+if(is_there==null){
+    for (const file of files) {
+    const img = document.createElement('img');
+    img.className = 'image-preview';
+    img.id='image'+im
+    img.width='100'
+    img.height='100'
+    img.style.border='1px solid green'
+    img.src = URL.createObjectURL(file);
+    const container = document.getElementById('imgcontainer'+i);
+    container.appendChild(img);
+    im++
+  }
+
+}else{
+    for(var file of files){
+       var img= document.getElementById('image'+i).src=URL.createObjectURL(file);
+       
+    }
+    
+}
+  
+}
+   
+</script>
