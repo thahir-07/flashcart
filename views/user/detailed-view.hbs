@@ -1,7 +1,79 @@
+<style>
+    #main-img{
+        width: 350px;
+        height: 410px;
+    }
+    .container{
+        margin-top: 100px;
+    }
+    .img{
+        width: 100px;
+        height: 100px;
+        margin: 2px;
+        margin-left: 50px auto;
+        border-radius: 10px;
+    }
+    .img-container{
+        margin: 5px solid;
+        
+    }
+    .focus{
+        border: 2px solid rgb(23, 54, 64) !important;
+    }
+    button{
+        border: none;
+        background: none;
+        padding: 0;
+    }
+</style>
 <div class="container">
     <div class="row">
-        <div class="imgContainer">
-            <img src="" alt="">
+        <div class=" col-3">
+            <div class="row ">
+                     
+                        <button onclick="changeImage('{{id}}','1')">
+                        <img class="img focus" id="img1" src="/product-image/{{id}}.jpg" alt="">
+                        </button>   
+                    
+            </div>
+            <div class="row">
+                
+                    <button onclick="changeImage('{{id}}','2')">
+                        <img class="img " id="img2" src="/product-image/{{id}}2.jpg" alt="">
+                    </button>    
+                
+            </div>
+            <div class="row">
+               
+                    <button onclick="changeImage('{{id}}','3')">
+                    <img class="img " id="img3" src="/product-image/{{id}}3.jpg" alt="">
+                    </button>   
+                    
+            </div>
+            <div class="row">
+               
+                    <button onclick="changeImage('{{id}}','4')">
+                        <img class="img " id="img4" src="/product-image/{{id}}4.jpg" alt="">
+                    </button>
+                 
+            </div>
+            
+        </div>
+        <div class="imgContainer col-6 text-center">
+            <img id="main-img" src="/product-image/{{id}}.jpg" alt="">
         </div>
     </div>
 </div>
+<script>
+    var focus='img1'
+   function changeImage(id,img){
+    console.log('onclick workin')
+    var src=document.getElementById('img'+img).src
+    console.log(src)
+    document.getElementById('main-img').src=src
+    document.getElementById(focus).classList.remove('focus')
+    document.getElementById('img'+img).classList.add('focus')
+    focus='img'+img;
+    
+    }
+</script>

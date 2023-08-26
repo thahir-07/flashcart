@@ -72,6 +72,7 @@
     <div class="scrolling-wrapper">
       {{#each product}}
       {{#product_check this 'smart phone'}}
+      <a href="/detailed-view/{{this._id}}">
       <div class="col-6 col-md-2 product">
         <div class="card-outer m-2" style="border: none; ">
           <div class="card border border-shadow card-outer">
@@ -88,6 +89,8 @@
           </div>
         </div>
       </div>
+      </a>
+      
       {{/product_check}}
       {{/each}}
     </div>
@@ -101,7 +104,7 @@
     <div class="scrolling-wrapper">
       {{#each product}}
       {{#product_check this 'electronics'}}
-      <a href="/description/{{this._id}}">
+       <a href="/detailed-view/{{this._id}}">
       <div class="col-6 col-md-2 product">
         <div class="card-outer m-2" style="border: none; ">
           <div class="card border border-shadow card-outer">
@@ -134,6 +137,7 @@
     <h3>Cloths</h3>
     <div class="scrolling-wrapper">
       {{#each product}}
+      <a href="/detailed-view/{{this._id}}">
       <div class="col-6 col-md-2 product">
         <div class="card-outer m-2" style="border: none; ">
           <div class="card border border-shadow card-outer">
@@ -150,6 +154,7 @@
           </div>
         </div>
       </div>
+      </a>
       {{/each}}
     </div>
   </div>
@@ -160,7 +165,8 @@
     <h3></h3>
     <div class="scrolling-wrapper">
       {{#each product}}
-      {{#product_check this 'mobile'}}
+      {{#product_check this 'electronics'}}
+      <a href="/detailed-view/{{this._id}}">
       <div class="col-6 col-md-2 product">
         <div class="card-outer m-2" style="border: none; ">
           <div class="card border border-shadow card-outer">
@@ -176,7 +182,8 @@
                 style="color: rgb(255, 255, 255);" cl>add to cart</button></div>
           </div>
         </div>
-      </div>
+        </div>
+      </a>
       {{/product_check}}
       {{/each}}
     </div>

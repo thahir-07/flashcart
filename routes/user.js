@@ -403,6 +403,10 @@ router.get('/furniture', async (req, res) => {
 router.get('/description/:id',(req,res)=>{
   console.log(req.params.id)
 })
+router.get('/detailed-view/:id',(req,res)=>{
+  console.log(req.params.id)
+  res.render('user/detailed-view',{admin: false, user, cartItemCount,id:req.params.id})
+})
 module.exports = router
 
 

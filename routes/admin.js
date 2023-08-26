@@ -74,10 +74,10 @@ router.post('/add-products', function (req, res) {
     if (req.files) {
       let i = 0
       for (var file in req.files) {
+        var img = req.files[file]
+          console.log(file)
         i += 1
         if (i == 1) {
-          var img = req.files[file]
-          console.log(file)
           img.mv('./public/product-image/' + id + '.jpg', (err, done) => {
             if (!err) {
               console.log("file added successfully")
@@ -88,6 +88,7 @@ router.post('/add-products', function (req, res) {
             }
           })
         } else {
+          
           img.mv('./public/product-image/' + id + i + '.jpg', (err, done) => {
             if (!err) {
               console.log("file added successfully")
