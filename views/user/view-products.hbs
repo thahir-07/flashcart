@@ -1,3 +1,137 @@
+<style>
+.section-border{
+  background-color: rgb(253, 253, 253);
+  margin: 5px;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 50px;
+  
+}
+#scroll-btn-rigt{
+  position: absolute;
+  top: 690px;
+  right: 10px;
+  z-index: 1;
+  width: 33px;
+  height: 100px;
+  background-color: rgb(246, 246, 246);
+  border: none;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+#scroll-btn-left{
+  position: absolute;
+  top: 690px;
+  left: 10px;
+  z-index: 1;
+  width: 33px;
+  height: 100px;
+  background-color: rgb(246, 246, 246);
+  border: none;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+#scroll-btn-rigt .div1{
+  width:10px;
+  height: 2px;
+  background-color: black;
+  transform: rotate(50deg);
+  margin-bottom: 5px;
+  margin-left: 3px;
+}
+#scroll-btn-rigt .div2{
+  width:10px;
+  height: 2px;
+  background-color: black;
+  transform: rotate(-50deg);
+  margin-left: 3px;
+}
+#scroll-btn-left .div1{
+  width:10px;
+  height: 2px;
+  background-color: black;
+  transform: rotate(50deg);
+  margin-bottom: 10px;
+  margin-left: 3px;
+}
+#scroll-btn-left .div2{
+  width:10px;
+  height: 2px;
+  background-color: black;
+  transform: rotate(-50deg);
+  margin-bottom: 4px;
+  margin-left: 3px;
+}
+
+
+#scroll1{
+scroll-behavior: smooth ;
+}
+#scroll-btn2-left{
+  position: absolute;
+  top: 1200px;
+  left: 10px;
+  z-index: 1;
+  width: 33px;
+  height: 100px;
+  background-color: rgb(246, 246, 246);
+  border: none;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+#scroll-btn2-rigt{
+  position: absolute;
+  top: 1200px;
+  right: 10px;
+  z-index: 1;
+  width: 33px;
+  height: 100px;
+  background-color: rgb(246, 246, 246);
+  border: none;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+#scroll-btn2-rigt .div1{
+  width:10px;
+  height: 2px;
+  background-color: black;
+  transform: rotate(50deg);
+  margin-bottom: 5px;
+  margin-left: 3px;
+}
+#scroll-btn2-rigt .div2{
+  width:10px;
+  height: 2px;
+  background-color: black;
+  transform: rotate(-50deg);
+  margin-left: 3px;
+}
+#scroll-btn2-left .div1{
+  width:10px;
+  height: 2px;
+  background-color: black;
+  transform: rotate(50deg);
+  margin-bottom: 10px;
+  margin-left: 3px;
+}
+#scroll-btn2-left .div2{
+  width:10px;
+  height: 2px;
+  background-color: black;
+  transform: rotate(-50deg);
+  margin-bottom: 4px;
+  margin-left: 3px;
+}
+
+
+
+</style>
+
 <section class="section pt-1">
   <div class="container-fluid text-center">
     <div class="scrolling-wrapper">
@@ -66,16 +200,18 @@
   </div>
 </section>
 
-<section class="">
+<section class="section-border m-2 mb-2">
   <div class="container-fluid text-center">
     <h3>Smart Phones</h3>
-    <div class="scrolling-wrapper">
+    <button onclick="scroll_right()" id="scroll-btn-rigt"><div class="div1"></div><div class="div2"></div></button>
+    <button onclick="scroll_left()" id="scroll-btn-left"><div class="div2"></div><div class="div1"></div></button>
+    <div class="scrolling-wrapper m-4" id="scroll1">
       {{#each product}}
       {{#product_check this 'smart phone'}}
-      <a href="/detailed-view/{{this._id}}">
       <div class="col-6 col-md-2 product">
         <div class="card-outer m-2" style="border: none; ">
           <div class="card border border-shadow card-outer">
+        <a id="load" href="/detailed-view/{{this._id}}">
             <img src="/product-image/{{this._id}}.jpg" class="card-img-top" style="height:13em" alt="">
             <p class="card-text">{{this.name}}</p>
             <div class="card-body pt-0" style="line-height: 3px;">
@@ -84,24 +220,26 @@
             <div class="pt-0 description-text" style="display: block;overflow: break-word;">
               <p class="card-text mt-0">{{this.description}}</p>
             </div>
+        </a>
             <div class="mb-2"><button class="btn button" onclick="addToCart('{{this._id}}',{{user}})"
                 style="color: rgb(255, 255, 255);" cl>add to cart</button></div>
           </div>
         </div>
       </div>
-      </a>
-      
       {{/product_check}}
       {{/each}}
+      
     </div>
-    <hr>
+   
   </div>
 </section>
 
-<section class="">
+<section class="section-border m-2">
   <div class="container-fluid text-center">
     <h3>Electronics</h3>
-    <div class="scrolling-wrapper">
+    <button onclick="scroll_left2()" id="scroll-btn2-left"><div class="div2"></div><div class="div1"></div></button>
+    <button onclick="scroll_right2()" id="scroll-btn2-rigt"><div class="div1"></div><div class="div2"></div></button>
+    <div class="scrolling-wrapper m-4" id="scroll2">
       {{#each product}}
       {{#product_check this 'electronics'}}
        <a href="/detailed-view/{{this._id}}">
@@ -125,6 +263,8 @@
       {{/product_check}}
       {{/each}}
     </div>
+    
+    
   </div>
 </section>
 <div class="container-fluid">
@@ -132,7 +272,7 @@
 </div>
 
 
-<section class="">
+<section class="section-border m-2">
   <div class="container-fluid text-center">
     <h3>Cloths</h3>
     <div class="scrolling-wrapper">
@@ -160,7 +300,7 @@
   </div>
 </section>
 
-<section class="">
+<section class="section-border m-2">
   <div class="container-fluid text-center">
     <h3></h3>
     <div class="scrolling-wrapper">
@@ -258,4 +398,23 @@ closeAlertButton.addEventListener("click", () => {
     document.getElementById('ad-img').src=images[1]
 
   })
+</script>
+<script>
+  function scroll_right(){
+  var scroll=document.getElementById('scroll1')
+  scroll.scrollLeft+=200
+  }
+   function scroll_left(){
+  var scroll=document.getElementById('scroll1')
+  scroll.scrollLeft-=200
+  }
+  
+  function scroll_right2(){
+  var scroll=document.getElementById('scroll2')
+  scroll.scrollLeft+=200
+  }
+   function scroll_left2(){
+  var scroll=document.getElementById('scroll2')
+  scroll.scrollLeft-=200
+  }
 </script>

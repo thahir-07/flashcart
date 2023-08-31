@@ -1,3 +1,7 @@
+#load{
+  text-decoration: none;
+  color: black;
+}
 input[type='search']:focus{
   box-shadow: none;
 }
@@ -81,8 +85,9 @@ input[type='search']:focus{
   
 }
 .card-outer{
-    background-color: #6f7d6d;
+    
     border-radius: 15px;
+    overflow: hidden;
 }
 .card-outer:hover{
     

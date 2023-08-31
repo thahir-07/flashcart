@@ -69,6 +69,7 @@ router.get('/view-order-products/:id', async (req, res) => {
 })
 
 router.post('/add-products', function (req, res) {
+  console.log(req.body)
   producthelper.addProduct(req.body, (id) => {
     console.log(req.files)
     if (req.files) {

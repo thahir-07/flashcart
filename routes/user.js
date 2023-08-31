@@ -403,9 +403,11 @@ router.get('/furniture', async (req, res) => {
 router.get('/description/:id',(req,res)=>{
   console.log(req.params.id)
 })
-router.get('/detailed-view/:id',(req,res)=>{
-  console.log(req.params.id)
-  res.render('user/detailed-view',{admin: false, user, cartItemCount,id:req.params.id})
+
+router.get('/detailed-view/:id',async (req,res)=>{
+  var product=await producthelper.getProduct(req.params.id)
+  console.log(product)
+  res.render('user/detailed-view',{admin: false, user, cartItemCount,id:req.params.id,product})
 })
 module.exports = router
 

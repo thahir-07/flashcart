@@ -1,20 +1,23 @@
 <style>
     #main-img{
-        width: 350px;
-        height: 410px;
+        width:  260px ;
+        height: 350px ;
+        border: 1px solid;
+        border-radius: 10px;
     }
     .container{
         margin-top: 100px;
     }
     .img{
-        width: 100px;
-        height: 100px;
+        width: 70px;
+        height: 70px;
         margin: 2px;
-        margin-left: 50px auto;
+        margin-left: 5px;
         border-radius: 10px;
+        border: 1px solid;
     }
     .img-container{
-        margin: 5px solid;
+        margin: 2px ;
         
     }
     .focus{
@@ -27,10 +30,9 @@
     }
 </style>
 <div class="container">
-    <div class="row">
-        <div class=" col-3">
-            <div class="row ">
-                     
+    <div class="row ">
+        <div class=" col-3 col-lg-2 ">
+            <div class="row ">       
                         <button onclick="changeImage('{{id}}','1')">
                         <img class="img focus" id="img1" src="/product-image/{{id}}.jpg" alt="">
                         </button>   
@@ -39,7 +41,7 @@
             <div class="row">
                 
                     <button onclick="changeImage('{{id}}','2')">
-                        <img class="img " id="img2" src="/product-image/{{id}}2.jpg" alt="">
+                        <img class="img" id="img2" src="/product-image/{{id}}2.jpg" alt="">
                     </button>    
                 
             </div>
@@ -57,14 +59,65 @@
                     </button>
                  
             </div>
+        
+         
+                 
             
         </div>
-        <div class="imgContainer col-6 text-center">
+        <div class="imgContainer  col-7  col-lg-5  ">
             <img id="main-img" src="/product-image/{{id}}.jpg" alt="">
+             <div class="row text-center mt-3">
+                    <button class="btn button" onclick="addToCart('{{id}}',{{user.id}})"
+                style="color: rgb(255, 255, 255); width:90px;margin-left:25%;">add to cart</button></div>
         </div>
+        
+        
+        <div class="col-12  col-lg-5">
+            <div class="row text-center m-1" >  
+                <div class="col-12" style="border: 1px solid; padding: 10px;margin: 2px; margin-bottom: 10px; border-radius: 5px;margin-top: 10px;">
+                <h3>{{product.name}}</h3>
+                <p class="text-left" style="align-content: start;">Price: &#8377; {{product.price}}</p>
+                </div>
+            </div>
+            <div class="row m-1" >
+                <div class="col-12"  style="border: 1px solid; padding: 10px;margin: 2px; border-radius: 5px;">
+                <h5>Select Size</h5>
+                
+                <button style="width: 50px;height: 50px;background-color: rgb(255, 255, 255);margin: 3px; margin-left: 10px;">L</button>
+                <button style="width: 50px;height: 50px;background-color: rgb(255, 255, 255);margin: 3px;"></button>
+                <button style="width: 50px;height: 50px;background-color: rgb(255, 255, 255);margin: 3px;"></button>
+                <button style="width: 50px;height: 50px;background-color: rgb(255, 255, 255);margin: 3px;"></button>
+                
+                </div>
+            </div>
+            <div class="row m-1">
+                <div class="col-12 " style="border: 1px solid; padding: 10px;margin: 2px; border-radius: 5px;">
+                    <h4>Product Details</h4>
+                    {{product.description}}
+                </div>
+            </div>
+            
+        </div>
+       
+    </div>
+    <div class="row">
+      
     </div>
 </div>
 <script>
+     var rowdata="{{product.description}}"
+     console.log(rowdata)
+      const paragraphs = rowdata.split('\r\n+\r\n');
+
+        // Create a formatted HTML structure
+        const formattedHTML = paragraphs.map(paragraph => `<p>${paragraph}</p>`).join('');
+
+        // Display the formatted HTML in the 'overview' div
+        const overviewDiv = document.getElementById('overview');
+        overviewDiv.innerHTML = formattedHTML;
+</script>
+<script>
+   
     var focus='img1'
    function changeImage(id,img){
     console.log('onclick workin')
@@ -76,4 +129,5 @@
     focus='img'+img;
     
     }
+
 </script>

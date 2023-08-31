@@ -1,23 +1,29 @@
 <style>
-.label{
-border: 1px solid;
-border-radius: 10px;
-padding: 3px;
-text-align: center;
+    .label {
+        border: 1px solid;
+        border-radius: 10px;
+        padding: 3px;
+        text-align: center;
 
 
-}
-.label:active{
-    transform: scale(0.97);
-}
-.label span{
-    touch-action: none;
-    font-size: 25px;
+    }
 
-}
-#i1,#i2,#i3,#i4{
-    display:none
-}
+    .label:active {
+        transform: scale(0.97);
+    }
+
+    .label span {
+        touch-action: none;
+        font-size: 25px;
+
+    }
+
+    #i1,
+    #i2,
+    #i3,
+    #i4 {
+        display: none
+    }
 </style>
 <div class="container ">
     <div class="row center">
@@ -32,84 +38,262 @@ text-align: center;
                 <input type="text" class="form-control" id="name" name="name">
 
             </div>
-            <div class="mb-3">
+            <!--<div class="mb-3">
                 <label for="category" class="form-label">Category</label>
                 <input type="text" class="form-control" id="category" name="category">
+            </div>    -->
+            <div class="mb-3">
+                <label for="productCategory" class="form-label">Product Category</label>
+                <select class="form-select" id="productCategory" name="productCategory" required>
+                    <option value="" selected disabled> Select category</option>
+                    <option value="Electronics">Electronics</option>
+                    <option value="Fashion">Fashion</option>
+                    <option value="booksHome and Furniture">Home and Furniture</option>
+                    <option value="Beauty and Personal Care">Beauty and Personal Care</option>
+                    <option value="Health and Wellness">Health and Wellness</option>
+                    <option value="Toys and Games">Toys and Games</option>
+                    <option value="Books and Stationery">Books and Stationery</option>
+                    <option value="Sports and Outdoors">Sports and Outdoors</option>
+                    <option value="Automotive">Automotive</option>
+                    <option value="Jewelry and Watchesbooks">Jewelry and Watches</option>
+                    <option value="Baby and Kids">Baby and Kids</option>
+                    <option value="Grocery and Food">Grocery and Food</option>
+                    <option value="Electrical Appliances">Electrical Appliances</option>
+                    <option value="Home Improvement">Home Improvement</option>
+                    <option value="Pet Supplies">Pet Supplies</option>
+                    <option value="Crafts and Hobbies">Crafts and Hobbies</option>
+                    <option value="Garden and Outdoor">Garden and Outdoor</option>
+                    <option value="Electricals and Gadgets">Electricals and Gadgets</option>
+                    <option value="Office Supplies">Office Supplies</option>
+                    <option value="Travel and Luggage">Travel and Luggage</option>
+                    
+                   
+                </select>
+            </div>
+            <div class="mb-3">
+
+                <label for="subCategory" class="form-label">Select Sub category</label>
+                <select id="subCategory" class="form-select" name="subCategory" required>
+                    <option value="" selected disabled>Select a sub category</option>
+                </select>
             </div>
             <div class="mb-3">
                 <label for="price" class="form-label">Price</label>
-                <input type="text" class="form-control" id="price" name="price">
+                <input type="text" class="form-control" id="price" name="price" required>
             </div>
             <div class="mb-3">
                 <label for="price" class="form-label">Description</label>
-                <input type="text" class="form-control" id="description" name="description">
+                <textarea type="text" class="form-control" id="description" name="description" required></textarea>
             </div>
             <div class="mb-3">
-                
+
                 <label for="price" class="form-label">image</label>
                 <div class="col-12">
                     <label for="i1" class="label">
                         <span>image1</span>
-                        <input type="file" class="image" id="i1"  name="image1" onchange="viewImage(event,'1')">
+                        <input type="file" class="image" id="i1" name="image1" onchange="viewImage(event,'1')" required>
                         <div id="imgcontainer1"></div>
                     </label>
-                    
-                 <label for="i2" class="label">
+
+                    <label for="i2" class="label">
                         <span>image2</span>
-                        <input type="file" class="image" id="i2"  name="image2" onchange="viewImage(event,'2')">
+                        <input type="file" class="image" id="i2" name="image2" onchange="viewImage(event,'2')">
                         <div id="imgcontainer2"></div>
                     </label>
-                 <label for="i3" class="label">
+                    <label for="i3" class="label">
                         <span>image3</span>
-                        <input type="file" class="image" id="i3"  name="image3" onchange="viewImage(event,'3')">
+                        <input type="file" class="image" id="i3" name="image3" onchange="viewImage(event,'3')">
                         <div id="imgcontainer3"></div>
                     </label>
-                <label for="i4" class="label">
+                    <label for="i4" class="label">
                         <span>image4</span>
-                        <input type="file" class="image" id="i4"  name="image4" onchange="viewImage(event,'4')">
+                        <input type="file" class="image" id="i4" name="image4" onchange="viewImage(event,'4')">
                         <div id="imgcontainer4"></div>
                     </label>
                 </div>
-                
-                
+
+
             </div>
             <div class="text-center">
-            <button type="submit" class="btn btn-primary ">Submit</button>
+                <button type="submit" class="btn btn-primary ">Submit</button>
             </div>
         </form>
 
     </div>
 </div>
 <script>
-    var im=1
-    function viewImage(event,i) {
-        console.log(i,"    ",im)
-    var files = event.target.files;
-    var is_there=document.getElementById('image'+i)
-    
+    var im = 1
+    function viewImage(event, i) {
+        console.log(i, "    ", im)
+        var files = event.target.files;
+        var is_there = document.getElementById('image' + i)
 
-if(is_there==null){
-    for (const file of files) {
-    const img = document.createElement('img');
-    img.className = 'image-preview';
-    img.id='image'+im
-    img.width='100'
-    img.height='100'
-    img.style.border='1px solid green'
-    img.src = URL.createObjectURL(file);
-    const container = document.getElementById('imgcontainer'+i);
-    container.appendChild(img);
-    im++
-  }
 
-}else{
-    for(var file of files){
-       var img= document.getElementById('image'+i).src=URL.createObjectURL(file);
-       
+        if (is_there == null) {
+            for (const file of files) {
+                const img = document.createElement('img');
+                img.className = 'image-preview';
+                img.id = 'image' + im
+                img.width = '100'
+                img.height = '100'
+                img.style.border = '1px solid green'
+                img.src = URL.createObjectURL(file);
+                const container = document.getElementById('imgcontainer' + i);
+                container.appendChild(img);
+                im++
+            }
+
+        } else {
+            for (var file of files) {
+                var img = document.getElementById('image' + i).src = URL.createObjectURL(file);
+
+            }
+
+        }
+
     }
-    
-}
-  
-}
-   
+    const product_category = document.getElementById('productCategory')
+    const sub_category = document.getElementById('subCategory')
+    const category = {
+
+        "Electronics": [
+            "Smartphones",
+            "Laptops and Computers",
+            "Audio and Headphones",
+            "Cameras and Photography",
+            "Home Appliances",
+            "Wearable Devices"
+        ],
+        "Fashion": [
+            "Men's Clothing",
+            "Women's Clothing",
+            "Children's Clothing",
+            "Men's Footwear",
+            "Women's Footwear",
+            "Children's Footwear",
+            "Jewelry",
+            "Men's Watches",
+            "Women's Watches",
+            "Hats",
+            "Bags and Luggage"
+        ],
+        "Home and Furniture": [
+            "Furniture ",
+            "Home Decor",
+            "Kitchen and Dining",
+            "Bedding and Linens",
+            "Lighting"
+        ],
+        "Beauty and Personal Care": [
+            "Skincare",
+            "Makeup",
+            "Haircare",
+            "Fragrances",
+            "Grooming Products"
+        ],
+        "Health and Wellness": [
+            "Vitamins and Supplements",
+            "Fitness Equipment",
+            "Yoga and Meditation Accessories",
+            "Health Monitors"
+        ],
+        "Toys and Games": [
+            "Board Games",
+            "Educational Toys",
+            "Outdoor Play Equipment",
+            "Remote Control Toys"
+        ],
+        "Books and Stationery": [
+            "Fiction and Non-Fiction Books",
+            "E-books",
+            "Office Supplies",
+            "Art Supplies"
+        ],
+        "Sports and Outdoors": [
+            "Sports Equipment",
+            "Outdoor Recreation Gear",
+            "Camping and Hiking Supplies",
+            "Athletic Apparel"
+        ],
+        "Automotive": [
+            "Car Parts and Accessories",
+            "Motorcycle Gear",
+            "Tools and Equipment"
+        ],
+        "Jewelry and Watches": [
+            "Rings, Necklaces, Earrings, Bracelets, etc.",
+            "Luxury Watches",
+            "Fashion Watches"
+        ],
+        "Baby and Kids": [
+            "Baby Clothing and Accessories",
+            "Diapers and Wipes",
+            "Baby Gear (Strollers, Car Seats, etc.)"
+        ],
+        "Grocery and Food": [
+            "Fresh Produce",
+            "Packaged Foods",
+            "Snacks and Beverages"
+        ],
+        "Electrical Appliances": [
+            "Kitchen Appliances (Blenders, Toasters, etc.)",
+            "Vacuum Cleaners",
+            "Irons and Garment Care"
+        ],
+        "Home Improvement": [
+            "Tools",
+            "Building Materials",
+            "Plumbing and Fixtures"
+        ],
+        "Pet Supplies": [
+            "Pet Food",
+            "Pet Toys",
+            "Beds and Carriers"
+        ],
+        "Crafts and Hobbies": [
+            "DIY Kits",
+            "Craft Supplies",
+            "Model Kits"
+        ],
+        "Garden and Outdoor": [
+            "Plants and Seeds",
+            "Garden Tools",
+            "Outdoor Furniture"
+        ],
+        "Electricals and Gadgets": [
+            "Gadgets and Gizmos",
+            "Home Automation",
+            "Electronic Accessories"
+        ],
+        "Office Supplies": [
+            "Paper Products",
+            "Writing Instruments",
+            "Desk Organization"
+        ],
+        "Travel and Luggage": [
+            "Luggage Sets",
+            "Travel Accessories",
+            "Travel-sized Toiletries"
+        ]
+    }
+
+product_category.addEventListener('change',()=>{
+    let main_category = product_category.value;
+    sub_category.innerHTML=''
+    var option= document.createElement('option')
+    option.value=""
+    option.textContent = 'Select Sub category';
+    option.selected=true
+    option.disabled=true
+    sub_category.appendChild(option)
+    console.log(main_category)
+    category[main_category].forEach(sub_cat=>{
+        console.log(main_category)
+        let option= document.createElement('option')
+        option.value=sub_cat;
+        option.textContent = sub_cat;
+      sub_category.appendChild(option)
+    })
+})
+
 </script>

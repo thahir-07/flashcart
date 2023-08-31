@@ -9,7 +9,7 @@
                         {{#if google}}
                             <img class="img-profile rounded-circle img-responsive center-block mt-4" src={{profile.photo}} alt="image not found">
                         {{else}}
-                        <img class="img-profile rounded-circle img-responsive center-block mt-4" src="/user-image/{{profile._id}}.jpg" alt="image not found">
+                        <img class="img-profile rounded-circle img-responsive center-block mt-4" src="/user-image/{{profile._id}}.jpg" >
                         {{/if}}
                         <ul class="meta list list-unstyled">
                             <li><h3>{{user.name}}</h3> </li>
@@ -153,4 +153,7 @@
         console.log(event)
         document.getElementById('profile_img_change').src=URL.createObjectURL(event.target.files[0])
     }
+    document.getElementById('profile_img_change').addEventListener('error',()=>{
+        document.getElementById('profile_img_change').src='/project-images/user.jpg'
+    })
 </script>
