@@ -11,25 +11,75 @@
                 <input type="text" class="form-control" id="name" name="name" value="{{data.name}}">
 
             </div>
-            <div class="mb-3">
-                <label for="category" class="form-label">Category</label>
-                <input type="text" class="form-control" id="category" name="category" value="{{data.category}}">
-            </div>
+           
             <div class="mb-3">
                 <label for="price" class="form-label">Price</label>
                 <input type="text" class="form-control" id="price" name="price" value="{{data.price}}">
             </div>
             <div class="mb-3">
-                <label for="price" class="form-label">Description</label>
-                <input type="text" class="form-control" id="description" name="description" aria-valuemax="30"  value="{{data.description}}">
+                <label for="productCategory" class="form-label">Product Category</label>
+                <select class="form-select" id="productCategory" name="productCategory" required>
+                    <option value="" selected disabled> Select category</option>
+                    <option value="Electronics">Electronics</option>
+                    <option value="Fashion">Fashion</option>
+                    <option value="booksHome and Furniture">Home and Furniture</option>
+                    <option value="Beauty and Personal Care">Beauty and Personal Care</option>
+                    <option value="Health and Wellness">Health and Wellness</option>
+                    <option value="Toys and Games">Toys and Games</option>
+                    <option value="Books and Stationery">Books and Stationery</option>
+                    <option value="Sports and Outdoors">Sports and Outdoors</option>
+                    <option value="Automotive">Automotive</option>
+                    <option value="Jewelry and Watchesbooks">Jewelry and Watches</option>
+                    <option value="Baby and Kids">Baby and Kids</option>
+                    <option value="Grocery and Food">Grocery and Food</option>
+                    <option value="Electrical Appliances">Electrical Appliances</option>
+                    <option value="Home Improvement">Home Improvement</option>
+                    <option value="Pet Supplies">Pet Supplies</option>
+                    <option value="Crafts and Hobbies">Crafts and Hobbies</option>
+                    <option value="Garden and Outdoor">Garden and Outdoor</option>
+                    <option value="Electricals and Gadgets">Electricals and Gadgets</option>
+                    <option value="Office Supplies">Office Supplies</option>
+                    <option value="Travel and Luggage">Travel and Luggage</option>
+                    
+                   
+                </select>
             </div>
             <div class="mb-3">
-                
-                <label for="price" class="form-label">image</label >
-                <img src="/product-image/{{data._id}}.jpg" alt="" width="100px" heigth="auto" id="imgView"><br><br>
-                <input type="file" class="form-control" id="image" name="image" onchange="viewImage(event)" >
+
+                <label for="subCategory" class="form-label">Select Sub category</label>
+                <select id="subCategory" class="form-select" name="subCategory" required>
+                    <option value="" selected disabled>Select a sub category</option>
+                </select>
             </div>
-            <div class="text-center">
+            <div class="mb-3">
+                <label for="price" class="form-label">Description</label>
+                <textarea type="text" class="form-control" id="description" name="description" aria-valuemax="30"  >{{data.description}}</textarea>
+            </div>
+             <div class="mb-3">
+                <label for="price" class="form-label">Features</label>
+                <textarea type="text" class="form-control" id="feature" name="features" aria-valuemax="30"  >{{data.features}}</textarea>
+            </div>
+            <div class="mb-3">
+                <label for="price" class="form-label">image1</label >
+                <img src="/product-image/{{data._id}}.jpg" alt="" width="100px" heigth="auto" id="imgView1"><br><br>
+                <input type="file" class="" id="i1" name="image1" onchange="viewImage(event,'1')" >
+            </div>
+            <div class="mb-3">
+                <label for="price" class="form-label">image2</label >
+                <img src="/product-image/{{data._id}}2.jpg" alt="" width="100px" heigth="auto" id="imgView2"><br><br>
+                <input type="file" class="" id="i2" name="image2" onchange="viewImage(event,'2')" >
+            </div>
+            <div class="mb-3">
+                <label for="price" class="form-label">image3</label >
+                <img src="/product-image/{{data._id}}3.jpg" alt="" width="100px" heigth="auto" id="imgView3"><br><br>
+                <input type="file" class="" id="i3" name="image3" onchange="viewImage(event,'3')" >
+            </div>
+            <div class="mb-3">
+                <label for="price" class="form-label">image4</label >
+                <img src="/product-image/{{data._id}}4.jpg" alt="" width="100px" heigth="auto" id="imgView4"><br><br>
+                <input type="file" class="" id="i4" name="image4" onchange="viewImage(event,'4')" >
+            </div>
+            <div class="text-center mb-4">
 
             <button type="submit" class="btn btn-primary " onclick="return confirm('are you sure u want update record')">Update</button>
             </div>
@@ -38,7 +88,170 @@
     </div>  
 </div>
 <script>
-    function viewImage(event){
-        document.getElementById('imgView').src=URL.createObjectURL(event.target.files[0])
+        const category = {
+
+        "Electronics": [
+            "Smartphones",
+            "Laptops and Computers",
+            "Audio and Headphones",
+            "Cameras and Photography",
+            "Home Appliances",
+            "Wearable Devices"
+        ],
+        "Fashion": [
+            "Men's Clothing",
+            "Women's Clothing",
+            "Children's Clothing",
+            "Men's Footwear",
+            "Women's Footwear",
+            "Children's Footwear",
+            "Jewelry",
+            "Men's Watches",
+            "Women's Watches",
+            "Hats",
+            "Bags and Luggage"
+        ],
+        "Home and Furniture": [
+            "Furniture ",
+            "Home Decor",
+            "Kitchen and Dining",
+            "Bedding and Linens",
+            "Lighting"
+        ],
+        "Beauty and Personal Care": [
+            "Skincare",
+            "Makeup",
+            "Haircare",
+            "Fragrances",
+            "Grooming Products"
+        ],
+        "Health and Wellness": [
+            "Vitamins and Supplements",
+            "Fitness Equipment",
+            "Yoga and Meditation Accessories",
+            "Health Monitors"
+        ],
+        "Toys and Games": [
+            "Board Games",
+            "Educational Toys",
+            "Outdoor Play Equipment",
+            "Remote Control Toys"
+        ],
+        "Books and Stationery": [
+            "Fiction and Non-Fiction Books",
+            "E-books",
+            "Office Supplies",
+            "Art Supplies"
+        ],
+        "Sports and Outdoors": [
+            "Sports Equipment",
+            "Outdoor Recreation Gear",
+            "Camping and Hiking Supplies",
+            "Athletic Apparel"
+        ],
+        "Automotive": [
+            "Car Parts and Accessories",
+            "Motorcycle Gear",
+            "Tools and Equipment"
+        ],
+        "Jewelry and Watches": [
+            "Rings, Necklaces, Earrings, Bracelets, etc.",
+            "Luxury Watches",
+            "Fashion Watches"
+        ],
+        "Baby and Kids": [
+            "Baby Clothing and Accessories",
+            "Diapers and Wipes",
+            "Baby Gear (Strollers, Car Seats, etc.)"
+        ],
+        "Grocery and Food": [
+            "Fresh Produce",
+            "Packaged Foods",
+            "Snacks and Beverages"
+        ],
+        "Electrical Appliances": [
+            "Kitchen Appliances (Blenders, Toasters, etc.)",
+            "Vacuum Cleaners",
+            "Irons and Garment Care"
+        ],
+        "Home Improvement": [
+            "Tools",
+            "Building Materials",
+            "Plumbing and Fixtures"
+        ],
+        "Pet Supplies": [
+            "Pet Food",
+            "Pet Toys",
+            "Beds and Carriers"
+        ],
+        "Crafts and Hobbies": [
+            "DIY Kits",
+            "Craft Supplies",
+            "Model Kits"
+        ],
+        "Garden and Outdoor": [
+            "Plants and Seeds",
+            "Garden Tools",
+            "Outdoor Furniture"
+        ],
+        "Electricals and Gadgets": [
+            "Gadgets and Gizmos",
+            "Home Automation",
+            "Electronic Accessories"
+        ],
+        "Office Supplies": [
+            "Paper Products",
+            "Writing Instruments",
+            "Desk Organization"
+        ],
+        "Travel and Luggage": [
+            "Luggage Sets",
+            "Travel Accessories",
+            "Travel-sized Toiletries"
+        ]
     }
+    var productCategory='{{data.productCategory}}'
+    var subCategory='{{data.subCategory}}'
+
+    function viewImage(event,i){
+        document.getElementById('imgView'+i).src=URL.createObjectURL(event.target.files[0])
+    }
+    const product_category = document.getElementById('productCategory')
+    const sub_category = document.getElementById('subCategory')
+    console.log(product_category)
+    for(cat of product_category){
+       if(cat.value==productCategory) {
+        cat.selected=true
+        change()
+        for(sub of sub_category){
+            if(sub.value==subCategory){
+                sub.selected=true
+            }
+        }
+
+       }
+    }
+
+
+product_category.addEventListener('change',change)
+    function change(){
+    let main_category = product_category.value;
+    sub_category.innerHTML=''
+    var option= document.createElement('option')
+    option.value=""
+    option.textContent = 'Select Sub category';
+    option.selected=true
+    option.disabled=true
+    sub_category.appendChild(option)
+    console.log(main_category)
+    category[main_category].forEach(sub_cat=>{
+        console.log(main_category)
+        let option= document.createElement('option')
+        option.value=sub_cat;
+        option.textContent = sub_cat;
+      sub_category.appendChild(option)
+    })
+}
+
+
 </script>

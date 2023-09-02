@@ -131,7 +131,8 @@ router.get('/logout', function (req, res) {
   req.session.user = null
       req.session.userLoggedIn = false
       cartItemCount = 0
-  res.redirect('/')
+      user=null
+      res.redirect('/')
   
 })
 router.get('/cart', async function (req, res) {
@@ -230,6 +231,8 @@ router.post('/place-order', async (req, res) => {
         userHelpers.generateRazorpay(orderId, total).then((response) => {
 
           res.json(response)
+        }).catch((err)=>{
+          
         })
       }
 
@@ -280,11 +283,12 @@ router.get('/user-account', async (req, res) => {
   if (req.session.userLoggedIn) {
     if (req.session.user.login_mode) {
       console.log(req.user)
-      var profile = {
+      var gProfile = {
         name: req.user.displayName,
         photo: req.user.photos[0].value
       }
-      res.render('user/user-account', { user, cartItemCount, profile, google: true })
+      var profile = await userHelpers.find_profile(user._id)
+      res.render('user/user-account', { user, cartItemCount, profile,gProfile, google: true })
     } else {
       var profile = await userHelpers.find_profile(user._id)
       if (profile) {
@@ -320,7 +324,18 @@ router.post('/update-profile', (req, res) => {
       var profile = await userHelpers.find_profile(user._id)
       console.log("inside the update profile")
       console.log(req.files)
+     if(req.session.user.login_mode) {
+      var gProfile = {
+        name: req.user.displayName,
+        photo: req.user.photos[0].value
+      }
+        if(profile.gender){}
+      if (profile.gender == 'Male')
+      res.render('user/user-account', { user, cartItemCount, profile,gProfile, google: true,male:true })
+        else
+        res.render('user/user-account', { user, cartItemCount, profile,gProfile, google: true ,female:true})
 
+     }else{
       if (req.files) {
         console.log("inside req.files")
         let image = req.files.image
@@ -339,6 +354,8 @@ router.post('/update-profile', (req, res) => {
         res.render('user/user-account', { response, user, profile })
       }
 
+     }
+      
 
     })
   }
@@ -407,7 +424,9 @@ router.get('/description/:id',(req,res)=>{
 router.get('/detailed-view/:id',async (req,res)=>{
   var product=await producthelper.getProduct(req.params.id)
   console.log(product)
-  res.render('user/detailed-view',{admin: false, user, cartItemCount,id:req.params.id,product})
+  var same=await producthelper.getSimilarProduct(product.subCategory)
+  res.render('user/detailed-view',{admin: false, user, cartItemCount,id:req.params.id,product,same})
+  
 })
 module.exports = router
 

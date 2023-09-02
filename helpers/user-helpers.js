@@ -13,6 +13,11 @@ module.exports = {
                     resolve({err:"user already exist"})
                 }
             })
+            db.get().collection(collections.GOOGLE_COLLECTION).findOne({email:userdata.email}).then((response)=>{
+                if(response){
+                    resolve({err:"try using google login or signup"})
+                }
+            })
             userdata.password = await bcrypt.hash(userdata.password, 10)
             db.get().collection(collections.USER_COLLECTION).insertOne(userdata).then((data) => {
                 console.log(data)

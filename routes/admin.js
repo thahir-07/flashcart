@@ -147,8 +147,53 @@ router.post('/edit-products/:id', (req, res) => {
   producthelper.updateProduct(data, id).then(async (resolve) => {
     console.log(resolve)
     if (req.files) {
-      let image = req.files.image
-      image.mv('./public/product-image/' + id + ".jpg")
+      console.log(req.files)
+      if(req.files.image1){
+       var img=req.files.image1
+       img.mv('./public/product-image/' + id + '.jpg', (err, done) => {
+        if (!err) {
+          console.log("file added successfully")
+          console.log(img)
+        }
+        else {
+          console.log(err)
+        }
+      })
+      }else if(req.files.image2){
+        var img=req.files.image2
+       img.mv('./public/product-image/' + id +'2'+ '.jpg', (err, done) => {
+        if (!err) {
+          console.log("file added successfully")
+          console.log(img)
+        }
+        else {
+          console.log(err)
+        }
+      })
+      }else if(req.files.image3){
+        var img=req.files.image3
+       img.mv('./public/product-image/' + id +'3'+ '.jpg', (err, done) => {
+        if (!err) {
+          console.log("file added successfully")
+          console.log(img)
+        }
+        else {
+          console.log(err)
+        }
+      })
+      }else if(req.files.image4){
+        var img=req.files.image4
+       img.mv('./public/product-image/' + id +'4'+ '.jpg', (err, done) => {
+        if (!err) {
+          console.log("file added successfully")
+          console.log(img)
+        }
+        else {
+          console.log(err)
+        }
+      })
+      }
+      
 
     }
     res.redirect('/admin')

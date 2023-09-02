@@ -42,7 +42,7 @@ function razorpayPayement(order) {
         "currency": "INR",
         "name": "Abu Thahir", //your business name
         "description": "Test Transaction",
-        "image": "https://example.com/your_logo",
+        "image": '/project-images/flashcart.png',
         "order_id": order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
         "handler": (response) => {
             verifyPayement(response, order)

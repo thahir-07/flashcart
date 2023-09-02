@@ -7,7 +7,7 @@
                 <div class="side-bar sb">
                     <div class="user-info text-center">
                         {{#if google}}
-                            <img class="img-profile rounded-circle img-responsive center-block mt-4" src={{profile.photo}} alt="image not found">
+                            <img class="img-profile rounded-circle img-responsive center-block mt-4" src={{gProfile.photo}} alt="image not found">
                         {{else}}
                         <img class="img-profile rounded-circle img-responsive center-block mt-4" src="/user-image/{{profile._id}}.jpg" >
                         {{/if}}
@@ -33,7 +33,7 @@
                             <div class="form-group avatar">
                                 <figure class="figure col-md-2 col-sm-3 col-xs-12">
                                     {{#if google}}
-                                    <img class="rounded-circle img-responsive " id="profile_img_change" src={{profile.photo}} alt="Profile">
+                                    <img class="rounded-circle img-responsive " id="profile_img_change" src={{gProfile.photo}} alt="Profile">
                                     {{else}}
                                     <img class="rounded-circle img-responsive " id="profile_img_change" src="/user-image/{{profile._id}}.jpg" alt="Profile">
                                     {{/if}}

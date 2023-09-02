@@ -6,11 +6,11 @@
                     <h2>Create New Account</h2>
                 </div>
                 <div class="form-group pt-5"> <input class="text-center border border-shadow inp" type="text"
-                        placeholder="Name" name="name"></div>
+                        placeholder="Name" name="name" required></div>
                 <div class="form-group pt-3"> <input class="text-center border border-shadow inp" type="text"
-                        placeholder="Email" name="email"></div>
+                        placeholder="Email" name="email" required></div>
                 <div class="form-group pt-3"><input class="text-center border border-shadow inp" type="password"
-                        placeholder="Password" name="password"></div>
+                        placeholder="Password" name="password" required></div>
                         {{#if err}}
                     <div style="color:red">
                         <p>{{err}}</p>
@@ -18,12 +18,17 @@
                     {{/if}}
                 <div><a class="a-new" href="/login">Already have account?</a></div>
                  
-                <div class="pt-3"><input class="btn btn-info text-white" type="submit" role="button" value="signp">
+                <div class="pt-3 mb-3"><input class="btn btn-info text-white" type="submit" role="button" value="signp">
                 </div>
+                <div style="margin-left: auto;">    
+                            <a href="/auth/google" class="mt-5"
+                                style="background-color: rgb(251, 251, 250);border 1px solid;text-decoration: none;color: black; border: 1px solid;padding: 5px; padding-bottom: 10px;border-radius: 5px;">
+                                <img src="/project-images/google.png" width="30px" height="30px"
+                                    alt="Login with Google"><span style="padding-left: 2px;">Signup with google</span>         
+                            </a>
+                    </div>
             </form>
-            <div>
-                <div class="g-signin2 p-2" data-onsuccess="onSignIn"></div>
-            </div>
+           
         </div>
     </div>
 </section>

@@ -40,9 +40,12 @@ module.exports={
         return new Promise((resolve,reject)=>{
             db.get().collection(collections.PRODUCT_COLLECTION).updateOne({_id:new ObjectId(proId)},{$set:
                 {name:data.name,
-                category:data.category,
+                productCategory:data.productCategory,
+                subCategory:data.subCategory,
+                price:data.price,
                 description:data.description,
-                price:data.price}
+                features:data.features
+            }
                 }).then((response)=>{
                 resolve(response)
             })
@@ -289,6 +292,13 @@ getCartProductsList:(userId)=>{
         })
     })
 
-}
+},
+getSimilarProduct: (subCategory)=>{
+    return new Promise(async(resolve,reject)=>{
+        let product= await db.get().collection(collections.PRODUCT_COLLECTION).find({subCategory:subCategory}).toArray() 
+        resolve(product)
 
+    })
+
+}
 }
