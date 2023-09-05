@@ -1,0 +1,55 @@
+<style>
+    .ad-img{
+        width:100%;
+        height: 300px;
+        display: block;
+        border: 1px solid gray;
+    }
+    .ad-inp{
+        border: 1px solid gray;
+        margin: 10px;
+    }
+    .ad-inp:focus{
+        border:2px solid rgb(137, 240, 148); ;
+    }
+    .button{
+        border-radius: 5px;
+        border: none;
+        width: 100px;
+    }
+    .button:active{
+        transform: scale(0.98);
+    }
+</style>
+<div class="container ">
+    <div class="row text-center ">
+        <form action="/admin/update-ads" method="post" enctype="multipart/form-data">
+            <div class="col-12 mt-5 ">
+                <img src="/project-images/ad1.jpg" class="ad-img " id="ad-img1" alt="">
+                <input type="file" class="ad-inp" name="ad1" id="ad1" onchange="change(event,'1')" >
+            </div>
+            <div class="col-12">
+                <img src="/project-images/ad2.jpg" class="ad-img" id="ad-img2" alt="">
+                <input type="file" class="ad-inp"  name="ad2" id="ad2" onchange="change(event,'2')">
+            </div>
+                
+                <div class="col-12">
+                    <img src="/project-images/ad3.jpg" class="ad-img" id="ad-img3" alt="">
+                     <input type="file" class="ad-inp" name="ad3"  id="ad3" onchange="change(event,'3')">
+                </div>
+                
+                <div class="col-12 mb-3">
+                    <input type="submit" class="button" value="Update">
+                </div>
+        </form>
+    </div>
+</div>
+<script>
+    function change(e ,i){
+
+            var file=e.target.files[0]
+            document.getElementById('ad-img'+i).src=URL.createObjectURL(file)
+       
+
+    }
+</script>

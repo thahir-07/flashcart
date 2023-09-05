@@ -13,11 +13,13 @@ var proId
 router.get('/', function (req, res, next) {
   if (req.session.AdminLoggedIn) {
     producthelper.getAllProduct().then((products) => {
-      res.render('admin/view-products', { products, admin: true })
+      var nav='allproducts'
+      res.render('admin/view-products', { products, admin: true,nav })
     })
 
   } else {
-    res.render('admin/admin-login', { admin: true })
+    var nav='allproducts'
+    res.render('admin/admin-login', { admin: true,nav })
 
   }
 
@@ -51,12 +53,14 @@ router.get('/add-products', function (req, res) {
 router.get('/orders', async function (req, res) {
   let orders = await userHelpers.getAllOrderDetails()
   console.log(orders)
-  res.render('admin/all-orders', { orders, admin: true })
+  var nav='orders'
+  res.render('admin/all-orders', { orders, admin: true,nav })
 
 });
 router.get('/users', async function (req, res) {
   var users = await userHelpers.allUsers()
-  res.render('admin/all-user', { users, admin: true })
+  var nav='users'
+  res.render('admin/all-user', { users, admin: true ,nav})
 
 
 });
@@ -147,51 +151,21 @@ router.post('/edit-products/:id', (req, res) => {
   producthelper.updateProduct(data, id).then(async (resolve) => {
     console.log(resolve)
     if (req.files) {
-      console.log(req.files)
       if(req.files.image1){
        var img=req.files.image1
-       img.mv('./public/product-image/' + id + '.jpg', (err, done) => {
-        if (!err) {
-          console.log("file added successfully")
-          console.log(img)
-        }
-        else {
-          console.log(err)
-        }
-      })
-      }else if(req.files.image2){
+       img.mv('./public/product-image/' + id + '.jpg')
+      }
+       if(req.files.image2){
         var img=req.files.image2
-       img.mv('./public/product-image/' + id +'2'+ '.jpg', (err, done) => {
-        if (!err) {
-          console.log("file added successfully")
-          console.log(img)
-        }
-        else {
-          console.log(err)
-        }
-      })
-      }else if(req.files.image3){
+       img.mv('./public/product-image/' + id +'2'+ '.jpg')
+      }
+      if(req.files.image3){
         var img=req.files.image3
-       img.mv('./public/product-image/' + id +'3'+ '.jpg', (err, done) => {
-        if (!err) {
-          console.log("file added successfully")
-          console.log(img)
-        }
-        else {
-          console.log(err)
-        }
-      })
-      }else if(req.files.image4){
+       img.mv('./public/product-image/' + id +'3'+ '.jpg')
+      }
+       if(req.files.image4){
         var img=req.files.image4
-       img.mv('./public/product-image/' + id +'4'+ '.jpg', (err, done) => {
-        if (!err) {
-          console.log("file added successfully")
-          console.log(img)
-        }
-        else {
-          console.log(err)
-        }
-      })
+       img.mv('./public/product-image/' + id +'4'+ '.jpg')
       }
       
 
@@ -200,6 +174,27 @@ router.post('/edit-products/:id', (req, res) => {
   })
 
 
+})
+router.get('/manage-ads',(req,res)=>{
+  var nav='manage-ads'
+  res.render('admin/manage-ads',{admin: true,nav})
+})
+router.post('/update-ads',(req,res)=>{
+  if(req.files){
+    if(req.files.ad1){
+      var ad_img=req.files.ad1
+      ad_img.mv('./public/project-images/ad1.jpg')
+    }
+    if(req.files.ad2){
+      var ad_img=req.files.ad2
+      ad_img.mv('./public/project-images/ad2.jpg')
+    }
+    if(req.files.ad3){
+      var ad_img=req.files.ad3
+      ad_img.mv('./public/project-images/ad3.jpg')
+    }
+  }
+  res.render('admin/manage-ads',{admin: true})
 })
 module.exports = router;
 

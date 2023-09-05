@@ -128,57 +128,69 @@ scroll-behavior: smooth ;
   margin-left: 3px;
 }
 
-
+.options{
+  position: absolute;
+  background-color: white;
+  z-index: 1;
+  top:180px;
+  width: 70%;
+  height: 250px;
+  left:50%;
+  transform: translateX(-50%);
+  border-radius: 10px;
+   box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+  display: none;
+} 
 
 </style>
-
+<!--<div id="content" class="options text-center" style="" onmouseout="hide()"><a href="#">hello</a></div>-->
 <section class="section pt-1">
   <div class="container-fluid text-center">
     <div class="scrolling-wrapper">
-      <div class="text-center p-1" style="display: inline-block;">
+      <div class="text-center p-1" style="display: inline-block;"  >
         <a href="/offer" style="text-decoration: none;"><img style="width: 80px;height: 80px;"
             src="https://rukminim1.flixcart.com/fk-p-flap/128/128/image/50379f65f7b59622.png?q=100" alt="" style="">
           <p>Offerce</p>
         </a>
       </div>
-      <div class="text-center p-1" style="display: inline-block;">
+      <div class="text-center p-1" style="display: inline-block;" >
         <a href="/mobiles-tablets" style="text-decoration: none;"><img style="width: 80px;height: 80px;"
             src="https://rukminim1.flixcart.com/fk-p-flap/128/128/image/0a0243119f02f7a5.png?q=100" alt="" style="">
           <p>Mobiles & Tablets</p>
         </a>
       </div>
-      <div class="text-center p-1" style="display: inline-block;">
+      <div class="text-center p-1" style="display: inline-block;" >
         <a href="/electronics" style="text-decoration: none;"><img style="width: 80px;height: 80px;"
             src="https://rukminim1.flixcart.com/fk-p-flap/128/128/image/da4491af4ee551d6.png?q=100" alt="" style="">
           <p style="size: 5px;">Electronics</p>
         </a>
       </div>
-      <div class="text-center p-1" style="display: inline-block;">
+      <div class="text-center p-1" style="display: inline-block;" >
         <a href="/tv-appliances" style="text-decoration: none;"><img style="width: 80px;height: 80px;"
             src="https://rukminim1.flixcart.com/fk-p-flap/128/128/image/7a9da987f315df35.png?q=100" alt="" style="">
           <p>TVs & Appliances</p>
         </a>
       </div>
 
-      <div class="text-center p-1" style="display: inline-block;">
+      <div class="text-center p-1" style="display: inline-block;" >
         <a href="/fashion" style="text-decoration: none;"><img style="width: 80px;height: 80px;"
             src="https://rukminim1.flixcart.com/fk-p-flap/128/128/image/f7b2a4eeb35a8c9f.png?q=100" alt="" style="">
           <p>Fashion</p>
         </a>
       </div>
-      <div class="text-center p-1" style="display: inline-block;">
+      <div class="text-center p-1" style="display: inline-block;" >
         <a href="/beuty" style="text-decoration: none;"><img style="width: 80px;height: 80px;"
             src="https://rukminim1.flixcart.com/fk-p-flap/128/128/image/e83a5f27b01d9a7e.png?q=100" alt="" style="">
           <p>Beuty</p>
         </a>
       </div>
-      <div class="text-center p-1" style="display: inline-block;">
+      <div class="text-center p-1" style="display: inline-block;" >
         <a href="/home-appliances" style="text-decoration: none;"><img style="width: 80px;height: 80px;"
             src="https://rukminim1.flixcart.com/fk-p-flap/128/128/image/a8cfa33c7206ae57.png?q=100" alt="" style="">
           <p>Home & Appliences</p>
         </a>
       </div>
-      <div class="text-center p-1" style="display: inline-block;">
+      <div class="text-center p-1" style="display: inline-block;" >
         <a href="/furniture" style="text-decoration: none;"><img style="width: 80px;height: 80px;"
             src="https://rukminim1.flixcart.com/fk-p-flap/128/128/image/4e0bdf8567ecb960.png?q=100" alt="" style="">
           <p>Furniture</p>
@@ -192,7 +204,7 @@ scroll-behavior: smooth ;
 </section>
 <section style="padding-top: 0;">
   <div class="container-fluid text-center" >
-     <img src="https://images.picxy.com/cache/2020/6/18/c0ada3c718e235ccba0dfe97dcf1bd27.webp" id="ad-img" width="100%" height="300" alt="">
+     <img src="/project-images/ad1.jpg" id="ad-img" width="100%" height="300" alt="">
     
       <input type="radio" name="slide" class="slide" id="img1">
       <input type="radio" name="slide" class="slide" id="img2">
@@ -207,11 +219,11 @@ scroll-behavior: smooth ;
     <button onclick="scroll_left()" id="scroll-btn-left"><div class="div2"></div><div class="div1"></div></button>
     <div class="scrolling-wrapper m-4" id="scroll1">
       {{#each product}}
-      {{#product_check this 'smart phone'}}
+      {{#product_check this 'Smartphones'}}
       <div class="col-6 col-md-2 product">
         <div class="card-outer m-2" style="border: none; ">
           <div class="card border border-shadow card-outer">
-        <a id="load" href="/detailed-view/{{this._id}}">
+        <a class="load" href="/detailed-view/{{this._id}}">
             <img src="/product-image/{{this._id}}.jpg" class="card-img-top" style="height:13em" alt="">
             <p class="card-text">{{this.name}}</p>
             <div class="card-body pt-0" style="line-height: 3px;">
@@ -222,7 +234,7 @@ scroll-behavior: smooth ;
             </div>
         </a>
             <div class="mb-2"><button class="btn button" onclick="addToCart('{{this._id}}',{{user}})"
-                style="color: rgb(255, 255, 255);" cl>add to cart</button></div>
+                style="color: rgb(255, 255, 255);padding: 3px;" >Add to cart</button></div>
           </div>
         </div>
       </div>
@@ -241,11 +253,11 @@ scroll-behavior: smooth ;
     <button onclick="scroll_right2()" id="scroll-btn2-rigt"><div class="div1"></div><div class="div2"></div></button>
     <div class="scrolling-wrapper m-4" id="scroll2">
       {{#each product}}
-      {{#product_check this 'electronics'}}
-       <a href="/detailed-view/{{this._id}}">
-      <div class="col-6 col-md-2 product">
+      {{#product_check this 'Electronics'}}
+      <div class="col-6 col-md-2 product" >
         <div class="card-outer m-2" style="border: none; ">
           <div class="card border border-shadow card-outer">
+       <a href="/detailed-view/{{this._id}}" class="load">
             <img src="/product-image/{{this._id}}.jpg" class="card-img-top" style="height:13em" alt="">
             <p class="card-text">{{this.name}}</p>
             <div class="card-body pt-0" style="line-height: 3px;">
@@ -254,12 +266,12 @@ scroll-behavior: smooth ;
             <div class="pt-0 description-text" style="display: block;overflow: break-word;">
               <p class="card-text mt-0">{{this.description}}</p>
             </div>
+      </a>
             <div class="mb-2"><button class="btn button" onclick="addToCart('{{this._id}}',{{user}})"
-                style="color: rgb(255, 255, 255);" cl>add to cart</button></div>
+                style="color: rgb(255, 255, 255);padding: 3px;" cl>Add to Cart</button></div>
           </div>
         </div>
       </div>
-      </a>
       {{/product_check}}
       {{/each}}
     </div>
@@ -274,13 +286,14 @@ scroll-behavior: smooth ;
 
 <section class="section-border m-2">
   <div class="container-fluid text-center">
-    <h3>Cloths</h3>
+    <h3>Fashion</h3>
     <div class="scrolling-wrapper">
       {{#each product}}
-      <a href="/detailed-view/{{this._id}}">
+      {{#product_check this 'Fashion'}}
       <div class="col-6 col-md-2 product">
         <div class="card-outer m-2" style="border: none; ">
           <div class="card border border-shadow card-outer">
+      <a href="/detailed-view/{{this._id}}" class="load">
             <img src="/product-image/{{this._id}}.jpg" class="card-img-top" style="height:13em" alt="">
             <p class="card-text">{{this.name}}</p>
             <div class="card-body pt-0" style="line-height: 3px;">
@@ -289,12 +302,13 @@ scroll-behavior: smooth ;
             <div class="pt-0 description-text" style="display: block;overflow: break-word;">
               <p class="card-text mt-0">{{this.description}}</p>
             </div>
+      </a>
             <div class="mb-2"><button class="btn button" onclick="addToCart('{{this._id}}',{{user}})"
-                style="color: rgb(255, 255, 255);" cl>add to cart</button></div>
+                style="color: rgb(255, 255, 255);padding: 3px;" cl>Add to Cart</button></div>
           </div>
         </div>
       </div>
-      </a>
+      {{/product_check}}
       {{/each}}
     </div>
   </div>
@@ -302,29 +316,29 @@ scroll-behavior: smooth ;
 
 <section class="section-border m-2">
   <div class="container-fluid text-center">
-    <h3></h3>
+    <h3>Most Searched</h3>
     <div class="scrolling-wrapper">
       {{#each product}}
-      {{#product_check this 'electronics'}}
-      <a href="/detailed-view/{{this._id}}">
+      
       <div class="col-6 col-md-2 product">
         <div class="card-outer m-2" style="border: none; ">
           <div class="card border border-shadow card-outer">
+      <a href="/detailed-view/{{this._id}}" class="load">
             <img src="/product-image/{{this._id}}.jpg" class="card-img-top" style="height:13em" alt="">
             <p class="card-text">{{this.name}}</p>
             <div class="card-body pt-0" style="line-height: 3px;">
               <p class="card-text">Rs.{{this.price}}/-</p>
             </div>
-            <div class="pt-0 description-text" style="display: block;overflow: break-word;">
+            <div class="pt-0 description-text" style="display: block;overflow:hidden;">
               <p class="card-text mt-0">{{this.description}}</p>
             </div>
+      </a>
             <div class="mb-2"><button class="btn button" onclick="addToCart('{{this._id}}',{{user}})"
-                style="color: rgb(255, 255, 255);" cl>add to cart</button></div>
+                style="color: rgb(255, 255, 255);padding: 3px;" cl>Add to cart</button></div>
           </div>
         </div>
         </div>
-      </a>
-      {{/product_check}}
+     
       {{/each}}
     </div>
   </div>
@@ -337,30 +351,7 @@ scroll-behavior: smooth ;
     </div>
   </div>
 </section>
-<footer class="text-center py-3 bg-black text-white">
-        <p>&copy; 2023 Your Ecommerce Company. All rights reserved.<br>
-        Website: <a href="http://www.yourwebsite.com">www.yourwebsite.com</a></p>
-        
-        <p>Unauthorized copying, reproduction, or distribution of any content on this website, including text, images, graphics, and code, is strictly prohibited. This includes both electronic and print forms. For permissions and inquiries regarding content use, please contact us at <a href="mailto:legal@yourwebsite.com">legal@yourwebsite.com</a>.</p>
-        
-        <p>Unless otherwise indicated, all trademarks, logos, and other intellectual property displayed on this website are the property of Your Ecommerce Company and are protected under intellectual property laws.</p>
-        
-        <p>By accessing and using this website, you agree to comply with all applicable copyright and intellectual property laws. You may not use, modify, or distribute the content of this website for commercial purposes without express written consent from Your Ecommerce Company.</p>
-        
-        <p>Your use of this website does not grant you any rights or licenses in relation to the intellectual property rights or the content presented herein. All content on this website is provided for informational purposes and does not constitute professional advice.</p>
-        
-        <p>Your Ecommerce Company reserves the right to take legal action against any unauthorized use of its copyrighted content or intellectual property.</p>
-        
-        <p>For more information about our terms of use and privacy practices, please visit our <a href="terms-of-use.html">Terms of Use</a> and <a href="privacy-policy.html">Privacy Policy</a> pages linked at the bottom of this website.</p>
-        
-        <p>For copyright inquiries, please contact:<br>
-        Legal Department<br>
-        Your Ecommerce Company<br>
-        123 Main Street<br>
-        City, State, ZIP<br>
-        Email: <a href="mailto:abuthahircoorg07@gmail.com">abuthahircoorg07@gmail.com</a><br>
-        Phone: (123) 456-7890</p>
-    </footer>
+
 <script>
   const customAlert = document.getElementById("custom-alert");
 const closeAlertButton = document.getElementById("close-alert");
@@ -371,7 +362,7 @@ closeAlertButton.addEventListener("click", () => {
 <script>
   var i=0
   document.getElementById('img1').checked=true
-  var images=['/project-images/ad2.avif','https://img.freepik.com/free-psd/special-deal-super-offer-upto-60-parcent-off-isolated-3d-render-with-editable-text_47987-15330.jpg?w=826&t=st=1691598837~exp=1691599437~hmac=c6e5faf3471da429d48805f07e930274c75a6272beade2f1f395b0b815f05521']
+  var images=['/project-images/ad2.jpg','/project-images/ad3.jpg']
   var cur=document.getElementById('ad-img').src
   images.push(cur)
   setInterval(()=>{
@@ -418,3 +409,14 @@ closeAlertButton.addEventListener("click", () => {
   scroll.scrollLeft-=200
   }
 </script>
+<!--<script>
+  function show(){
+    var cont = document.getElementById('content')
+    cont.style.display='block'
+  }
+  function hide(){
+    var cont = document.getElementById('content')
+    cont.style.display='none'
+  }
+
+</script>-->

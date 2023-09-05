@@ -1,4 +1,7 @@
-#load{
+.qty-btn:active{
+  transform: scale(0.97);
+}
+.load{
   text-decoration: none;
   color: black;
 }
@@ -65,7 +68,8 @@ input[type='search']:focus{
 }
 .button{
   background-image: linear-gradient(rgb(133, 67, 164),rgb(0, 255, 123));
-  color: azure;
+  color: rgb(255, 255, 255);
+
 }
 .inp{
   width:20rem;

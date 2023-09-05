@@ -28,33 +28,37 @@
         background: none;
         padding: 0;
     }
+    .desc{
+         height: 300px; 
+         overflow: hidden;
+    }
 </style>
 <div class="container">
     <div class="row ">
         <div class=" col-3 col-lg-2 ">
             <div class="row ">       
-                        <button onclick="changeImage('{{id}}','1')">
+                        <button onclick="changeImage('{{id}}','1')" onpointerover="changeImage('{{id}}','1')">
                         <img class="img focus" id="img1" src="/product-image/{{id}}.jpg" alt="">
                         </button>   
                     
             </div>
             <div class="row">
                 
-                    <button onclick="changeImage('{{id}}','2')">
+                    <button onclick="changeImage('{{id}}','2')" onpointerover="changeImage('{{id}}','2')">
                         <img class="img" id="img2" src="/product-image/{{id}}2.jpg" alt="">
                     </button>    
                 
             </div>
             <div class="row">
                
-                    <button onclick="changeImage('{{id}}','3')">
+                    <button onclick="changeImage('{{id}}','3')" onpointerover="changeImage('{{id}}','3')">
                     <img class="img " id="img3" src="/product-image/{{id}}3.jpg" alt="">
                     </button>   
                     
             </div>
             <div class="row">
                
-                    <button onclick="changeImage('{{id}}','4')">
+                    <button onclick="changeImage('{{id}}','4')" onpointerover="changeImage('{{id}}','4')">
                         <img class="img " id="img4" src="/product-image/{{id}}4.jpg" alt="">
                     </button>
                  
@@ -69,6 +73,10 @@
              <div class="row text-center mt-3">
                     <button class="btn button" onclick="addToCart('{{id}}',{{user.id}})"
                 style="color: rgb(255, 255, 255); width:90px;margin-left:25%;">add to cart</button></div>
+                
+            <!--<div class="row text-center mt-3" style="border: 1px solid;">
+                   add to cart</div>-->
+
         </div>
         
         
@@ -77,54 +85,56 @@
                 <div class="col-12" style="border: 1px solid; padding: 10px;margin: 2px; margin-bottom: 10px; border-radius: 5px;margin-top: 10px;">
                 <h3>{{product.name}}</h3>
                 <p class="text-left" style="align-content: start;">Price: &#8377; {{product.price}}</p>
+                <div class="bg-color" style="color: rgb(255, 255, 255);font-size: larger; width: 60px;border-radius: 5px;margin-left: auto;margin-right: auto;" >4.5  &#9733;</div>
                 </div>
             </div>
-            <div class="row m-1" >
+           <!-- <div class="row m-1" >
                 <div class="col-12"  style="border: 1px solid; padding: 10px;margin: 2px; border-radius: 5px;">
                 <h5>Select Size</h5>
                 
-                <button style="width: 50px;height: 50px;background-color: rgb(255, 255, 255);margin: 3px; margin-left: 10px;">L</button>
-                <button style="width: 50px;height: 50px;background-color: rgb(255, 255, 255);margin: 3px;"></button>
-                <button style="width: 50px;height: 50px;background-color: rgb(255, 255, 255);margin: 3px;"></button>
-                <button style="width: 50px;height: 50px;background-color: rgb(255, 255, 255);margin: 3px;"></button>
-                
+               <div class="bg-color" style="color: rgb(255, 255, 255);font-size:20px;width:90px;padding:3px; border-radius: 5px;">Free Size</div>
                 </div>
-            </div>
+            </div>-->
             <div class="row m-1">
                 <div class="col-12 " style="border: 1px solid; padding: 10px;margin: 2px; border-radius: 5px;">
-                    <h4>Product Details</h4>
-                    {{product.description}}
+                    <h4>Description</h4>
+                   <div id="overview"></div>
                 </div>
             </div>
+            <div class="row mb-3 m-1">
+                 <div class="col-12 " style="border: 1px solid; padding: 10px;margin: 2px; border-radius: 5px;">
+                    <h4>Product Details</h4>
+                    <div id="features" class="desc"></div>
+                    <button onclick="change()" style="color: blue;">show more</button>
+                </div>
+    </div>
             
         </div>
        
     </div>
-    <div class="row mb-5">
-      
-    </div>
+    
 </div>
-<section class=" section pt-3">
+<section class=" section pt-2 mb-3">
     <div class="container">
       <div class="row ">
         <h4 style="color: rgb(59, 58, 58);">Peaple also viewed</h4>
         
         {{#each same}}
         <div class="col-6 col-md-4 col-lg-2 mt-3 text-center fixed " >
-        <a id="load" href="/detailed-view/{{this._id}}">
+        <a class="load" href="/detailed-view/{{this._id}}">
           <div class="card  border-shadow "style="">
             <img src="/product-image/{{this._id}}.jpg" class="card-img-top" style="height:13em" alt="">
             <p class="card-text">{{this.name}}</p>
             <div class="card-body pt-0" style="line-height: 3px;">
               <p class="card-text">Rs.{{this.price}}/-</p></div>
-              <div class="pt-0"><p class="card-text mt-0">{{this.description}}</p></div> 
+              <div class="pt-0" style="height: 50px; overflow: hidden;"><p class="card-text mt-0" >{{this.description}}</p></div> 
 
-              
+               </a>
               <div class="mb-2"><button class="btn button" onclick="addToCart('{{this._id}}',{{user}})"  style="color: rgb(255, 255, 255);" cl>add to cart</button></div>
               
                
           </div>
-        </a>
+       
         </div>
         {{/each}}
 
@@ -133,16 +143,19 @@
   </section>
   
 <script>
-     var rowdata="{{product.description}}"
-     console.log(rowdata)
-      const paragraphs = rowdata.split('\r\n+\r\n');
-
-        // Create a formatted HTML structure
+     var description=`{{product.description}}`
+      var paragraphs = description.split('\n');
+      console.log(paragraphs)
         const formattedHTML = paragraphs.map(paragraph => `<p>${paragraph}</p>`).join('');
-
-        // Display the formatted HTML in the 'overview' div
         const overviewDiv = document.getElementById('overview');
         overviewDiv.innerHTML = formattedHTML;
+
+     var features=`{{product.features}}`
+       var para = features.split('\n');
+      console.log(para)
+        const formatted = para.map(paragraph => `<p>${paragraph}</p>`).join('');
+        const featureDiv = document.getElementById('features');
+        featureDiv.innerHTML = formatted;
 </script>
 <script>
    
@@ -157,5 +170,7 @@
     focus='img'+img;
     
     }
-
+function change(){
+    document.getElementById('features').classList.toggle('desc')
+}
 </script>

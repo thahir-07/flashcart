@@ -40,7 +40,7 @@ function razorpayPayement(order) {
         "key": "rzp_test_0lu74rFyib3blw", // Enter the Key ID generated from the Dashboard
         "amount": order.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
         "currency": "INR",
-        "name": "Abu Thahir", //your business name
+        "name": "Flashcart", //your business name
         "description": "Test Transaction",
         "image": '/project-images/flashcart.png',
         "order_id": order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
@@ -126,7 +126,6 @@ function changeQuantity(cartId, proId, count) {
             count = parseInt(count)
             console.log(response)
             if (response.response.productRemoved) {
-                alert('product removed from cart')
                 location.reload()
 
             } else {

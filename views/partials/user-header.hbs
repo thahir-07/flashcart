@@ -30,7 +30,7 @@
       </form>
         <div class="dropdown mt-2">
           <button class="btn  dropdown-toggle" type="button" id="dropdownMenuButton"
-            style="border: 1px solid ;color:white"
+            style="border: 1px solid ;color:white; padding: 3px; margin-right: 10px;"
             data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             {{#if user}}
             {{user.name}}
@@ -53,7 +53,7 @@
   </nav>
 </header>
 <script>
-  window.addEventListener('DOMContentLoaded', () => {
+ 
     var nav = '{{nav}}'
 
     if (nav == 'product') {
@@ -64,6 +64,5 @@
       document.getElementById('nav-orders').classList.add('active')
     }
 
-  })
 
 </script>

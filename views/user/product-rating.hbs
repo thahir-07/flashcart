@@ -1,0 +1,95 @@
+<style>
+        .rating-stars {
+            font-size: 24px;
+            color: #f8ce0b;
+        }
+
+        .rating-stars i {
+            cursor: pointer;
+        }
+
+        .rating-stars i:hover {
+            color: #f4aa18;
+        }
+
+        .image-preview {
+            display: flex;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .image-preview img {
+            max-width: 150px;
+            max-height: 150px;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+
+        .custom-file-input {
+            display: none;
+        }
+        
+        .custom-file-label {
+            cursor: pointer;
+        }
+
+        .btn-add-image {
+            margin-top: 10px;
+        }
+    </style>
+<div class="container mt-5">
+        <h1>Add Product Review</h1>
+        <div class="rating-stars">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+        </div>
+
+        <!-- Add Review Form -->
+        <form id="review-form">
+            <div class="form-group mt-4">
+                <label for="review">Your Review</label>
+                <textarea class="form-control" id="review" rows="4" required></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="images">Upload Images (multiple)</label>
+                <input type="file" class="custom-file-input" id="images" multiple accept="image/*">
+                <label class="custom-file-label" for="images">Choose files</label>
+                <div class="image-preview"></div>
+                <button class="btn btn-secondary btn-add-image" type="button">Add More Images</button>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Submit Review</button>
+        </form>
+    </div>
+
+    <!-- Bootstrap JS (Optional) -->
+    <script>
+        // JavaScript to handle image preview and additional images
+        document.querySelector('.btn-add-image').addEventListener('click', function () {
+            const input = document.getElementById('images');
+            input.click();
+        });
+
+        document.getElementById('images').addEventListener('change', function () {
+            const previewContainer = document.querySelector('.image-preview');
+            previewContainer.innerHTML = '';
+
+            const files = this.files;
+            for (const file of files) {
+                const image = document.createElement('img');
+                image.src = URL.createObjectURL(file);
+                image.className = 'img-thumbnail';
+                previewContainer.appendChild(image);
+            }
+        });
+
+        // JavaScript to handle form submission (you can replace this with your backend code)
+        document.getElementById('review-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+            // Your code to handle form submission here
+        });
+    </script>

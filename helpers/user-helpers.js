@@ -128,42 +128,19 @@ module.exports = {
             resolve(orders)
         })
     },
-    getOrderProduct: (id) => {
+    getOrderProduct: (product) => {
         return new Promise(async (resolve, reject) => {
-            let orderItems = await db.get().collection(collections.ORDER_COLLECTION).aggregate([
-                {
-                    $match: { _id: new objectId(id) }
-                },
-                {
-                    $unwind: '$products'
-                },
-                {
-                    $project: {
-                        item: '$products.item',
-                        quantity: '$products.quantity'
-                    }
-                },
-                {
-                    $lookup: {
-                        from: collections.PRODUCT_COLLECTION,
-                        localField: 'item',
-                        foreignField: '_id',
-                        as: 'product'
-                    }
-                },
-                {
-                    $project: {
-                        item: 1,
-                        quantity: 1,
-                        product: {
-                            $arrayElemAt: ['$product', 0]
-                        }
-                    }
-                }
-
-            ]).toArray()
-            console.log(orderItems)
-            resolve(orderItems)
+           var order=[]
+           var id
+            for(i of product){
+                id=i.item
+                console.log(id)
+                let orderItems = await db.get().collection(collections.PRODUCT_COLLECTION).findOne({_id:new objectId(id)})
+                order.push(orderItems)
+            }
+            
+            console.log(order)
+            resolve(order)
 
 
         })
@@ -305,5 +282,61 @@ module.exports = {
            var product= await db.get().collection(collections.PRODUCT_COLLECTION).find({$or:[{category:category1},{category:category2}]}).toArray()
            resolve(product)
         })
+    },
+    getOrderProducts: (orders) => {
+        var allValues=[]
+        return new Promise(async (resolve, reject) => {
+            for(i of orders){
+                var id=i._id
+                let orderItems = await db.get().collection(collections.ORDER_COLLECTION).aggregate([
+                    {
+                        $match: { _id: new objectId(id) }
+                    },
+                    {
+                        $unwind: '$products'
+                    },
+                    {
+                        $project: {
+                            item: '$products.item',
+                            quantity: '$products.quantity'
+                            
+
+                        }
+                    },
+                    {
+                        $lookup: {
+                            from: collections.PRODUCT_COLLECTION,
+                            localField: 'item',
+                            foreignField: '_id',
+                            as: 'product'
+                        }
+                    },
+                    {
+                        $project: {
+                            item: 1,
+                            quantity: 1,
+                            product: {
+                                $arrayElemAt: ['$product', 0]
+                            }
+                        }
+                    }
+    
+                ]).toArray()
+                allValues.push(orderItems)
+            }
+            
+            console.log(allValues)
+            resolve(allValues)
+
+
+        })
+    },
+    getOrderAddress:(cartId)=>{
+        return new Promise(async (resolve,reject)=>{
+            let orderItems = await db.get().collection(collections.ORDER_COLLECTION).findOne({_id:new objectId(cartId)})
+                console.log(orderItems)
+                resolve(orderItems)
+        })
+
     }
 }

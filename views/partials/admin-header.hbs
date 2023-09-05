@@ -1,7 +1,21 @@
+<style>
+.active,.nav-link:hover{
+    padding: 3px;
+    padding-top: 3px;
+    background-color: white;
+    border-radius: 5px;
+    color: black;
+    
+}
+.nav-link{
+  color: white;
+}
+</style>
+
 <header class="item-center" style="margin-bottom: 50px;">
   <nav class="navbar navbar-expand-lg bg-body-tertia bg-color fixed-top">
     <div class="container-fluid">
-      <a class="navbar-brand text-color" style="color:white" href="/admin">Admin Panel</a>
+      <a class="navbar-brand text-color" style="color:white" href="/"><img src="/project-images/flashcart.png" alt="" width="40" height="40" style="border-radius: 20px;"><h4 style="display: inline;" class="m-1">Flashcart</h4></a>
       <button class="navbar-toggler bg-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -9,17 +23,20 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link active" style="color:white" aria-current="page" href="/admin">All Products</a>
+            <a class="nav-link " id="nav-allproducts"  aria-current="page" href="/admin">Products</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" style="color:white" href="/admin/orders">All Orders</a>
+            <a class="nav-link" id="nav-orders"  href="/admin/orders">Orders</a>
 
           </li>
           <li class="nav-item">
-            <a class="nav-link" style="color:white" href="/admin/users">All users</a>
+            <a class="nav-link" id="nav-users"  href="/admin/users">Users</a>
 
           </li>
+          <li class="nav-item">
+            <a class="nav-link" id="nav-ads" href="/admin/manage-ads">Manage Ads</a>
 
+          </li>
 
         </ul>
         
@@ -27,3 +44,18 @@
     </div>
   </nav>
 </header>
+<script>
+   var nav = '{{nav}}'
+  console.log(nav)
+    if (nav == 'allproducts') {
+      console.log('came inside')
+      document.getElementById('nav-allproducts').classList.add('active')
+    } else if (nav == 'users') {
+      document.getElementById('nav-users').classList.add('active')
+    } else if (nav == 'orders') {
+      document.getElementById('nav-orders').classList.add('active')
+    }else if(nav=='manage-ads'){
+      document.getElementById('nav-ads').classList.add('active')
+    }
+
+</script>

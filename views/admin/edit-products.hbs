@@ -22,7 +22,7 @@
                     <option value="" selected disabled> Select category</option>
                     <option value="Electronics">Electronics</option>
                     <option value="Fashion">Fashion</option>
-                    <option value="booksHome and Furniture">Home and Furniture</option>
+                    <option value="Home and Furniture">Home and Furniture</option>
                     <option value="Beauty and Personal Care">Beauty and Personal Care</option>
                     <option value="Health and Wellness">Health and Wellness</option>
                     <option value="Toys and Games">Toys and Games</option>
@@ -217,12 +217,14 @@
         document.getElementById('imgView'+i).src=URL.createObjectURL(event.target.files[0])
     }
     const product_category = document.getElementById('productCategory')
-    const sub_category = document.getElementById('subCategory')
-    console.log(product_category)
+    const sub_category = document.getElementById('subCategory') 
     for(cat of product_category){
        if(cat.value==productCategory) {
         cat.selected=true
-        change()
+        if(productCategory!=""){
+            change()
+        }
+        
         for(sub of sub_category){
             if(sub.value==subCategory){
                 sub.selected=true
@@ -243,9 +245,8 @@ product_category.addEventListener('change',change)
     option.selected=true
     option.disabled=true
     sub_category.appendChild(option)
-    console.log(main_category)
+
     category[main_category].forEach(sub_cat=>{
-        console.log(main_category)
         let option= document.createElement('option')
         option.value=sub_cat;
         option.textContent = sub_cat;

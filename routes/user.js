@@ -8,6 +8,7 @@ var productHelpers = require('../helpers/product-helpers');
 const { handlebars } = require('hbs');
 const userHelpers = require('../helpers/user-helpers');
 const passport = require('passport');
+const { Exception } = require('handlebars');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 let user = null
 let cartItemCount = 0
@@ -124,16 +125,16 @@ router.post('/login', function (req, res) {
 router.get('/logout', function (req, res) {
 
   if (req.session.user.login_mode) {
-    req.logout((data)=>{
+    req.logout((data) => {
       console.log(data)
     })
   }
   req.session.user = null
-      req.session.userLoggedIn = false
-      cartItemCount = 0
-      user=null
-      res.redirect('/')
-  
+  req.session.userLoggedIn = false
+  cartItemCount = 0
+  user = null
+  res.redirect('/')
+
 })
 router.get('/cart', async function (req, res) {
   if (req.session.user) {
@@ -231,8 +232,8 @@ router.post('/place-order', async (req, res) => {
         userHelpers.generateRazorpay(orderId, total).then((response) => {
 
           res.json(response)
-        }).catch((err)=>{
-          
+        }).catch((err) => {
+
         })
       }
 
@@ -250,18 +251,20 @@ router.get('/order-success', (req, res) => {
 router.get('/show-orders', async (req, res) => {
   if (req.session.userLoggedIn) {
     let orders = await userHelpers.getOrderDetails(user._id)
-    console.log(orders)
+    let products = await userHelpers.getOrderProducts(orders)
     var nav = 'orders'
-    res.render('user/order-history', { orders, user, cartItemCount, nav })
+    res.render('user/order-history', { orders, user,products, cartItemCount, nav })
   }
   else {
     res.redirect('user/user-login')
   }
 })
 router.get('/view-order-products/:id', async (req, res) => {
-  console.log(req.params.id)
-  let products = await userHelpers.getOrderProduct(req.params.id)
-  res.render('user/order-product-view', { products, user, cartItemCount })
+  
+  let orders = await userHelpers.getOrderAddress(req.params.id)
+  let products = await userHelpers.getOrderProduct(orders.products)
+  console.log(products)
+  res.render('user/order-product-view', { orders, user,products, cartItemCount })
 })
 router.post('/verify-payement', (req, res) => {
   console.log(req.body)
@@ -288,7 +291,19 @@ router.get('/user-account', async (req, res) => {
         photo: req.user.photos[0].value
       }
       var profile = await userHelpers.find_profile(user._id)
-      res.render('user/user-account', { user, cartItemCount, profile,gProfile, google: true })
+      if (profile) {
+        if (profile.gender == 'Male') {
+          res.render('user/user-account', { user, cartItemCount, profile, gProfile, male: true, google: true })
+        }
+        else {
+          res.render('user/user-account', { user, cartItemCount, profile, gProfile, female: true, google: true })
+
+        }
+
+      } else {
+        res.render('user/user-account', { user, cartItemCount, gProfile, profile, google: true })
+      }
+
     } else {
       var profile = await userHelpers.find_profile(user._id)
       if (profile) {
@@ -324,38 +339,38 @@ router.post('/update-profile', (req, res) => {
       var profile = await userHelpers.find_profile(user._id)
       console.log("inside the update profile")
       console.log(req.files)
-     if(req.session.user.login_mode) {
-      var gProfile = {
-        name: req.user.displayName,
-        photo: req.user.photos[0].value
-      }
-        if(profile.gender){}
-      if (profile.gender == 'Male')
-      res.render('user/user-account', { user, cartItemCount, profile,gProfile, google: true,male:true })
-        else
-        res.render('user/user-account', { user, cartItemCount, profile,gProfile, google: true ,female:true})
-
-     }else{
-      if (req.files) {
-        console.log("inside req.files")
-        let image = req.files.image
-        image.mv('./public/user-image/' + profile._id + ".jpg")
-
-      }
-      console.log(profile)
-      if (profile) {
+      if (req.session.user.login_mode) {
+        var gProfile = {
+          name: req.user.displayName,
+          photo: req.user.photos[0].value
+        }
+        if (profile.gender) { }
         if (profile.gender == 'Male')
-          res.render('user/user-account', { response, user, profile, male: true })
+          res.render('user/user-account', { user, cartItemCount, profile, gProfile, google: true, male: true })
         else
-          res.render('user/user-account', { response, user, profile, female: true })
+          res.render('user/user-account', { user, cartItemCount, profile, gProfile, google: true, female: true })
+
+      } else {
+        if (req.files) {
+          console.log("inside req.files")
+          let image = req.files.image
+          image.mv('./public/user-image/' + profile._id + ".jpg")
+
+        }
+        console.log(profile)
+        if (profile) {
+          if (profile.gender == 'Male')
+            res.render('user/user-account', { response, user, profile, male: true })
+          else
+            res.render('user/user-account', { response, user, profile, female: true })
+
+        }
+        else {
+          res.render('user/user-account', { response, user, profile })
+        }
 
       }
-      else {
-        res.render('user/user-account', { response, user, profile })
-      }
 
-     }
-      
 
     })
   }
@@ -375,9 +390,12 @@ router.post('/search', async (req, res) => {
   var searchQuery = req.body.search.toLowerCase();
   matchedProducts = product.filter(product => {
     console.log(product)
-    if (product.name.toLowerCase().includes(searchQuery) ||
-      product.description.toLowerCase().includes(searchQuery))
+   
+      if (product.name.toLowerCase().includes(searchQuery) ||
+      product.description.toLowerCase().includes(searchQuery) ||product.subCategory.toLowerCase().includes(searchQuery)||product.productCategory.toLowerCase().includes(searchQuery))
       return true;
+   
+    
   }
 
   )
@@ -417,16 +435,16 @@ router.get('/furniture', async (req, res) => {
   res.render('user/furniture', { product, admin: false, user, cartItemCount })
 })
 
-router.get('/description/:id',(req,res)=>{
+router.get('/description/:id', (req, res) => {
   console.log(req.params.id)
 })
 
-router.get('/detailed-view/:id',async (req,res)=>{
-  var product=await producthelper.getProduct(req.params.id)
+router.get('/detailed-view/:id', async (req, res) => {
+  var product = await producthelper.getProduct(req.params.id)
   console.log(product)
-  var same=await producthelper.getSimilarProduct(product.subCategory)
-  res.render('user/detailed-view',{admin: false, user, cartItemCount,id:req.params.id,product,same})
-  
+  var same = await producthelper.getSimilarProduct(product.subCategory)
+  res.render('user/detailed-view', { admin: false, user, cartItemCount, id: req.params.id, product, same })
+
 })
 module.exports = router
 
