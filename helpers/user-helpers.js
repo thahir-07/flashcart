@@ -3,6 +3,8 @@ var collections = require('../config/collections')
 var bcrypt = require('bcrypt')
 var objectId = require('mongodb').ObjectId
 const Razorpay=require('razorpay')
+const { resolve } = require('path')
+const { rejects } = require('assert')
 var instance = new Razorpay({ key_id:'rzp_test_0lu74rFyib3blw', key_secret:'XKgnqx4zCMxB4ZMEbFWBgJ4h'})
 
 module.exports = {
@@ -106,7 +108,10 @@ module.exports = {
 
             }
             db.get().collection(collections.ORDER_COLLECTION).insertOne(orderObj).then((response) => {
-                db.get().collection(collections.CART_COLLECTION).deleteOne({ user: new objectId(user) })
+                if(order.payementMethod=='COD'){
+                    db.get().collection(collections.CART_COLLECTION).deleteOne({ user: new objectId(user) })
+                }
+                
                     console.log(response)
                     resolve(response.insertedId)
 
@@ -141,6 +146,46 @@ module.exports = {
             
             console.log(order)
             resolve(order)
+
+
+        })
+    },
+    getProduct: (id) => {
+        return new Promise(async (resolve, reject) => {
+            let orderItems = await db.get().collection(collections.ORDER_COLLECTION).aggregate([
+                {
+                    $match: { _id: new objectId(id) }
+                },
+                {
+                    $unwind: '$products'
+                },
+                {
+                    $project: {
+                        item: '$products.item',
+                        quantity: '$products.quantity'
+                    }
+                },
+                {
+                    $lookup: {
+                        from: collections.PRODUCT_COLLECTION,
+                        localField: 'item',
+                        foreignField: '_id',
+                        as: 'product'
+                    }
+                },
+                {
+                    $project: {
+                        item: 1,
+                        quantity: 1,
+                        product: {
+                            $arrayElemAt: ['$product', 0]
+                        }
+                    }
+                }
+
+            ]).toArray()
+            console.log(orderItems)
+            resolve(orderItems)
 
 
         })
@@ -338,5 +383,12 @@ module.exports = {
                 resolve(orderItems)
         })
 
+    },
+    deleteCartItem:(userId)=>{
+        return new Promise((resolve,reject)=>{
+            db.get().collection(collections.CART_COLLECTION).deleteOne({ user: new objectId(userId) }).then((response)=>{
+                resolve(response)
+            })
+        })
     }
 }

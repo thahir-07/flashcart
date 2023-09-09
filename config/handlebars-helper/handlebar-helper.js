@@ -1,3 +1,5 @@
+const { options } = require('../../app')
+
 var objectId = require('mongodb').ObjectId
 module.exports={
     product_check:(product,item,options)=>{
@@ -14,6 +16,15 @@ module.exports={
         else
             return options.inverse(i)
     }
+        },
+    
+    check:(orders,status,options)=>{
+        if(orders.status!=status){
+            return options.fn(orders)
+        }else{
+            return options.inverse(orders)
         }
+    }
+        
         
 }

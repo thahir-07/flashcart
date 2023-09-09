@@ -68,8 +68,8 @@ router.get('/users', async function (req, res) {
 router.get('/view-order-products/:id', async (req, res) => {
   console.log("id from admin panel", req.params.id)
   console.log(req.params.id)
-  let products = await userHelpers.getOrderProduct(req.params.id)
-  res.render('admin/view-order-products', { products, admin: true })
+  let products = await userHelpers.getProduct(req.params.id)
+  res.render('admin/view-order-products', { products, admin: true,id:req.params.id})
 })
 
 router.post('/add-products', function (req, res) {
@@ -195,6 +195,23 @@ router.post('/update-ads',(req,res)=>{
     }
   }
   res.render('admin/manage-ads',{admin: true})
+})
+
+router.get('/update-status',async (req,res)=>{
+ var orderId=req.query.id
+ console.log(typeof orderId)
+ producthelper.getOrder(orderId).then((order)=>{
+  console.log(order)
+  res.render('admin/status-update', { admin: true, order})
+ })
+})
+router.post('/update-status',(req,res)=>{
+  var values = req.body
+  console.log(values)
+  var update=producthelper.updateStatus(values).then((response)=>{
+    console.log(response)
+    res.redirect('/admin/orders')
+  })
 })
 module.exports = router;
 

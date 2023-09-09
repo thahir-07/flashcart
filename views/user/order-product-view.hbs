@@ -3,13 +3,16 @@
     .section-border{
   background-color: rgb(253, 253, 253);
   margin: 0;
-  padding: 10px;
+  padding: 1px;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 50px;
   
 }
+.arrow{
+    font-size: 30px;
+}
 
 </style>
-<section class="m-5" >
+<section class="m-2 mb-5" >
     
     <div class="container pt-5 ">
         {{orders.deliveryDetails.date}} 
@@ -54,6 +57,23 @@
             </div>
 
 
+        </div>
+        <div class="row section-border mb-2 mt-3">
+           <div class="col-12">
+            <b>Track Status</b>
+            {{#each orders.reached }}
+            <div>   
+                <span><b class="arrow">→</b>&nbsp;&nbsp;{{this.reach}}</span>
+                <div>{{this.date}}</div> 
+                
+            </div>
+            {{/each}}
+           </div>
+        </div>
+        <div class="row">
+            {{#check orders 'Order canceled'}}
+            <a  href="/cancel-order/{{this._id}}"><button class="btn btn-danger" style="padding: 4px;">Cancel order</button></a>
+            {{/check}}
         </div>
 
     </div>

@@ -300,5 +300,31 @@ getSimilarProduct: (subCategory)=>{
 
     })
 
+},
+getOrder:(proId)=>{
+    return new Promise(async(resolve,reject)=>{
+        console.log()
+        let order=await db.get().collection(collections.ORDER_COLLECTION).findOne({_id:new ObjectId(proId)})
+        resolve(order)
+    })
+},
+updateStatus:(values)=>{
+    return new Promise((resolve,reject)=>{
+        var today=new Date().toLocaleString()
+        db.get().collection(collections.ORDER_COLLECTION).updateOne(
+            {_id:new ObjectId(values.id)},
+            {$set:{status:values.status},
+            $push:{reached:{reach:values.reached,date:today}}}).then((response)=>{
+                resolve(response)
+            })
+    })
+},
+deleteOrder:(id)=>{
+    return new Promise((resolve,reject)=>{
+        db.get().collection(collections.ORDER_COLLECTION).updateOne({_id:new ObjectId(id)},{$set:{status:'Order canceled'}}).then((response)=>{
+            console.log(response)
+            resolve(resolve)
+        })
+    })
 }
 }

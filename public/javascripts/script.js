@@ -61,8 +61,11 @@ function razorpayPayement(order) {
             "color": "#3399cc"
         }
     };
-    var rzp1 = new Razorpay(options);
-    rzp1.open();
+    if(navigator.onLine){
+        var rzp1 = new Razorpay(options);
+        rzp1.open();
+    }
+    
 }
 function verifyPayement(payement, order) {
     console.log('verify Payement function called')
@@ -145,5 +148,3 @@ function changeQuantity(cartId, proId, count) {
         }
     })
 }
-
-

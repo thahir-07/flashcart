@@ -1,0 +1,75 @@
+     <style>
+        select{
+            border: 1px solid grey;
+            padding: 2px;
+            border-radius: 5px;
+            width: 80%;
+            
+        }
+        input[type='submit']{
+            padding: 4px;
+            color: white;
+            accent-color: green;
+            display: block;
+        }
+       select option:hover{
+        background-color: green;
+        }
+        .val{
+            background-color: rgba(247, 246, 213, 0.356);
+            box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 30px;
+            padding: 5px;
+            
+        }
+        label{
+            display: block;
+        }
+        textarea{
+            width:80% ;
+        }
+       
+     </style>
+     <div class="container">
+        <div class="row pt-5">
+            <div class="col-12 col-lg-6 ">
+                <div class="val">
+                <form action="/admin/update-status" method="post">
+                <h3 style="display: inline;" >
+                    Current Status : 
+                </h3>
+                <h5 style="display: inline;">{{order.status}}</h5> <hr>
+                <div id="">
+                    {{#each order.reached}}
+                        <p>{{this.reach}}</p>
+                        <p>{{this.date}}</p>
+                    {{/each}}
+                </div>
+                </div>
+             </div>
+             <div class="col-12 col-lg-6">
+                    <label for="status">Select Status</label>
+                    <select name="status" id="status" style="display:inline-block ;">
+                        <option value="" selected disabled>select Option</option>
+                        <option value="Order Received">Order Received</option>
+                        <option value="Processing">Processing</option>
+                        <option value="Packing">Packing</option>
+                        <option value="Shipped">Shipped</option>
+                        <option value="In Transit">In Transit</option>
+                        <option value="Out for Delivery">Out for Delivery</option>
+                        <option value="Delivered">Delivered</option>
+                        <option value="On Hold">On Hold</option>
+                        <option value="Returned">Returned</option>
+                        <option value="Completed">Completed</option>
+                        <option value="Backordered">Backordered</option>
+                        <option value="Awaiting Payment">Awaiting Payment</option>
+
+                    </select>
+                        <label for="reached">Update Status</label>
+                    <textarea name="reached" id="reached"></textarea>
+                    <input type="text" name="id" id="id" value="{{order._id}}" hidden>
+                    <input type="submit" class="button btn" value="Submit">
+             </div>
+                </form>
+           
+        </div>
+     </div>

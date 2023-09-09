@@ -1,5 +1,6 @@
 {
     "recommendations": [
-        "illixion.vscode-vibrancy-continued"
+        "illixion.vscode-vibrancy-continued",
+        "github.copilot-chat"
     ]
 }

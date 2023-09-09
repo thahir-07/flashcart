@@ -52,7 +52,8 @@ router.get('/auth/google/callback',
         _id: response._id,
         id: req.user.id,
         name: req.user.displayName,
-        login_mode: 'google'
+        login_mode: 'google',
+        image:req.user.photos[0].value
       }
       req.session.user = user
       res.redirect('/');
@@ -271,6 +272,9 @@ router.post('/verify-payement', (req, res) => {
   userHelpers.verifyPayement(req.body).then((response) => {
     userhelpers.changeOrderStatus(req.body['order[receipt]']).then((response) => {
       console.log('payement success')
+      userHelpers.deleteCartItem(user._id).then((response)=>{
+        console.log(response)
+      })
       res.json({ status: true })
 
     }).catch((err) => {
@@ -445,6 +449,11 @@ router.get('/detailed-view/:id', async (req, res) => {
   var same = await producthelper.getSimilarProduct(product.subCategory)
   res.render('user/detailed-view', { admin: false, user, cartItemCount, id: req.params.id, product, same })
 
+})
+router.get('/cancel-order/:id',(req,res)=>{
+  producthelper.deleteOrder(req.params.id).then((response)=>{
+    res.redirect('/login')
+  })
 })
 module.exports = router
 
