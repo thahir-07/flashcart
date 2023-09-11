@@ -1,6 +1,7 @@
 var db=require('../config/connection')
 var collections=require('../config/collections')
 const session = require('express-session')
+const { response } = require('express')
 var ObjectId=require('mongodb').ObjectId
 module.exports={
      addProduct:(product,callback)=>{
@@ -326,5 +327,13 @@ deleteOrder:(id)=>{
             resolve(resolve)
         })
     })
+},
+addProductRaing:(data)=>{
+    return new Promise((resolve,reject)=>{
+        db.get().collection(collections.RATE_COLLECTION).insertOne({userId:data.user_id,proId:data.product_id,rating:parseInt( data.rating),review:data.review}).then((response)=>{
+            resolve(response)
+        })
+    })
+
 }
 }

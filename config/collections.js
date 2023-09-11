@@ -4,5 +4,6 @@ module.exports={
     CART_COLLECTION:'cart',
     ORDER_COLLECTION:'order',
     USER_DATA:'user_info',
-    GOOGLE_COLLECTION:'google_login'
+    GOOGLE_COLLECTION:'google_login',
+    RATE_COLLECTION:'rating'
 }

@@ -3,6 +3,12 @@
     text-decoration: none;
     display: inline;
   }
+  .dsc{
+    height: 34px;
+    overflow: hidden;
+    font-size: 15px;
+    line-height: 17px;
+  }
 </style>
 <section class=" section pt-3 ">
     <div class="container-fluid ">
@@ -16,8 +22,8 @@
             <p class="card-text">{{this.name}}</p>
             <div class="card-body pt-0" style="line-height: 3px;">
               <p class="card-text">Rs.{{this.price}}/-</p></div>
-              <div class="pt-0"><p class="card-text mt-0">{{this.description}}</p></div>  
-              <div class="mb-2"><button class="btn button" onclick="addToCart('{{this._id}}',{{user}})"  style="color: rgb(255, 255, 255);" cl>add to cart</button></div>
+              <div class="pt-0 dsc"><p class="card-text mt-0">{{this.description}}</p></div>  
+              <div class="mb-2"><button class="btn button p-1" onclick="addToCart('{{this._id}}',{{user}})"  style="color: rgb(255, 255, 255);" >Add to cart</button></div>
                
           </div>
            </a>

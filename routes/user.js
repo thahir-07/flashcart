@@ -226,13 +226,13 @@ router.post('/place-order', async (req, res) => {
     userHelpers.placeOrder(req.body, products, total, user._id).then((orderId) => {
       console.log(req.body)
       if (req.body.payementMethod === 'COD') {
-        res.json({ status: "COD" })
+        res.json({ status: "COD" ,user:req.body})
 
       } else {
 
         userHelpers.generateRazorpay(orderId, total).then((response) => {
 
-          res.json(response)
+          res.json({payement:response,user:req.body})
         }).catch((err) => {
 
         })
@@ -246,7 +246,8 @@ router.post('/place-order', async (req, res) => {
 
 })
 router.get('/order-success', (req, res) => {
-  res.render('user/order-success', { user })
+ 
+  res.render('user/order-success', {user})
 
 })
 router.get('/show-orders', async (req, res) => {
@@ -265,7 +266,7 @@ router.get('/view-order-products/:id', async (req, res) => {
   let orders = await userHelpers.getOrderAddress(req.params.id)
   let products = await userHelpers.getOrderProduct(orders.products)
   console.log(products)
-  res.render('user/order-product-view', { orders, user,products, cartItemCount })
+  res.render('user/order-product-view', {orders,products, cartItemCount,user})
 })
 router.post('/verify-payement', (req, res) => {
   console.log(req.body)
@@ -404,8 +405,6 @@ router.post('/search', async (req, res) => {
 
   )
 
-
-
   res.render('user/search-result', { matchedProducts, admin: false, user, cartItemCount })
 })
 
@@ -454,6 +453,22 @@ router.get('/cancel-order/:id',(req,res)=>{
   producthelper.deleteOrder(req.params.id).then((response)=>{
     res.redirect('/login')
   })
+})
+router.get('/rate',(req,res)=>{
+ res.render('user/product-rating',{product:req.query,user})
+})
+router.post('/rate',(req,res)=>{
+  console.log(req.body)
+  console.log(req.files)
+ producthelper.addProductRaing(req.body).then((response)=>{
+  console.log(response)
+  var i=1
+  for(file of req.files.images){
+    file.mv('./public/rating-images/'+response.insertedId+i+'.jpg')
+    i++
+  }
+  res.redirect('/')
+ })
 })
 module.exports = router
 

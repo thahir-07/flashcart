@@ -1,6 +1,19 @@
+<style>
+    .login{
+       
+        width: fit-content;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 30px;
+        border-radius: 10px;
+       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+       background-color: rgba(244, 252, 241, 0.424);
+    }
+</style>
 <section >
     <div class="container-fluid pt-4 m-auto">
         <div class="row pt-4 ">
+            <div class="login mt-5">
             <form action="/admin/admin-page" class="text-center" id="admin-login" method="post">
                 <div class="pb-2">  <h2>login</h2></div>
                 
@@ -11,6 +24,7 @@
                 {{/if}}
                 <div class="pt-3"><input class="btn btn-success" type="submit" value="login"></div>
             </form>
+            </div>
         </div>
     </div>
 </section>

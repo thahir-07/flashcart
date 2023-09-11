@@ -9,7 +9,7 @@
         }
 
         .rating-stars i:hover {
-            color: #f4aa18;
+            color:green;
         }
 
         .image-preview {
@@ -36,30 +36,43 @@
         .btn-add-image {
             margin-top: 10px;
         }
+        .active{
+            color: darkgreen;
+            fill: darkgreen;
+        }
     </style>
-<div class="container mt-5">
+     
+       
+    
+<div class="container mt-5 pt-5">
         <h1>Add Product Review</h1>
         <div class="rating-stars">
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
+            <i class=" active" id="start1">&#9733;</i>
+            <i class=" active" id="start2">&#9733;</i>
+            <i class=" active" id="start3">&#9733;</i>
+            <i class=" active" id="start4">&#9733;</i>
+            <i class="" id="start5">&#9733;</i>
+            <div id="rat" style="color: green;">Very Good</div>
+            
         </div>
 
         <!-- Add Review Form -->
-        <form id="review-form">
+        <form id="review-form" action="/rate" method="post" enctype="multipart/form-data" >
+            <input type="number" name="rating" id="rating" value="4" hidden >
+            <input type="text" name="product_id" id="product_id" value="{{product.product}}" hidden>
+            <input type="text" name="user_id" id="user_id" value="{{user._id}}" hidden>
+
             <div class="form-group mt-4">
                 <label for="review">Your Review</label>
-                <textarea class="form-control" id="review" rows="4" required></textarea>
+                <textarea class="form-control" id="review" name="review" rows="4" required></textarea>
             </div>
             
             <div class="form-group">
                 <label for="images">Upload Images (multiple)</label>
-                <input type="file" class="custom-file-input" id="images" multiple accept="image/*">
+                <input type="file" class="custom-file-input" id="images" name="images" multiple accept="image/*">
                 <label class="custom-file-label" for="images">Choose files</label>
                 <div class="image-preview"></div>
-                <button class="btn btn-secondary btn-add-image" type="button">Add More Images</button>
+                <button class="btn btn-secondary btn-add-image mb-3" type="button">Add More Images</button>
             </div>
 
             <button type="submit" class="btn btn-primary">Submit Review</button>
@@ -77,7 +90,7 @@
         document.getElementById('images').addEventListener('change', function () {
             const previewContainer = document.querySelector('.image-preview');
             previewContainer.innerHTML = '';
-
+            
             const files = this.files;
             for (const file of files) {
                 const image = document.createElement('img');
@@ -88,8 +101,63 @@
         });
 
         // JavaScript to handle form submission (you can replace this with your backend code)
-        document.getElementById('review-form').addEventListener('submit', function (e) {
-            e.preventDefault();
-            // Your code to handle form submission here
-        });
+        var star1=document.getElementById('start1')
+        var star2=document.getElementById('start2')
+        var star3=document.getElementById('start3')
+        var star4=document.getElementById('start4')
+        var star5=document.getElementById('start5')
+        var rating=document.getElementById('rating')
+        start1.addEventListener('click',()=>{
+            star1.classList.add('active')
+            star2.classList.remove('active')
+            star3.classList.remove('active')
+            star4.classList.remove('active')
+            star5.classList.remove('active')
+            rat.textContent='Very Bad'
+            rat.style.color='red'
+            rating.value=1
+        })
+        start2.addEventListener('click',()=>{
+            star1.classList.add('active')
+            star2.classList.add('active')
+            star3.classList.remove('active')
+            star4.classList.remove('active')
+            star5.classList.remove('active')
+            rat.textContent='Bad'
+            rat.style.color='orange'
+            rating.value=2
+        })
+        start3.addEventListener('click',()=>{
+            star1.classList.add('active')
+            star2.classList.add('active')
+            star3.classList.add('active')
+            star4.classList.remove('active')
+            star5.classList.remove('active')
+            rat.textContent='Good'
+            rat.style.color='green'
+            rating.value=3
+        })
+         start4.addEventListener('click',()=>{
+            star1.classList.add('active')
+            star2.classList.add('active')
+            star3.classList.add('active')
+            star4.classList.add('active')
+            star5.classList.remove('active')
+            rat.textContent='Very Good'
+            rat.style.color='green'
+            rating.value=4
+            
+        })
+         start5.addEventListener('click',()=>{
+            star1.classList.add('active')
+            star2.classList.add('active')
+            star3.classList.add('active')
+            star4.classList.add('active')
+            star5.classList.add('active')
+            rat.textContent='Excellent'
+            rat.style.color='green'
+            rating.value=5
+        })
+        var rat=document.getElementById('rat')
     </script>
+   

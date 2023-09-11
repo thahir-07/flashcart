@@ -1,3 +1,13 @@
+.desc{
+  height: 34px;
+  overflow: hidden;
+  font-size: 15px;
+  line-height: 17px;
+  text-decoration: none;
+}
+.cl{
+color: #44474d;
+}
 .qty-btn:active{
   transform: scale(0.97);
 }

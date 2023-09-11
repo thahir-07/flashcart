@@ -24,18 +24,21 @@ $("#checkout-form").submit((e) => {
         method: 'post',
         data: $('#checkout-form').serialize(),
         success: (response) => {
+            console.log(response)
             if (response.status === 'COD') {
                 location.href = '/order-success'
 
             } else {
-                razorpayPayement(response)
+                console.log("from online response")
+                console.log(response)
+                razorpayPayement(response.payement,response.user)
             }
 
         }
 
     })
 })
-function razorpayPayement(order) {
+function razorpayPayement(order,user) {
     var options = {
         "key": "rzp_test_0lu74rFyib3blw", // Enter the Key ID generated from the Dashboard
         "amount": order.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
@@ -50,9 +53,9 @@ function razorpayPayement(order) {
         },
         //"callback_url": "https://eneqd3r9zrjok.x.pipedream.net/",
         "prefill": {
-            "name": "Thahir", //your customer's name
-            "email": "abuthahircoorg@gmail.com",
-            "contact": "8277906114"
+            "name": user.name, //your customer's name
+            "email": user.email,
+            "contact": user.number
         },
         "notes": {
             "address": "Razorpay Corporate Office"
@@ -78,9 +81,12 @@ function verifyPayement(payement, order) {
         method: 'post',
         success: (response) => {
             console.log('success called')
+            console.log(response)
             if (response.status) {
+                location.reload()
                 location.href = '/order-success'
             } else {
+                location.reload()
                 alert('payement failed')
             }
 

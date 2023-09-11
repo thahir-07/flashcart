@@ -76,8 +76,8 @@
     <div class="container">
         <div class="icon">&#10004;</div>
         <div class="message">Order Placed Successfully!</div>
-        <div class="amount">₹ 1,234.56</div>
-        <div class="order-id">Order ID: #1234567890</div>
+       <!-- <div class="amount">₹ 1,234.56</div>
+        <div class="order-id">Order ID: #1234567890</div>-->
         <div class="success-animation">
             <!-- Replace this section with an animated GIF or other animated elements -->
             <!-- You can use libraries like Lottie (https://airbnb.io/lottie) for more complex animations -->
@@ -86,8 +86,10 @@
             <a class="btn btn-success mt-3" href="/show-orders">Show Details</a>
         </div>
         <script>
-            // You can add additional JavaScript here for further customizations or interactions.
-            // For a basic animated checkmark, this script is not necessary.
+             setTimeout(function(){
+            console.log("inside set timout")
+            location.href='/'
+        },5000)
         </script>
     </div>
 </body>
