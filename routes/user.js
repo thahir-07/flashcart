@@ -9,6 +9,7 @@ const { handlebars } = require('hbs');
 const userHelpers = require('../helpers/user-helpers');
 const passport = require('passport');
 const { Exception } = require('handlebars');
+const { ObjectId } = require('mongodb');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 let user = null
 let cartItemCount = 0
@@ -359,7 +360,7 @@ router.post('/update-profile', (req, res) => {
         if (req.files) {
           console.log("inside req.files")
           let image = req.files.image
-          image.mv('./public/user-image/' + profile._id + ".jpg")
+          image.mv('./public/user-image/' + profile.userid + ".jpg")
 
         }
         console.log(profile)
@@ -443,10 +444,15 @@ router.get('/description/:id', (req, res) => {
 })
 
 router.get('/detailed-view/:id', async (req, res) => {
-  var product = await producthelper.getProduct(req.params.id)
+  var id=req.params.id.toString()
+  var product = await producthelper.getProduct(id)
   console.log(product)
+  var proRating=await producthelper.getProductRating(id)
+  console.log("this from rating")
+  console.log(proRating)
+  proRating.reverse()
   var same = await producthelper.getSimilarProduct(product.subCategory)
-  res.render('user/detailed-view', { admin: false, user, cartItemCount, id: req.params.id, product, same })
+  res.render('user/detailed-view', { admin: false, user, cartItemCount, id: req.params.id, product, same,proRating })
 
 })
 router.get('/cancel-order/:id',(req,res)=>{
@@ -460,13 +466,18 @@ router.get('/rate',(req,res)=>{
 router.post('/rate',(req,res)=>{
   console.log(req.body)
   console.log(req.files)
+  var images=[]
  producthelper.addProductRaing(req.body).then((response)=>{
   console.log(response)
   var i=1
-  for(file of req.files.images){
-    file.mv('./public/rating-images/'+response.insertedId+i+'.jpg')
-    i++
+  if(req.files){
+    for(file of req.files.images){
+      file.mv('./public/rating-images/'+response.insertedId+i+'.jpg')
+      images.push(response.insertedId+i)
+      i++
+    }
   }
+  producthelper.updateRatingImage(response.insertedId,images)
   res.redirect('/')
  })
 })

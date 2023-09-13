@@ -330,10 +330,21 @@ deleteOrder:(id)=>{
 },
 addProductRaing:(data)=>{
     return new Promise((resolve,reject)=>{
-        db.get().collection(collections.RATE_COLLECTION).insertOne({userId:data.user_id,proId:data.product_id,rating:parseInt( data.rating),review:data.review}).then((response)=>{
+        db.get().collection(collections.RATE_COLLECTION).insertOne({userId:new ObjectId(data.user_id),proId:new ObjectId(data.product_id),rating:parseInt(data.rating),review:data.review}).then((response)=>{
             resolve(response)
         })
     })
 
+},
+getProductRating:(pId)=>{
+    return new Promise(async(resolve,reject)=>{
+      let rating=await db.get().collection(collections.RATE_COLLECTION).find({proId:new ObjectId(pId)}).toArray()
+      resolve(rating)
+    })
+},
+updateRatingImage:(id,image)=>{
+    return new Promise((resolve,reject)=>{
+        db.get().collection(collections.RATE_COLLECTION).updateOne({_id:new ObjectId(id)},{$set:{images:image}})
+    })
 }
 }

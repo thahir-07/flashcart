@@ -13,6 +13,13 @@ module.exports={
         }else{
             return options.inverse(orders)
         }
+    },
+    repeat:(times, options)=>{
+        let result = '';
+  for (let i = 0; i < times; i++) {
+    result += options.fn({value:i + 1});
+  }
+  return result;
     }
         
         

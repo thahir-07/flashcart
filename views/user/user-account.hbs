@@ -9,7 +9,7 @@
                         {{#if google}}
                             <img class="img-profile rounded-circle img-responsive center-block mt-4" src={{gProfile.photo}} alt="image not found">
                         {{else}}
-                        <img class="img-profile rounded-circle img-responsive center-block mt-4" src="/user-image/{{profile._id}}.jpg" >
+                        <img class="img-profile rounded-circle img-responsive center-block mt-4" src="/user-image/{{profile.userid}}.jpg" >
                         {{/if}}
                         <ul class="meta list list-unstyled">
                             <li><h3>{{user.name}}</h3> </li>
@@ -35,7 +35,7 @@
                                     {{#if google}}
                                     <img class="rounded-circle img-responsive " id="profile_img_change" src={{gProfile.photo}} alt="Profile">
                                     {{else}}
-                                    <img class="rounded-circle img-responsive " id="profile_img_change" src="/user-image/{{profile._id}}.jpg" alt="Profile">
+                                    <img class="rounded-circle img-responsive " id="profile_img_change" src="/user-image/{{profile.userid}}.jpg" alt="Profile">
                                     {{/if}}
                                 </figure>
                                 <div class="form-inline col-md-10 col-sm-9 col-xs-12">
