@@ -2,22 +2,22 @@
   "version": 2,
   "builds": [
     {
-      "src": "./bin/www",
+      "src": "app.js", 
       "use": "@now/node"
     }
   ],
   "routes": [
     {
       "src": "/api/(.*)",
-      "dest": "./bin/www"
+      "dest": "app.js"  
     },
     {
       "src": "/public/(.*)",
-      "dest": "/public/$1"
+      "dest": "/public/$1"  
     },
     {
       "src": "/(.*)",
-      "dest": "./bin/www"
+      "dest": "app.js" 
     }
   ],
   "env": {
