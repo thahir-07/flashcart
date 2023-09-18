@@ -29,8 +29,32 @@
         padding: 0;
     }
     .desc{
-         height: 300px; 
+         height: 200px; 
          overflow: hidden;
+    }
+    .image-container{
+        display: none;
+    }
+    .image-container2{
+        position: fixed; 
+        width: 100%;
+        z-index: 10;
+        background-color: rgb(255, 255, 255);
+        height: 100%;
+        top:0px;
+        
+    }
+    .image-container2 img{
+        width: 70%;
+        height: 60%;
+    }
+    .down_scroll::-webkit-scrollbar{
+        display:none
+    }
+    .btn-close{
+        position: absolute;
+        top:90px;
+        right: 20px;
     }
 </style>
 <div class="container">
@@ -85,7 +109,7 @@
                 <div class="col-12" style="border: 1px solid; padding: 10px;margin: 2px; margin-bottom: 10px; border-radius: 5px;margin-top: 10px;">
                 <h3>{{product.name}}</h3>
                 <p class="text-left" style="align-content: start;">Price: &#8377; {{product.price}}</p>
-                <div class="bg-color" style="color: rgb(255, 255, 255);font-size: larger; width: 60px;border-radius: 5px;margin-left: auto;margin-right: auto;" >4.5  &#9733;</div>
+                <div class="bg-color" style="color: rgb(255, 255, 255);font-size: larger; width: 60px;border-radius: 5px;margin-left: auto;margin-right: auto;" >{{#if proRating}}{{#total_rating proRating}}{{this}}{{/total_rating}}{{else}}5.0{{/if}}  &#9733;</div>
                 </div>
             </div>
            <!-- <div class="row m-1" >
@@ -107,19 +131,22 @@
                     <div id="features" class="desc"></div>
                     <button onclick="change()" style="color: blue;">show more</button>
                 </div>
-                <div class="col-12 " style="border: 1px solid grey; padding: 10px;margin: 2px; border-radius: 5px;">
-                    <h4 style="display: inline;">Rating & Reviews</h4> 
-                     <div class="bg-color" style="color: rgb(255, 255, 255);font-size: larger; width: 60px;border-radius: 5px;margin-right:0; display: inline; margin-left:40%;padding-left: 2px; padding-right: 2px;" >4.5  &#9733;</div>
+                <div class="row" style="border: 1px solid grey; padding: 10px;margin: 2px; border-radius: 5px;">
+                    <div class="col-8">
+                    <h4 style="display: inline;">Rating & Reviews</h4> </div>
+                    <div class="col-4 mb-3 "> <div class="bg-color" style="color: rgb(255, 255, 255);font-size: larger;width:fit-content;border-radius: 5px;" ><span class="m-2">{{#if proRating}}{{#total_rating proRating}}{{this}}{{/total_rating}}{{else}}5.0{{/if}} &#9733; </span></div></div>
                      <hr>
-                    <div style="height: 250px;overflow-y: scroll; padding-right: 0;">
+                    <div class="down_scroll" style="height: 250px;overflow-y: scroll; padding-right: 0;">
                         {{#each proRating}}
-                        <div style="display: inline;" ><img style="width:30px; height: 30px;border-radius: 15px;display: inline;" src="/user-image/{{this.userId}}.jpg" ></div>
-                        <p style="display: inline;">ABUTHAHIR P M</p>
-                        <div class="bg-color" style="color: rgb(255, 255, 255);font-size: larger; width: 60px;border-radius: 5px;margin-right:0; display: inline; margin-left:40%;padding-left: 2px; padding-right: 2px;" >{{this.rating}}.0  &#9733;</div>
+                        <div class="row">
+                        <div class="col-2"><img style="width:30px; height: 30px;border-radius: 15px;display: inline;" src="/user-image/{{this.userId}}.jpg" ></div>
+                        <p class="col-6" >{{this.user_name}}</p>
+                        <div class="col-4 mb-3 "> <div class="bg-color" style="color: rgb(255, 255, 255);font-size: larger;width:fit-content;border-radius: 5px;" ><span class="m-2">{{this.rating}}.0 &#9733; </span></div></div>
+                        </div>
                         <div >{{this.review}}</div>
                         <div class="mt-2 scrolling-wrapper" id="wrapper">
                             {{#each this.images}}
-                        <img style="width: 80px;height: 80px;" src="/rating-images/{{this}}.jpg">
+                        <img style="width: 80px;height: 80px;"id="{{this}}" src="/rating-images/{{this}}.jpg" onclick="show('{{this}}')">
                        
                         {{/each}}
                        </div>
@@ -139,7 +166,7 @@
 <section class=" section pt-2 mb-3">
     <div class="container">
       <div class="row ">
-        <h4 style="color: rgb(59, 58, 58);">Peaple also viewed</h4>
+        <h4 style="color: rgb(59, 58, 58);">Similar Products</h4>
         
         {{#each same}}
         <div class="col-6 col-md-4 col-lg-2 mt-3 text-center fixed " >
@@ -163,6 +190,15 @@
       </div>
     </div>
   </section>
+
+  <div class="image-container active text-center" id="i_c" >
+    
+    <button class="btn-close" onclick="close_window()">
+        <div class="cross1"></div>
+        <div class="cross2"></div>
+    </button>
+    <img src="" id="view" alt=""  style="margin-top:200px">
+  </div>
   
 <script>
      var description=`{{product.description}}`
@@ -194,5 +230,18 @@
     }
 function change(){
     document.getElementById('features').classList.toggle('desc')
+}
+var show=(id)=>{
+  var review_image=document.getElementById(id).src
+  console.log("srcc...."+review_image)
+  document.getElementById('view').src=review_image
+  var c=document.getElementById('i_c')
+  c.classList.replace('image-container','image-container2')
+  
+  
+}
+function close_window(){
+    var c=document.getElementById('i_c')
+  c.classList.replace('image-container2','image-container')
 }
 </script>

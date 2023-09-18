@@ -10,12 +10,59 @@ module.exports={
         })
     
      },
-       getAllProduct: ()=>{
-        return new Promise(async(resolve,reject)=>{
-            let product= await db.get().collection(collections.PRODUCT_COLLECTION).find().toArray() 
-            resolve(product)
-
-        })
+     getAllProduct: () => {
+        return new Promise(async (resolve, reject) => {
+          try {
+            const products = await db.get().collection(collections.PRODUCT_COLLECTION).aggregate([
+              {
+                $lookup: {
+                  from: "rating",
+                  localField: "_id",
+                  foreignField: "proId",
+                  as: "ratings"
+                }
+              },
+              {
+                $unwind: {
+                  path: "$ratings",
+                  preserveNullAndEmptyArrays: true
+                }
+              },
+              {
+                $group: {
+                  _id: "$_id",
+                  name: { $first: "$name" },
+                  totalRating: { $sum: "$ratings.rating" },
+                  averageRating: {
+                    $avg: "$ratings.rating"
+                  },
+                  productData: { $first: "$$ROOT" }
+                }
+              },
+              {
+                $project: {
+                  _id: 0,
+                  name: 1,
+                  totalRating: 1,
+                  averageRating: {
+                    $divide: [
+                      { $trunc: { $multiply: ["$averageRating", 10] } },
+                      10
+                    ]
+                  },
+                  productData: 1
+                }
+              }
+            ]).toArray();
+            
+            console.log("products: ", products);
+            resolve(products);
+          } catch (error) {
+            reject(error);
+          }
+        });
+      
+      
     
     },
     deleteProduct:(proId)=>{
@@ -338,10 +385,43 @@ addProductRaing:(data)=>{
 },
 getProductRating:(pId)=>{
     return new Promise(async(resolve,reject)=>{
-      let rating=await db.get().collection(collections.RATE_COLLECTION).find({proId:new ObjectId(pId)}).toArray()
-      resolve(rating)
-    })
-},
+      let rating=await db.get().collection(collections.RATE_COLLECTION).aggregate([
+        {
+            $match:{
+                proId:new ObjectId(pId)
+            }
+
+        },
+        {
+            $lookup:{
+                from:collections.USER_COLLECTION,
+                localField:'userId',
+                foreignField:'_id',
+                as:"user"
+            }
+        },
+        {
+            $unwind:'$user'
+        },
+        {
+            $project:{
+                _id:1,
+                userId:1,
+                proId:1,
+                rating:1,
+                review:1,
+                images:1,
+                user_name:'$user.name',
+                user_email:'$user.email'
+            }
+        }
+    ]).toArray()
+    console.log("this from aggregate")
+    console.log(rating)
+    resolve(rating)
+}
+       
+)},
 updateRatingImage:(id,image)=>{
     return new Promise((resolve,reject)=>{
         db.get().collection(collections.RATE_COLLECTION).updateOne({_id:new ObjectId(id)},{$set:{images:image}})

@@ -73,7 +73,7 @@ router.get('/', async function (req, res, next) {
     cartItemCount = cartItems.length
     console.log(cartItemCount.length)
   }
-  producthelper.getAllProduct().then((product) => {
+  productHelpers.getAllProduct().then((product) => {
     var nav = "product"
     res.render('user/view-products', { product, admin: false, user, cartItemCount, nav })
   })
@@ -398,7 +398,7 @@ router.post('/search', async (req, res) => {
     console.log(product)
    
       if (product.name.toLowerCase().includes(searchQuery) ||
-      product.description.toLowerCase().includes(searchQuery) ||product.subCategory.toLowerCase().includes(searchQuery)||product.productCategory.toLowerCase().includes(searchQuery))
+      product.productData.description.toLowerCase().includes(searchQuery) ||product.productData.subCategory.toLowerCase().includes(searchQuery)||product.productData.productCategory.toLowerCase().includes(searchQuery))
       return true;
    
     
@@ -480,6 +480,29 @@ router.post('/rate',(req,res)=>{
   producthelper.updateRatingImage(response.insertedId,images)
   res.redirect('/')
  })
+})
+router.get('/privacy-policy',(req,res)=>{
+  res.render('user/privacy-policy',{admin: false, user, cartItemCount})
+
+})
+router.get('/terms-of-use',(req,res)=>{
+  res.render('user/terms-of-use',{admin: false, user, cartItemCount})
+
+})
+router.get('/contact-us',(req,res)=>{
+  res.render('user/contact-us',{admin: false, user, cartItemCount})
+
+})
+router.post('/contact-us',(req,res)=>{
+  console.log(req.body);
+  userHelpers.contact_us(req.body)
+
+  res.redirect('/contact-us')
+
+})
+router.get('/cookie-policy',(req,res)=>{
+  res.render('user/cookie-policy',{admin: false, user, cartItemCount})
+
 })
 module.exports = router
 

@@ -390,5 +390,13 @@ module.exports = {
                 resolve(response)
             })
         })
+    },
+    contact_us:(values)=>{
+        return new Promise ((resolve , reject )=>{
+            db.get().collection(collections.CONTACT_COLLECTION).insertOne(values).then((response)=>{
+                resolve(response)
+            })
+        })
     }
+    
 }
