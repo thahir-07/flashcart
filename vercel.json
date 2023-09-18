@@ -1,15 +1,26 @@
 {
-    "version": 2,
-    "builds": [
-      {
-        "src": "./app.js",
-        "use": "@now/node"
-      }
-    ],
-    "routes": [
-      {
-        "src": "./routes/(.*)",
-        "dest": "./routes/"
-      }
-    ]
+  "version": 2,
+  "builds": [
+    {
+      "src": "./bin/www",
+      "use": "@now/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "./bin/www"
+    },
+    {
+      "src": "/public/(.*)",
+      "dest": "/public/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "./bin/www"
+    }
+  ],
+  "env": {
+    "NODE_ENV": "production"
   }
+}
