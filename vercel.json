@@ -2,25 +2,14 @@
   "version": 2,
   "builds": [
     {
-      "src": "./bin/www", 
-      "use": "@now/node"
+      "src": "./app.js",
+      "use": "@vercel/node"
     }
   ],
   "routes": [
     {
-      "src": "/api/(.*)",
-      "dest": "app.js"  
-    },
-    {
-      "src": "/public/(.*)",
-      "dest": "/public/$1"  
-    },
-    {
       "src": "/(.*)",
-      "dest": "app.js" 
+      "dest": "/"
     }
-  ],
-  "env": {
-    "NODE_ENV": "production"
-  }
+  ]
 }
