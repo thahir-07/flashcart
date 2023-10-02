@@ -3,7 +3,7 @@ const state={
     db:null
 }
 //const url="mongodb://192.168.43.131:27017";
-const url = "mongodb+srv://abuthahircoorg07:cHNgbM8EgAM2TZBF@cluster0.aodwl7l.mongodb.net/?retryWrites=true&w=majority";
+const url = "mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+1.8.0";
 const dbname="ecommerce"
 const client = new MongoClient(url);
 
